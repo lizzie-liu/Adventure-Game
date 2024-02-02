@@ -25,11 +25,22 @@ class Location:
     """A location in our text adventure game world.
 
     Instance Attributes:
-        - # TODO
+        - location_name: The name of the location.
+        - long_descrip: The long description of the location.
+        - short_descrip: The short description of the location.
+        - available_items: Items present at the location.
+
 
     Representation Invariants:
-        - # TODO
+        - isinstance(location_name, str) and len(location_name) > 0
+        - isinstance(long_descrip, str) and len(long_descrip) > 0
+        - isinstance(short_descrip, str) and len(short_descrip) > 0
     """
+    location_name: str
+    long_descrip: str
+    short_descrip: str
+    # available_items: Optional[Any]
+    # or is it Optional[Item]? Optional[list[Item]]?
 
     def __init__(self) -> None:
         """Initialize a new location.
@@ -73,11 +84,22 @@ class Item:
     """An item in our text adventure game world.
 
     Instance Attributes:
-        - # TODO
+        - item_name: The name of the item.
+        - start_location: The location the item starts at.
+        - target_location: The location the target needs to be deposited at.
+        - target_points: The amount of points received for depositing item in correct location.
 
     Representation Invariants:
-        - # TODO
+        - isinstance(item_name, str) and len(item_name) > 0
+        - isinstance(start_location, int) and -1 <= start_location <= 13
+        - isinstance(target_location, int) and -1 <= target_location <= 13
+        - isinstance(target_points, int)
+
     """
+    item_name: str
+    start_location: int
+    target_location: int
+    target_points: int
 
     def __init__(self, name: str, start: int, target: int, target_points: int) -> None:
         """Initialize a new item.
