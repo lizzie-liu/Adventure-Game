@@ -36,19 +36,19 @@ END
 
 LOCATION 5
 0
-There's 4 posters stuck on the pillar in front you. 
+There's 4 posters stuck on the pillar in front you.
 The pillar before you has 4 posters clumsily stuck onto it. The first poster has a long set of instructions on how to make the perfect cup of coffee for pulling all-nighters. The second poster has no colour ans has some description about a new rule. The third poster is extremely colourful and filled with drawings of puppies and parrots. The fourth poster has a list of names. You're eyesight is bad (probably from staring at code all day), and you need to walk closer to read the posters in detail.
 END
 
 LOCATION 6
 0
-You are on another steep set of stairs. To the West, the stairs continue up. To the South, you see a CS lab. 
+You are on another steep set of stairs. To the West, the stairs continue up. To the South, you see a CS lab.
 You are climbing yet another set of stairs. Fortunately, they aren't crowded as this hour. As you look up, to the West, you see more stairs. They seem to never end. The architects for the buildings must have none that this is the only way for CS students to get their daily exercise. As you look South, you see a room. On the door, you see the numbers 2230 printed on it. Behind you, to the East, is the main lobby.
 END
 
 LOCATION 7
 5
-You are standing in the CS lab. 
+You are standing in the CS lab.
 The CS lab is completely empty. Your only company are rows of tables with desktops. You imagine this is what your future company will look like anyways. Or at least, you hope. You wouldn't want to be jobless in the future. As you turn your head to the left, you see the table you were using earlier when you were writing with your Lucky Exam Pen.
 END
 
@@ -66,8 +66,8 @@ END
 
 LOCATION 10
 0
-dlkjf
-sljfdls
+You are standing in a small room. The counter has items that you can use to make a cup of coffee.
+You are standing in a small room, and the scent of coffee swirls around you. In front of you is a long counter that has a rack with 3 mugs, a coffee dispenser, and some condiments that one could add to their coffee. Should you walk closer to check it out?
 END
 
 LOCATION 11
