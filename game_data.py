@@ -26,11 +26,12 @@ class Location:
 
     Instance Attributes:
         - location_name: The name of the location.
+        - position: This is a tuple representing the x, y coordinates of the location.
+                    The x-coordinate is the column number and the y-coordinate is the row number.
         - long_descrip: The long description of the location.
         - short_descrip: The short description of the location.
         - first_visit: A bool that stores True if this location has never been visited before. Otherwise, it's False.
         - available_items: Items present at the location.
-
 
     Representation Invariants:
         - isinstance(self.location_name, str) and len(self.location_name) > 0
@@ -40,16 +41,24 @@ class Location:
         - all(isinstance(item, Item) for item in self.available_items)
     """
     location_name: str
+    position: tuple[int, int]
     long_descrip: str
     short_descrip: str
     first_visit: bool
     available_items: Optional[list[Item]]
 
-    def __init__(self, name: str, long_d: str, short_d: str, first_v: bool, items: Optional[list[Item]] = None) -> None:
+    def __init__(self, name: str, x: int, y: int, long_d: str, short_d: str, items: Optional[list[Item]] = None) -> None:
         """Initialize a new location.
 
         # TODO Add more details here about the initialization if needed
         """
+        self.location_name = name
+        self.position = (x, y)
+        self.long_descrip = long_d
+        self.short_descrip = short_d
+        self.first_visit = True
+        if items is not None:
+            self.available_items = items
 
         # NOTES:
         # Data that could be associated with each Location object:
@@ -67,15 +76,19 @@ class Location:
         # The only thing you must NOT change is the name of this class: Location.
         # All locations in your game MUST be represented as an instance of this class.
 
-        self.location_name = name
-        self.long_descrip = long_d
-        self.short_descrip = short_d
-        self.first_visit = first_v
+    def print_description(self) -> None:
+        """
+        Prints the name and description of the location.
+        The long description is printed if it's the Player's first time visiting.
+        Otherwise, the short descriptoin is printed.
+        """
+        if self.first_visit:
+            print(f'{self.location_name} \n {self.long_descrip}')
 
-        if items is not None:
-            self.available_items = items
+        else:
+            print(f'{self.location_name} \n {self.short_descrip}')
 
-    def available_actions(self):
+    def available_actions(self, position: tuple[int, int], available_items: list[Item]) -> list[str]:
         """
         Return the available actions in this location.
         The actions should depend on the items available in the location
@@ -87,6 +100,22 @@ class Location:
         # function header (e.g. add in parameters, complete the type contract) as needed
 
         # TODO: Complete this method, if you'd like or remove/replace it if you're not using it
+        x, y = position[0], position[1]
+        actions = []
+        # uh maybe do the checking for invalid spots on map in adventure.py
+        # if map[y][x + 1] != -1:
+        #     actions.append('Go east')
+        #
+        # elif map[y + 1][x] != 1:
+        #     actions.append('Go south')
+        #
+        # elif map[y][x - 1] != 1:
+        #     actions.append('Go west')
+        #
+        # elif map[y - 1][x] != 1:
+        #     actions.append('Go north')
+        #
+        # return actions
 
 
 class Item:
@@ -109,6 +138,7 @@ class Item:
     start_location: int
     target_location: int
     target_points: int
+    item_uses: list[str]
 
     def __init__(self, name: str, start: int, target: int, target_points: int) -> None:
         """Initialize a new item.
@@ -127,6 +157,28 @@ class Item:
         self.start_position = start
         self.target_position = target
         self.target_points = target_points
+        self.item_uses = ['Pick up']
+
+
+class TCard(Item):
+    def __init__(self, name: str, start: int, target: int, target_points: int) -> None:
+        super().__init__(name, start, target, target_points)
+        self.item_uses = ['Pick up', 'Use T-Card']
+
+    def use_card(self) -> None:
+        """Uses the Player's T-Card."""
+        print('You pull out your T-Card and try not to cringe at your id photo.')
+
+
+class Instrument(Item):
+    def __init__(self, name: str, start: int, target: int, target_points: int) -> None:
+        super().__init__(name, start, target, target_points)
+        self.item_uses = ['Pick up', 'Play instrument']
+
+    def play_instrument(self) -> None:
+        """ Plays the instrument.
+        """
+        print('You play some random notes, hoping it sounds nice.')
 
 
 class Player:
@@ -134,11 +186,18 @@ class Player:
     A Player in the text advanture game.
 
     Instance Attributes:
-        - # TODO
+        - x: The x-coordinate of the Player's position on the map. This represents the column number.
+        - y: The y-coordinate of the Player's position on the map. This represents the row number.
+        - inventory: The Player's bag that contains Items to be used in the game.
+        - victory: A bool representing if the player has won the game yet. The game ends when victory is True.
 
     Representation Invariants:
         - # TODO
     """
+    x: int
+    y: int
+    inventory: list[Item]
+    victory: bool
 
     def __init__(self, x: int, y: int) -> None:
         """
@@ -153,6 +212,19 @@ class Player:
         self.y = y
         self.inventory = []
         self.victory = False
+
+    def move(self, direction: str) -> None:
+        """
+        Moves the Player across the map by updating the Player's x and y coordinates.
+        """
+        if direction == 'Go north':
+            self.x += 1
+        elif direction == 'Go east':
+            self.y += 1
+        elif direction == 'Go south':
+            self.x -= 1
+        elif direction == 'Go west':
+            self.y -= 1
 
 
 class World:
