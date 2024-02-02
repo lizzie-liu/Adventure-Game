@@ -180,7 +180,6 @@ class Instrument(Item):
         """
         print('You play some random notes, hoping it sounds nice.')
 
-
 class Player:
     """
     A Player in the text advanture game.
