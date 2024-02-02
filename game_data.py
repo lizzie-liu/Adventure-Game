@@ -18,7 +18,7 @@ please consult our Course Syllabus.
 
 This file is Copyright (c) 2024 CSC111 Teaching Team
 """
-from typing import Optional, TextIO
+from typing import Any, Optional, TextIO
 
 
 class Location:
@@ -28,21 +28,24 @@ class Location:
         - location_name: The name of the location.
         - long_descrip: The long description of the location.
         - short_descrip: The short description of the location.
+        - first_visit: A bool that stores True if this location has never been visited before. Otherwise, it's False.
         - available_items: Items present at the location.
 
 
     Representation Invariants:
-        - isinstance(location_name, str) and len(location_name) > 0
-        - isinstance(long_descrip, str) and len(long_descrip) > 0
-        - isinstance(short_descrip, str) and len(short_descrip) > 0
+        - isinstance(self.location_name, str) and len(self.location_name) > 0
+        - isinstance(self.long_descrip, str) and len(self.long_descrip) > 0
+        - isinstance(self.short_descrip, str) and len(self.short_descrip) > 0
+        - isitance(self.first_visit, bool)
+        - all(isinstance(item, Item) for item in self.available_items)
     """
     location_name: str
     long_descrip: str
     short_descrip: str
-    # available_items: Optional[Any]
-    # or is it Optional[Item]? Optional[list[Item]]?
+    first_visit: bool
+    available_items: Optional[list[Item]]
 
-    def __init__(self) -> None:
+    def __init__(self, name: str, long_d: str, short_d: str, first_v: bool, items: Optional[list[Item]] = None) -> None:
         """Initialize a new location.
 
         # TODO Add more details here about the initialization if needed
@@ -64,7 +67,13 @@ class Location:
         # The only thing you must NOT change is the name of this class: Location.
         # All locations in your game MUST be represented as an instance of this class.
 
-        # TODO: Complete this method
+        self.location_name = name
+        self.long_descrip = long_d
+        self.short_descrip = short_d
+        self.first_visit = first_v
+
+        if items is not None:
+            self.available_items = items
 
     def available_actions(self):
         """
@@ -90,10 +99,10 @@ class Item:
         - target_points: The amount of points received for depositing item in correct location.
 
     Representation Invariants:
-        - isinstance(item_name, str) and len(item_name) > 0
-        - isinstance(start_location, int) and -1 <= start_location <= 13
-        - isinstance(target_location, int) and -1 <= target_location <= 13
-        - isinstance(target_points, int)
+        - isinstance(self.item_name, str) and len(self.item_name) > 0
+        - isinstance(self.start_location, int) and -1 <= self.start_location <= 13
+        - isinstance(self.target_location, int) and -1 <= self.target_location <= 13
+        - isinstance(self.target_points, int)
 
     """
     item_name: str
