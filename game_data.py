@@ -187,6 +187,7 @@ class Instrument(Item):
         """
         print('You play some random notes, hoping it sounds nice.')
 
+
 class Coffee(Item):
     """
     # TODO:
@@ -208,6 +209,7 @@ class Player:
         - y: The y-coordinate of the Player's position on the map. This represents the row number.
         - inventory: The Player's bag that contains Items to be used in the game.
         - victory: A bool representing if the player has won the game yet. The game ends when victory is True.
+        - score: The Player's current score.
 
     Representation Invariants:
         - # TODO
@@ -216,6 +218,7 @@ class Player:
     y: int
     inventory: list[Item]
     victory: bool
+    score: int
 
     def __init__(self, x: int, y: int) -> None:
         """
@@ -230,6 +233,7 @@ class Player:
         self.y = y
         self.inventory = []
         self.victory = False
+        self.score = 0
 
     def move(self, direction: str) -> None:
         """
@@ -243,12 +247,17 @@ class Player:
             self.x -= 1
         elif direction == 'Go west':
             self.y -= 1
-
-    def drop_item(self):
+    def drop_item(self, item: Item) -> None:
         """
         Removes the item from the Player's iventory.
         """
+        self.inventory.remove(item)
 
+    def change_score(self, points: int) -> None:
+        """
+        Updates the Player's current score.
+        """
+        self.score += points
 
 
 class World:

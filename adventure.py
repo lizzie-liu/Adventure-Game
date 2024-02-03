@@ -56,14 +56,34 @@ def get_puzzle(p: Player, w: World) -> None:
     puzzles = []
 
     if location.num == 2:
-        puzzles.music_puzzle(p)
+        complete = music_puzzle(p)
+        if complete:
+            print('The guard')
+            key = Item('Key', 2, 3, 5)
+            p.inventory.append(key)
+
+    if location.num == 3:
+        if any(item.name == 'key' for item in p.inventory):
+            p.change_score(3)
+
+        else:
+            print('The door wont budge... \nIt seem that you need a key to open it.')
 
     elif location.num == 12:
-        if check_for_tcard:
-            talk_to_ta()
+        print('Do you want to approach the TA?')
+        choice = input("\nEnter yes or no: ")
+
+        while choice.lower() not in {'yes', 'no'}:
+            choice = input("\nEnter yes or no: ")
+
+        if choice.lower() == 'yes':
+            if check_for_tcard:
+                talk_to_ta()
+            else:
+                print('Hm, the TA will not talk to you')
 
     elif location.num == 10:
-        coffee_details = make_coffee
+        coffee_info = make_coffee()
         print('Do you want to bring this with you?: ')
         choice = input("\nEnter yes or no: ")
 
@@ -71,11 +91,14 @@ def get_puzzle(p: Player, w: World) -> None:
             choice = input("\nEnter yes or no: ")
 
         if choice.lower() == 'yes':
-            coffee = Item('coffee', 10, 12, 3)
-            coffee = Item(coffee, 10, 12, 3)
-            if coffee not in p.inventory:
+            if coffee_info == ['pink', 'skimmed milk', 'honey']:
+                coffee = Item('coffee', 10, 12, 5)
+            if all(item.name != 'coffee' for item in p.inventory):
+                p.inventory.append(Item(coffee: str, start: int, target: int, target_points: int))
 
-            p.inventory.append(Item(coffee: str, start: int, target: int, target_points: int))
+            else:
+                print('Oh no! You already have a cup of coffee. You really dont need that much coffee...')
+
 
 
 def pickup_items(player: Player) -> list[]:
@@ -119,11 +142,11 @@ if __name__ == "__main__":
             location.first_visit = False
 
         elif choice.lower() == 'inventory':
-            print(p.inventory)
+            print(f'Inventory: {p.inventory}')
 
         elif choice.lower() == 'score':
             # NEED TO MAKE SCORE FNC
-            print()
+            print(p.score)
 
         elif choice.lower() == 'quit':
             print('GAME OVER')
