@@ -236,7 +236,9 @@ class World:
     Representation Invariants:
         - # TODO
     """
-
+    map: list[list[int]]
+    location: 
+ 
     def __init__(self, map_data: TextIO, location_data: TextIO, items_data: TextIO) -> None:
         """
         Initialize a new World for a text adventure game, based on the data in the given open files.
@@ -274,8 +276,16 @@ class World:
 
         Return this list representation of the map.
         """
+        f = map_data
+        lst = []
+        for line in f:
+            lst = lst + [line.split()]
+            
+        integer_nested_list = [[int(item) for item in inner_list] for inner_list in lst]
+        self.map = integer_nested_list
+        return self.map
 
-        # TODO: Complete this method as specified. Do not modify any of this function's specifications.
+     def load_location(self)
 
     # TODO: Add methods for loading location data and item data (see note above).
 
