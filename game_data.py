@@ -92,6 +92,7 @@ class Location:
         else:
             print(f'{self.location_name} \n {self.short_descrip}')
 
+    # I think we can delete this, we don't really need it
     # def available_actions(self, position: tuple[int, int], available_items: list[Item]) -> list[str]:
     #     """
     #     Return the available actions in this location.

@@ -91,7 +91,7 @@ def music_puzzle(p: Player) -> None:
         action = input("\nEnter action: ")
 
     if action.lower() == 'play an insrument':
-        instrument = [item for item in player.inventory if isinstance(item, Instrument)]
+        instrument = [item for item in p.inventory if isinstance(item, Instrument)]
         if len(instrument) != 0:
             instrument[0].play_instrument()
 
