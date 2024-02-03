@@ -19,7 +19,7 @@ This file is Copyright (c) 2024 CSC111 Teaching Team
 """
 
 # Note: You may add in other import statements here as needed
-from game_data import World, Item, Location, Player
+from game_data import World, Item, Instrument, TCard, Location, Player
 from puzzles import *
 
 # Note: You may add helper functions, classes, etc. here as needed
@@ -43,17 +43,39 @@ def get_moves(p: Player, w: World) -> list[str]:
 
     return actions
 
-def get_puzzle(p: Player, w: World) -> Optional[list[str]]:
+def check_for_tcard(p: Player) -> bool:
+    """Checks if the Player has their TCard.
+    """
+    return any(isinstance(item, TCard) for item in p.inventory)
+
+def get_puzzle(p: Player, w: World) -> None:
+    """
+    # TODO
+    """
     location = w.get_location(p.x, p.y)
     puzzles = []
 
     if location.num == 2:
-        music_puzzle(p)
+        puzzles.music_puzzle(p)
 
     elif location.num == 12:
-        talk_to_ta()
+        if check_for_tcard:
+            talk_to_ta()
 
-    elif
+    elif location.num == 10:
+        coffee_details = make_coffee
+        print('Do you want to bring this with you?: ')
+        choice = input("\nEnter yes or no: ")
+
+        while choice.lower() not in {'yes', 'no'}:
+            choice = input("\nEnter yes or no: ")
+
+        if choice.lower() == 'yes':
+            coffee = Item('coffee', 10, 12, 3)
+            coffee = Item(coffee, 10, 12, 3)
+            if coffee not in p.inventory:
+
+            p.inventory.append(Item(coffee: str, start: int, target: int, target_points: int))
 
 
 def pickup_items(player: Player) -> list[]:

@@ -5,9 +5,13 @@ from game_data import Player, Instrument, TCard
 
 
 def talk_to_ta(p: Player) -> None:
+    """
+    # TODO
+    """
     print('')
 
-def make_coffee() -> None:
+
+def make_coffee() -> list[str]:
     """
     # TODO: add descriptionnnnnnnnnn
    """
@@ -41,6 +45,8 @@ def make_coffee() -> None:
           f'Then you grab a spoon and give the coffee a good mix.')
 
     print('And voila! You now have a pipiing hot mug of coffee :)')
+
+    return [colour, container, packet]
 
     def music_puzzle(player: Player) -> None:
         """

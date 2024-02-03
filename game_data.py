@@ -175,6 +175,9 @@ class TCard(Item):
 
 
 class Instrument(Item):
+    """
+    # TODO:
+    """
     def __init__(self, name: str, start: int, target: int, target_points: int) -> None:
         super().__init__(name, start, target, target_points)
         self.item_uses = ['Drop item', 'Play instrument']
@@ -183,6 +186,18 @@ class Instrument(Item):
         """ Plays the instrument.
         """
         print('You play some random notes, hoping it sounds nice.')
+
+class Coffee(Item):
+    """
+    # TODO:
+    """
+    def __init__(self, name: str, start: int, target: int, target_points: int, colour: str, liquid: str, topping: str) -> None:
+        super().__init__(name, start, target, target_points)
+        self.colour = colour
+        self.liquid = liquid
+        self.topping = topping
+
+        self.item_uses = ['Drop item', 'Give to TA']
 
 class Player:
     """
