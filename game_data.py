@@ -247,11 +247,13 @@ class Player:
             self.x -= 1
         elif direction == 'Go west':
             self.y -= 1
-    def drop_item(self, item: Item) -> None:
+    def drop_item(self, name: str) -> None:
         """
         Removes the item from the Player's iventory.
         """
-        self.inventory.remove(item)
+        for item in self.inventory:
+            if item.name == name:
+                self.inventory.remove(item)
 
     def change_score(self, points: int) -> None:
         """

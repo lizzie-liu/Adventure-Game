@@ -1,17 +1,29 @@
 """
 # TODO: add description
 """
-from game_data import Player, Instrument, TCard
+from game_data import Player, Item, Instrument, TCard
+from adventure import check_for_tcard
 
 
-def talk_to_ta() -> None:
+def talk_to_ta(p: Player) -> None:
     """
     # TODO
     """
-    print('')
+    print('Do you want to approach the TA?')
+    choice = input("\nEnter yes or no: ")
+
+    while choice.lower() not in {'yes', 'no'}:
+        choice = input("\nEnter yes or no: ")
+
+    if choice.lower() == 'yes':
+        if check_for_tcard(p):
+            print('You approach the extremely tired looking TA. '
+                  '\nYou ask him if he has seen the cheat sheet you made earlier in this room.')
+        else:
+            print('Hm, the TA will not talk to you')
 
 
-def make_coffee() -> list[str]:
+def make_coffee(p: Player) -> None:
     """
     # TODO: add descriptionnnnnnnnnn
    """
@@ -46,10 +58,23 @@ def make_coffee() -> list[str]:
 
     print('And voila! You now have a pipiing hot mug of coffee :)')
 
-    return [colour, container, packet]
+    if [colour, container, packet] == ['pink', 'skimmed milk', 'honey']:
+        coffee = Item('coffee', 10, 12, 5)
+    else:
+        coffee = Item('coffee', 10, 12, 0)
+
+    print('Do you want to bring this with you?: ')
+    choice = input("\nEnter yes or no: ")
+
+    while choice.lower() not in {'yes', 'no'}:
+        choice = input("\nEnter yes or no: ")
+
+    if choice.lower() == 'yes':
+        if all(item.name != 'coffee' for item in p.inventory):
+            p.inventory.append(coffee)
 
 
-def music_puzzle(player: Player) -> bool:
+def music_puzzle(p: Player) -> None:
     """
     # TODO: add description
     """
@@ -74,9 +99,9 @@ def music_puzzle(player: Player) -> bool:
         if instrument[0].name == 'Harp':
             print('The guard starts to get sleepier, and slowly his eyes close and he begins to snore. '
                   '\nYou grab the shiny key from his belt and slip it into your pocket.')
-            return True
+            key = Item('Key', 2, 3, 5)
+            p.inventory.append(key)
 
         else:
             print('The guard cringes at your attempts to serenade him and covers his ears with his hands.')
-
-    return False
+            print('Unfortunately, you have no chance at swiping his key.')

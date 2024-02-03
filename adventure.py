@@ -48,26 +48,23 @@ def check_for_tcard(p: Player) -> bool:
     """
     return any(isinstance(item, TCard) for item in p.inventory)
 
-def get_puzzle(p: Player, w: World) -> None:
+def start_puzzle(p: Player, w: World) -> None:
     """
     # TODO
     """
     location = w.get_location(p.x, p.y)
-    puzzles = []
 
     if location.num == 2:
-        complete = music_puzzle(p)
-        if complete:
-            print('The guard')
-            key = Item('Key', 2, 3, 5)
-            p.inventory.append(key)
+        music_puzzle(p)
 
     if location.num == 3:
         if any(item.name == 'key' for item in p.inventory):
-            p.change_score(3)
+            p.change_score(5)
 
         else:
-            print('The door wont budge... \nIt seem that you need a key to open it.')
+            print('The door wont budge... \nIt seems that you need a key to open it.')
+
+    # TODO: uhhh how do we prevent the puzzle from starting all over again if they go backwards??
 
     elif location.num == 12:
         print('Do you want to approach the TA?')
@@ -83,23 +80,20 @@ def get_puzzle(p: Player, w: World) -> None:
                 print('Hm, the TA will not talk to you')
 
     elif location.num == 10:
-        coffee_info = make_coffee()
-        print('Do you want to bring this with you?: ')
-        choice = input("\nEnter yes or no: ")
-
-        while choice.lower() not in {'yes', 'no'}:
+        if any(item.name == 'coffee' for item in p.inventory):
+            print('Oh no! You already have a cup of coffee. You really dont need that much coffee...')
+            print('Do you want to discard your other cup?')
             choice = input("\nEnter yes or no: ")
 
-        if choice.lower() == 'yes':
-            if coffee_info == ['pink', 'skimmed milk', 'honey']:
-                coffee = Item('coffee', 10, 12, 5)
-            if all(item.name != 'coffee' for item in p.inventory):
-                p.inventory.append(Item(coffee: str, start: int, target: int, target_points: int))
+            while choice.lower() not in {'yes', 'no'}:
+                choice = input("\nEnter yes or no: ")
 
-            else:
-                print('Oh no! You already have a cup of coffee. You really dont need that much coffee...')
+            if choice.lower() == 'yes':
+                p.drop_item('coffee')
+                make_coffee(p)
 
-
+        else:
+            make_coffee(p)
 
 def pickup_items(player: Player) -> list[]:
 
@@ -142,7 +136,7 @@ if __name__ == "__main__":
             location.first_visit = False
 
         elif choice.lower() == 'inventory':
-            print(f'Inventory: {p.inventory}')
+            print(f'Inventory: {(item.name for item in p.inventory)}')
 
         elif choice.lower() == 'score':
             # NEED TO MAKE SCORE FNC
