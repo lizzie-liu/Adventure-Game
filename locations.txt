@@ -7,7 +7,7 @@ END
 LOCATION 0
 0
 You are facing West, right outside the front steps of the Bahen Centre for Information Technology. There is a guard to the North and a table with instruments to the South.
-You are facing West, right outside the front steps of the Bahen Centre for Information Technology. It's usually crowded during day, but at 2 am, it's eerily quiet. A guard is standing next to the Bahen sign to the North, looking bored and sleepy. To the South, there's a table with some instruments the Music Club left behind after their club demonstration.
+You are facing West, right outside the front steps of the Bahen Centre for Information Technology. It's usually crowded during day, but at 4 am, it's eerily quiet. A guard is standing next to the Bahen sign to the North, looking bored and sleepy. To the South, there's a table with some instruments the Music Club left behind after their club demonstration.
 END
 
 LOCATION 1
@@ -25,7 +25,7 @@ END
 LOCATION 3
 3
 You are facing West, right in front of the doors into Bahen. The bottom of the stairs is to the East.
-You painstakingly hike up the front steps to the main door into Bahen. During the day, you could easily pull on the handles to swing open the door. But unfortunately, it's not the day. It's 2am, and the doors won't budge unless you open it with a key. You could go back down the stairs to the East.
+You painstakingly hike up the front steps to the main door into Bahen. During the day, you could easily pull on the handles to swing open the door. But unfortunately, it's not the day. It's 4 am, and the doors won't budge unless you open it with a key. You could go back down the stairs to the East.
 END
 
 LOCATION 4
