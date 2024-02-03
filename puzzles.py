@@ -18,7 +18,8 @@ def talk_to_ta(p: Player) -> None:
     if choice.lower() == 'yes':
         if check_for_tcard(p):
             print('You approach the extremely tired looking TA. '
-                  '\nYou ask him if he has seen the cheat sheet you made earlier in this room.')
+                  '\nYou ask him if he has seen the cheat sheet you made earlier in this room, but the TA just yawns.'
+                  '\n')
         else:
             print('Hm, the TA will not talk to you')
 

@@ -75,7 +75,7 @@ def start_puzzle(p: Player, w: World) -> None:
 
         if choice.lower() == 'yes':
             if check_for_tcard:
-                talk_to_ta()
+                talk_to_ta(p)
             else:
                 print('Hm, the TA will not talk to you')
 
