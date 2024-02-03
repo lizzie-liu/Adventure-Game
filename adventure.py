@@ -64,7 +64,7 @@ def start_puzzle(p: Player, w: World) -> None:
         else:
             print('The door wont budge... \nIt seems that you need a key to open it.')
 
-    # TODO: uhhh how do we prevent the puzzle from starting all over again if they go backwards??
+    # TODO: UM SO UH how do we prevent the puzzle from starting all over again if they go backwards??
 
     elif location.num == 12:
         print('Do you want to approach the TA?')

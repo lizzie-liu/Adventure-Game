@@ -17,11 +17,12 @@ def talk_to_ta(p: Player) -> None:
 
     if choice.lower() == 'yes':
         if check_for_tcard(p):
-            print('You approach the extremely tired looking TA. '
-                  '\nYou ask him if he has seen the cheat sheet you made earlier in this room, but the TA just yawns.'
-                  '\n')
+            print('You approach the extremely tired looking TA. He doesnt even look up from his work. You ask '
+                  'him if he has seen the cheat sheet you made earlier in this room, but the TA just yawns.'
+                  '\n"If only I had a cup of honey coffee with skimmed milk in a pink mug..." '
+                  'he mutters while typing away.')
         else:
-            print('Hm, the TA will not talk to you')
+            print('Hm, the TA will not talk to you thanks to the new rule.')
 
 
 def make_coffee(p: Player) -> None:
