@@ -161,13 +161,13 @@ class Item:
         self.start_position = start
         self.target_position = target
         self.target_points = target_points
-        self.item_uses = ['Pick up']
+        self.item_uses = ['Drop item']
 
 
 class TCard(Item):
     def __init__(self, name: str, start: int, target: int, target_points: int) -> None:
         super().__init__(name, start, target, target_points)
-        self.item_uses = ['Pick up', 'Use T-Card']
+        self.item_uses = ['Drop item', 'Use T-Card']
 
     def use_card(self) -> None:
         """Uses the Player's T-Card."""
@@ -177,7 +177,7 @@ class TCard(Item):
 class Instrument(Item):
     def __init__(self, name: str, start: int, target: int, target_points: int) -> None:
         super().__init__(name, start, target, target_points)
-        self.item_uses = ['Pick up', 'Play instrument']
+        self.item_uses = ['Drop item', 'Play instrument']
 
     def play_instrument(self) -> None:
         """ Plays the instrument.
@@ -229,7 +229,7 @@ class Player:
         elif direction == 'Go west':
             self.y -= 1
 
-    def pickup_item(self,):
+    def drop_item(self):
 
 
 class World:

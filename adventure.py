@@ -22,7 +22,7 @@ This file is Copyright (c) 2024 CSC111 Teaching Team
 from game_data import World, Item, Location, Player
 
 # Note: You may add helper functions, classes, etc. here as needed
-def valid_moves(player: Player) -> list[str]:
+def get_moves(player: Player) -> list[str]:
     """Returns the valid spots the Player can move to based on their current location.
     """
     x, y = p.x, p.y
@@ -42,6 +42,9 @@ def valid_moves(player: Player) -> list[str]:
 
     return actions
 
+def pickup_items(player: Player) -> list[]:
+
+
 
 # Note: You may modify the code below as needed; the following starter template are just suggestions
 if __name__ == "__main__":
@@ -60,14 +63,19 @@ if __name__ == "__main__":
         location.first_visit = False
 
         print("What to do? \n")
-        print(f'Menu: {menu}')
-
-        moves = valid_moves(p)
-        print(f'Available moves: {moves}')
+        moves = get_moves(p)
+        print(f'available moves: {moves}')
         choice = input("\nEnter action: ")
+
         while choice.lower() not in (menu or moves):
             print('Uh oh, you cannot do that!')
             choice = input("\nEnter action: ")
+
+        if choice == "[menu]":
+            print("Menu Options: \n")
+            for option in menu:
+                print(option)
+            choice = input("\nChoose action: ")
 
         if choice.lower() == 'look':
             location.first_visit = True
@@ -85,13 +93,10 @@ if __name__ == "__main__":
             print('GAME OVER')
             p.victory = True
 
-        elif choice.lower()
+        elif choice.lower() in moves:
+            p.move(choice)
 
-        if choice == "[menu]":
-            print("Menu Options: \n")
-            for option in menu:
-                print(option)
-            choice = input("\nChoose action: ")
+
 
         # TODO: CALL A FUNCTION HERE TO HANDLE WHAT HAPPENS UPON THE PLAYER'S CHOICE
         #  REMEMBER: the location = w.get_location(p.x, p.y) at the top of this loop will update the location if
