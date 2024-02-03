@@ -26,7 +26,7 @@ class Location:
 
     Instance Attributes:
         - location_name: The name of the location.
-        - location_num: The number o the location on the map.
+        - num: The number of the location on the map.
         - position: This is a tuple representing the x, y coordinates of the location.
                     The x-coordinate is the column number and the y-coordinate is the row number.
         - long_descrip: The long description of the location.
@@ -43,7 +43,7 @@ class Location:
         - all(isinstance(item, Item) for item in self.available_items)
     """
     location_name: str
-    loaction_num: int
+    num: int
     position: tuple[int, int]
     long_descrip: str
     short_descrip: str
@@ -230,6 +230,10 @@ class Player:
             self.y -= 1
 
     def drop_item(self):
+        """
+        Removes the item from the Player's iventory.
+        """
+
 
 
 class World:

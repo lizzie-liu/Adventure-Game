@@ -1,10 +1,13 @@
 """
 # TODO: add description
 """
-from game_data import Instrument, Player
+from game_data import Player, Instrument, TCard
 
 
-def coffee_puzzle() -> None:
+def talk_to_ta(p: Player) -> None:
+    print('')
+
+def make_coffee() -> None:
     """
     # TODO: add descriptionnnnnnnnnn
    """
@@ -43,8 +46,9 @@ def coffee_puzzle() -> None:
         """
         # TODO: add description
         """
-        print('As you approach the grumpy looking guard, he glares down at you, expressionless. \n'
-              'You try to strike up a conversation but the guard just continues glaring at you. What should you do?')
+        print('As you approach the grumpy looking guard, he stares down at you, expressionless.\n'
+              'You try to strike up a conversation but the guard ignore you, and lets out a yamn.\n'
+              'What should you do?')
         print('[leave, play an instrument]')
         action = input("\nEnter action: ")
 

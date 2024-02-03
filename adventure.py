@@ -20,27 +20,41 @@ This file is Copyright (c) 2024 CSC111 Teaching Team
 
 # Note: You may add in other import statements here as needed
 from game_data import World, Item, Location, Player
+from puzzles import *
 
 # Note: You may add helper functions, classes, etc. here as needed
-def get_moves(player: Player) -> list[str]:
+def get_moves(p: Player, w: World) -> list[str]:
     """Returns the valid spots the Player can move to based on their current location.
     """
     x, y = p.x, p.y
     actions = []
 
-    if (w.get_location(x + 1, y)).location_num != -1:
+    if (w.get_location(x + 1, y)).num != -1:
         actions.append('Go east')
 
-    elif (w.get_location(x, y + 1)).location_num != -1:
+    elif (w.get_location(x, y + 1)).num != -1:
         actions.append('Go south')
 
-    elif (w.get_location(x - 1, y)).location_num != -1:
+    elif (w.get_location(x - 1, y)).num != -1:
         actions.append('Go west')
 
-    elif (w.get_location(x, y - 1)).location_num != -1:
+    elif (w.get_location(x, y - 1)).num != -1:
         actions.append('Go north')
 
     return actions
+
+def get_puzzle(p: Player, w: World) -> Optional[list[str]]:
+    location = w.get_location(p.x, p.y)
+    puzzles = []
+
+    if location.num == 2:
+        music_puzzle(p)
+
+    elif location.num == 12:
+        talk_to_ta()
+
+    elif
+
 
 def pickup_items(player: Player) -> list[]:
 
