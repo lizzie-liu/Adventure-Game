@@ -26,6 +26,7 @@ class Location:
 
     Instance Attributes:
         - location_name: The name of the location.
+        - location_num: The number o the location on the map.
         - position: This is a tuple representing the x, y coordinates of the location.
                     The x-coordinate is the column number and the y-coordinate is the row number.
         - long_descrip: The long description of the location.
@@ -35,27 +36,30 @@ class Location:
 
     Representation Invariants:
         - isinstance(self.location_name, str) and len(self.location_name) > 0
+        - isinstance(self.location_num, int) and -1 <= self.location_num <= 13
         - isinstance(self.long_descrip, str) and len(self.long_descrip) > 0
         - isinstance(self.short_descrip, str) and len(self.short_descrip) > 0
         - isitance(self.first_visit, bool)
         - all(isinstance(item, Item) for item in self.available_items)
     """
     location_name: str
+    loaction_num: int
     position: tuple[int, int]
     long_descrip: str
     short_descrip: str
     first_visit: bool
-    available_items: Optional[list[Item]]
+    available_items: Optional[list]
 
-    def __init__(self, name: str, x: int, y: int, long_d: str, short_d: str, items: Optional[list[Item]] = None) -> None:
+    def __init__(self, name: str, num: int, x: int, y: int, long: str, short: str, items: Optional[list] = None) -> None:
         """Initialize a new location.
 
         # TODO Add more details here about the initialization if needed
         """
         self.location_name = name
+        self.location_num = num
         self.position = (x, y)
-        self.long_descrip = long_d
-        self.short_descrip = short_d
+        self.long_descrip = long
+        self.short_descrip = short
         self.first_visit = True
         if items is not None:
             self.available_items = items
@@ -88,34 +92,34 @@ class Location:
         else:
             print(f'{self.location_name} \n {self.short_descrip}')
 
-    def available_actions(self, position: tuple[int, int], available_items: list[Item]) -> list[str]:
-        """
-        Return the available actions in this location.
-        The actions should depend on the items available in the location
-        and the x,y position of this location on the world map.
-        """
-
-        # NOTE: This is just a suggested method
-        # i.e. You may remove/modify/rename this as you like, and complete the
-        # function header (e.g. add in parameters, complete the type contract) as needed
-
-        # TODO: Complete this method, if you'd like or remove/replace it if you're not using it
-        x, y = position[0], position[1]
-        actions = []
-        # uh maybe do the checking for invalid spots on map in adventure.py
-        # if map[y][x + 1] != -1:
-        #     actions.append('Go east')
-        #
-        # elif map[y + 1][x] != 1:
-        #     actions.append('Go south')
-        #
-        # elif map[y][x - 1] != 1:
-        #     actions.append('Go west')
-        #
-        # elif map[y - 1][x] != 1:
-        #     actions.append('Go north')
-        #
-        # return actions
+    # def available_actions(self, position: tuple[int, int], available_items: list[Item]) -> list[str]:
+    #     """
+    #     Return the available actions in this location.
+    #     The actions should depend on the items available in the location
+    #     and the x,y position of this location on the world map.
+    #     """
+    #
+    #     # NOTE: This is just a suggested method
+    #     # i.e. You may remove/modify/rename this as you like, and complete the
+    #     # function header (e.g. add in parameters, complete the type contract) as needed
+    #
+    #     # TODO: Complete this method, if you'd like or remove/replace it if you're not using it
+    #     x, y = position[0], position[1]
+    #     actions = []
+    #     # uh maybe do the checking for invalid spots on map in adventure.py
+    #     # if map[y][x + 1] != -1:
+    #     #     actions.append('Go east')
+    #     #
+    #     # elif map[y + 1][x] != 1:
+    #     #     actions.append('Go south')
+    #     #
+    #     # elif map[y][x - 1] != 1:
+    #     #     actions.append('Go west')
+    #     #
+    #     # elif map[y - 1][x] != 1:
+    #     #     actions.append('Go north')
+    #     #
+    #     # return actions
 
 
 class Item:
@@ -225,6 +229,8 @@ class Player:
         elif direction == 'Go west':
             self.y -= 1
 
+    def pickup_item(self,):
+
 
 class World:
     """A text adventure game world storing all location, item and map data.
@@ -237,8 +243,8 @@ class World:
         - # TODO
     """
     map: list[list[int]]
-    location: 
- 
+    location:
+
     def __init__(self, map_data: TextIO, location_data: TextIO, items_data: TextIO) -> None:
         """
         Initialize a new World for a text adventure game, based on the data in the given open files.
@@ -280,7 +286,7 @@ class World:
         lst = []
         for line in f:
             lst = lst + [line.split()]
-            
+
         integer_nested_list = [[int(item) for item in inner_list] for inner_list in lst]
         self.map = integer_nested_list
         return self.map

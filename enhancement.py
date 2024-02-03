@@ -1,3 +1,9 @@
+"""
+# TODO: add description
+"""
+from game_data import Instrument, Player
+
+
 def coffee_puzzle() -> None:
     """
     # TODO: add descriptionnnnnnnnnn
@@ -12,14 +18,14 @@ def coffee_puzzle() -> None:
     print(f'You pick up the {colour} mug and dispense some of the piping hot coffee inside. \n'
           f'The dark roast scent smells heavenly, and you resist the urge to take a sip.')
 
-    print('You then turn your attention to the containers of skimmed milk, 2% milk, and cream. \n '
+    print('You then turn your attention to the containers of skimmed milk, 2% milk, and cream.'
           'Which container do you pick?')
     container = input("\nEnter choice: ")
     while container.lower() not in {'skimmed milk', '2% milk', 'cream'}:
         print(f'Hm, there are no containers of {container}.')
         container = input("\nEnter another choice: ")
     container = container.lower()
-    print(f'You pick up the container of {container} and pour it into the mug. '
+    print(f'You pick up the container of {container} and pour it into the mug.'
           f'The dark liquid transforms into a light brown.')
 
     print('You spot the small packets of sugar, honey, and salt. Which packet do you pick?')
@@ -30,3 +36,26 @@ def coffee_puzzle() -> None:
     packet = packet.lower()
     print(f'You rip open the pack and dump the {packet} into the mug. \n'
           f'Then you grab a spoon and give the coffee a good mix.')
+
+    print('And voila! You now have a pipiing hot mug of coffee :)')
+
+    def music_puzzle(player: Player) -> None:
+        """
+        # TODO: add description
+        """
+        print('As you approach the grumpy looking guard, he glares down at you, expressionless. \n'
+              'You try to strike up a conversation but the guard just continues glaring at you. What should you do?')
+        print('[leave, play an instrument]')
+        action = input("\nEnter action: ")
+
+        while action.lower() not in {'leave', 'play an instrument'}:
+            print('Hm, it looks like you cannot do that.')
+            action = input("\nEnter action: ")
+
+        if action.lower() == 'play an insrument':
+            instrument = [item for item in player.inventory if isinstance(item, Instrument)]
+            if len(instrument) != 0:
+                instrument[0].play_instrument()
+
+            else:
+                print('Uh oh, you dont have any instruments in your bag!')
