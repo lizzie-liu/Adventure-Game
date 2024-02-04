@@ -288,6 +288,7 @@ class Player:
         """
         self.inventory.append(item)
         location.remove_item(item)
+        self.change_score(item.target_points)
 
     def change_score(self, points: int) -> None:
         """
