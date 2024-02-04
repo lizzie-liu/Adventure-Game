@@ -42,8 +42,9 @@ class Location:
         - isitance(self.first_visit, bool)
         - all(isinstance(item, Item) for item in self.available_items)
     """
+    location_num: int
     location_name: str
-    num: int
+    points: int
     position: tuple[int, int]
     long_descrip: str
     short_descrip: str
@@ -121,6 +122,11 @@ class Location:
     #     #     actions.append('Go north')
     #     #
     #     # return actions
+            
+    def add_item(self, item: Item) -> None:
+        """Add item to the location"""
+        self.available_items.append(item)
+
 
 
 class Item:
@@ -262,7 +268,6 @@ class Player:
         """
         self.score += points
 
-
 class World:
     """A text adventure game world storing all location, item and map data.
 
@@ -274,7 +279,8 @@ class World:
         - # TODO
     """
     map: list[list[int]]
-    location:
+    locations: dict[tuple, Location]
+    items: dict[str, Item]
 
     def __init__(self, map_data: TextIO, location_data: TextIO, items_data: TextIO) -> None:
         """
@@ -295,6 +301,10 @@ class World:
 
         # The map MUST be stored in a nested list as described in the load_map() function's docstring below
         self.map = self.load_map(map_data)
+        self.locations = {}
+        self.load_locations(location_data)
+        self.items = {}
+        self.load_items(items_data)
 
         # NOTE: You may choose how to store location and item data; create your own World methods to handle these
         # accordingly. The only requirements:
@@ -321,10 +331,60 @@ class World:
         integer_nested_list = [[int(item) for item in inner_list] for inner_list in lst]
         self.map = integer_nested_list
         return self.map
+        
+    def load_locations(self, position: tuple, locations_data: TextIO) -> dict[int, Location]:
+        """Store location from open file location_data as the location attribute of this object, as a dictionary like so:
 
-     def load_location(self)
+        If location_data is a file containing the following text:
+         LOCATION -1
+         0
+         That way is blocked.
+         That way is blocked.
+         END
+        then load_location should assign this World object's location to be {-1: Location(-1, 0, That way is blocked.,
+         That way is blocked.}
 
-    # TODO: Add methods for loading location data and item data (see note above).
+        Return this dict representation of the location."""
+
+        location_data = []
+        for line in locations_data:
+            line = line.strip()
+            if line == "END" :
+                 # Process the collected data for a location
+                if len(location_data) >= 4:
+                    location_num, name, points, short_description, long_description = location_data
+                    location_num = int(location_num)
+                    points = int(points)
+
+                    location = Location(location_num, name, points, position, short_descripion, long_description)
+                    self.locations[location_num] = location
+                    
+                # Reset data for the next location
+                location_data = []
+            else:
+                location_data.append(line)
+
+
+    def load_items(self, items_data: TextIO) -> dict[str, Item]:
+        """Store location from open file location_data as the location attribute of this object, as a dictionary like so:
+
+        If location_data is a file containing the following text:
+         LOCATION -1
+         0
+         That way is blocked.
+         That way is blocked.
+         END
+        then load_location should assign this World object's location to be {-1: Location(-1, 0, That way is blocked.,
+         That way is blocked.}
+
+        Return this dict representation of the location."""
+    
+        for line in items_data:
+            line = line.split()
+            start_loc, target_loc, point, name = line
+            item = Item(name, int(start_loc), int(target_loc), int(point))
+            self.items[name] = item
+            
 
     # NOTE: The method below is REQUIRED. Complete it exactly as specified.
     def get_location(self, x: int, y: int) -> Optional[Location]:
@@ -332,5 +392,9 @@ class World:
          that position. Otherwise, return None. (Remember, locations represented by the number -1 on the map should
          return None.)
         """
+        if self.locations[(x,y)][location_num] == -1:
+            return None
+        else:
+            return self.locations[(x,y)]
 
-        # TODO: Complete this method as specified. Do not modify any of this function's specifications.
+        
