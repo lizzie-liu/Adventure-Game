@@ -313,7 +313,7 @@ if __name__ == "__main__":
         choice = input("\nEnter action: ")
         move_count += 1
 
-        while choice.capitalize() not in (menu or moves):
+        while choice.lower() not in (menu or moves):
             print('Uh oh, you cannot do that!')
             choice = input("\nEnter action: ")
             move_count += 1
