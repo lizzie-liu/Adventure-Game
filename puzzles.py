@@ -20,7 +20,7 @@ def music_puzzle(p: Player) -> bool:
         action = input("\nEnter action: ")
 
     if action.lower() == 'leave':
-        p.x, p.y = 3, 9
+        p.x, p.y = 2, 8
 
     elif action.lower() == 'play an instrument' and not any(isinstance(item, Instrument) for item in p.inventory):
         print('Uh oh, you dont have any instruments in your bag!')
