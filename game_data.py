@@ -41,7 +41,6 @@ class Item:
     start_location: int
     target_location: int
     target_points: int
-    item_uses: list[str]
 
     def __init__(self, name: str, start: int, target: int, target_points: int) -> None:
         """Initialize a new item.
@@ -74,8 +73,8 @@ class TCard(Item):
 
 
 class Instrument(Item):
-    """
-    # TODO:
+    """A child class of the Item class that represents an instrument in our text adventure game world.
+
     """
     def __init__(self, name: str, start: int, target: int, target_points: int) -> None:
         super().__init__(name, start, target, target_points)
