@@ -139,8 +139,8 @@ class Location:
     location_name: str
     location_num: int
     points: int
-    long_descrip: str
     short_descrip: str
+    long_descrip: str
     first_visit: bool
     available_items: Optional[list]
 
