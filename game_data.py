@@ -256,6 +256,12 @@ class Player:
             if item.name == name:
                 self.inventory.remove(item)
 
+    def pickup_items(self, item: Item) -> None:
+        """
+        Pick up an item.
+        """
+        self.inventory.append(item)
+
     def change_score(self, points: int) -> None:
         """
         Updates the Player's current score.

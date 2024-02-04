@@ -43,10 +43,12 @@ def get_moves(p: Player, w: World) -> list[str]:
 
     return actions
 
+
 def check_for_tcard(p: Player) -> bool:
     """Checks if the Player has their TCard.
     """
     return any(isinstance(item, TCard) for item in p.inventory)
+
 
 def start_puzzle(p: Player, w: World) -> None:
     """
