@@ -1,7 +1,7 @@
 """
 # TODO: add description
 """
-from game_data import Player, Item, Instrument, TCard
+from game_data import Player, Item, Instrument, Coffee, TCard
 from adventure import check_for_tcard
 
 
@@ -46,7 +46,7 @@ def check_for_harp(p: Player) -> bool:
     return False
 
 
-def talk_to_ta(p: Player) -> None:
+def talk_to_ta(p: Player) -> bool:
     """
     # TODO
     """
@@ -64,6 +64,40 @@ def talk_to_ta(p: Player) -> None:
                   'he mutters while typing away.')
         else:
             print('Hm, the TA will not talk to you thanks to the new rule.')
+            return False
+
+    if not any(isinstance(item, Coffee) for item in p.inventory):
+        print('Hm you seem to have no coffee to offer the poor TA...')
+        return False
+
+    else:
+        print('You happen to have a cup of coffee with you! You offer it to the tired TA.')
+        if check_correct_coffee(p):
+            print('The TA takes the coffee from your hands and takes a long sip.'
+                  '\nHe closes his eyes and smiles, savouring the magnificent taste of his drink.')
+            print('The TA looks rejuvenated. With a smile, he asks you what questions you have.')
+            print('You ask him if he has seen you Cheat Sheet. '
+                  '\nThe TA nods, reaches into his bag, and pulls out a sheet of lined paper filled with scribbles.')
+            print('You finally found your Cheat Sheet!')
+            return True
+
+        else:
+            print('The TA takes the coffee from your hands and takes a long sip. '
+                  '\nHis eyebrows furrow and he looks down and frowns at his coffee.')
+            print('The TA still looks very tired and seems to have no energy to talk to you.')
+
+    return False
+
+
+def check_correct_coffee(p: Player) -> bool:
+    """Checks if Player has the correct Coffee object in their inventory.
+        """
+    for item in p.inventory:
+        if item.name == 'perfect coffee':
+            return True
+
+    return False
+
 
 
 def make_coffee(p: Player) -> None:
@@ -102,7 +136,7 @@ def make_coffee(p: Player) -> None:
     print('And voila! You now have a pipiing hot mug of coffee :)')
 
     if [colour, container, packet] == ['pink', 'skimmed milk', 'honey']:
-        coffee = Item('coffee', 10, 12, 5)
+        coffee = Item('perfect coffee', 10, 12, 5)
     else:
         coffee = Item('coffee', 10, 12, 0)
 

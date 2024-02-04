@@ -141,7 +141,7 @@ def start_puzzle(p: Player, w: World) -> None:
             pickup_desired_item(p, w, 'Key')
 
     elif location.location_num == 10:
-        if any(item.name == 'coffee' for item in p.inventory):
+        if any(item.name == 'Coffee' for item in p.inventory):
             print('Oh no! You already have a cup of coffee. You really dont need that much coffee...')
             print('Do you want to discard your other cup?')
             choice = input("\nEnter yes or no: ")
@@ -164,10 +164,8 @@ def start_puzzle(p: Player, w: World) -> None:
             choice = input("\nEnter yes or no: ")
 
         if choice.lower() == 'yes':
-            if check_for_tcard:
-                talk_to_ta(p)
-            else:
-                print('Hm, the TA will not talk to you')
+            if talk_to_ta(p):
+                pickup_desired_item(p, w, 'Cheat Sheet')
 
     elif location.location_num == 5:
         available_posters = location.available_items
@@ -212,6 +210,7 @@ def start_puzzle(p: Player, w: World) -> None:
                   '\nBahen has too many stairs. Oh, and you should be more careful with your belongings.')
             p.victory = True
 
+
 def menu_action(p: Player, choice: str) -> None:
     """
     # TODO
@@ -235,12 +234,12 @@ def menu_action(p: Player, choice: str) -> None:
 def use_inventory_item(p: Player) -> None:
     """Allow Player to use item they select from their inventory.
     """
-    print(f'Inventory: {(item.name for item in p.inventory)}')
-    name = input("\nEnter name of the item to use it or None: ")
+    print(f'Inventory: {[item.name for item in p.inventory]}')
+    name = input("\nEnter name of the item to use it or 'none': ")
 
     while name.capitalize() not in {item.name for item in p.inventory}:
         print('You do not have that in your bag!')
-        name = input("\nEnter name of the item to use it or None: ")
+        name = input("\nEnter name of the item to use it or 'none': ")
 
     name = name.capitalize()
 
@@ -250,37 +249,30 @@ def use_inventory_item(p: Player) -> None:
             print(f'{name} uses: {item_uses}')
 
             print('What would you like to do?')
-            action = input("\nEnter an action or None to do nothing: ")
+            action = input("\nEnter an action or 'none' to do nothing: ")
 
-            # if action in item_uses:
-            #     item.
+            action = action.lower()
 
-        # while action.capitalize() not in item_uses:
+            if action in item_uses:
+                # i have no idea how to do this part
+                carry_out_item_action(item, action)
+
+            elif action == 'none':
+                print('You did not use the item.')
+
+            else:
+                print('You cannot do that!')
 
 
 
-# def get_item_use(item: Item) -> str:
-#     """Return what Player wants to do with item.
-#     """
-#     print(f'Inventory: {(item.name for item in p.inventory)}')
-#     name = input("\nEnter name of the item to use it or None: ")
-#
-#     while name.capitalize() not in {item.name for item in p.inventory}:
-#         print('You do not have that in your bag!')
-#         name = input("\nEnter name of the item to use it or None: ")
-#
-#     name = name.capitalize()
-#
-#     for item in p.inventory:
-#         if item.name == name:
-#             item_uses = item.item_uses
-#             print(f'{name} uses: {item_uses}')
-#
-#             print('What would you like to do?')
-#             action = input("\nEnter an action or None to do nothing: ")
-#
-#             if action.capitalize() in item_uses:
-#                 item.
+def carry_out_item_action(p: Player, item: Item, action: str) -> None:
+    """Carry out the action the Player wants to do with the item.
+    """
+    location = w.get_location(p.x, p.y)
+
+    if action == 'drop item':
+        p.drop_item(item.name, location)
+
 
 
 
