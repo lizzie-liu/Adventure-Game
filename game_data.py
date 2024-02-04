@@ -436,7 +436,4 @@ class World:
          return None.)
         """
         loc_num = self.map[y][x]
-        if loc_num == -1:
-            return None
-        else:
-            return self.locations[loc_num]
+        return self.locations[loc_num]
