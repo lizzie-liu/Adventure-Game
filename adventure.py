@@ -77,9 +77,26 @@ def locked_lab(p: Player, w: World, choice: str) -> None:
             p.move(choice)
 
 def check_for_tcard(p: Player) -> bool:
-    """Checks if the Player has their TCard.
+    """
+    Checks if the Player has their T-Card.
     """
     return any(isinstance(item, TCard) for item in p.inventory)
+
+def check_for_exam_items(p: Player) -> bool:
+    """
+    Checks if the Player has all the items they need for the exam (T-Card, Lucky Exam Pen, Cheat Sheet)
+    """
+    item_names = [item.name for item in p.inventory]
+    if 'T-Card' not in item_names:
+        return False
+
+    elif 'Lucky Exam Pen' not in item_names:
+        return False
+
+    elif 'Cheat Sheet' not in item_names:
+        return False
+
+    return True
 
 
 def pickup_desired_item(p: Player, w: World, item: str) -> None:
@@ -184,6 +201,13 @@ def start_puzzle(p: Player, w: World) -> None:
         if location.first_visit:
             pickup_desired_item(p, w, 'T-Card')
 
+    elif location.location_num == 13:
+        if check_for_exam_items(p):
+            print('Hooray!! :) Thankfully, you managed to find all the items you need for your exam.'
+                  '\nWhat have you learned from this experience? '
+                  '\nBahen has too many stairs. Oh, and you should be more careful with your belongings.')
+            p.victory = True
+
 def menu_action(p: Player, choice: str) -> None:
     """
     # TODO
@@ -194,10 +218,7 @@ def menu_action(p: Player, choice: str) -> None:
         print(f'{location.location_name} \n {location.long_descrip}')
 
     elif choice == 'inventory':
-        print(f'Inventory: {(item.name for item in p.inventory)}')
-        action = input("\nEnter name of item to use it or None: ")
-
-        while
+        use_inventory_item(p)
 
     elif choice == 'score':
         # TODO NEED TO MAKE SCORE FNCC!!
@@ -227,35 +248,35 @@ def use_inventory_item(p: Player) -> None:
             print('What would you like to do?')
             action = input("\nEnter an action or None to do nothing: ")
 
-            if action in item_uses:
-                item.
+            # if action in item_uses:
+            #     item.
 
-        while action.capitalize() not in item_uses:
+        # while action.capitalize() not in item_uses:
 
 
 
-def get_item_use(item: Item) -> str:
-    """Return what Player wants to do with item.
-    """
-    print(f'Inventory: {(item.name for item in p.inventory)}')
-    name = input("\nEnter name of the item to use it or None: ")
-
-    while name.capitalize() not in {item.name for item in p.inventory}:
-        print('You do not have that in your bag!')
-        name = input("\nEnter name of the item to use it or None: ")
-
-    name = name.capitalize()
-
-    for item in p.inventory:
-        if item.name == name:
-            item_uses = item.item_uses
-            print(f'{name} uses: {item_uses}')
-
-            print('What would you like to do?')
-            action = input("\nEnter an action or None to do nothing: ")
-
-            if action.capitalize() in item_uses:
-                item.
+# def get_item_use(item: Item) -> str:
+#     """Return what Player wants to do with item.
+#     """
+#     print(f'Inventory: {(item.name for item in p.inventory)}')
+#     name = input("\nEnter name of the item to use it or None: ")
+#
+#     while name.capitalize() not in {item.name for item in p.inventory}:
+#         print('You do not have that in your bag!')
+#         name = input("\nEnter name of the item to use it or None: ")
+#
+#     name = name.capitalize()
+#
+#     for item in p.inventory:
+#         if item.name == name:
+#             item_uses = item.item_uses
+#             print(f'{name} uses: {item_uses}')
+#
+#             print('What would you like to do?')
+#             action = input("\nEnter an action or None to do nothing: ")
+#
+#             if action.capitalize() in item_uses:
+#                 item.
 
 
 
@@ -269,7 +290,7 @@ if __name__ == "__main__":
     menu = ["look", "inventory", "score", "quit"]
     move_count = 0
 
-    while not p.victory:
+    while not p.victory and move_count <= 600:
         location = w.get_location(p.x, p.y)
 
         # TODO: ENTER CODE HERE TO PRINT LOCATION DESCRIPTION
@@ -305,7 +326,7 @@ if __name__ == "__main__":
 
     if p.victory:
         print('GAME OVER')
-        print()  # TODO Print Player's score!!!!!!!!!!!!!
+        print(f'Score: {move_count}')
 
 
 
