@@ -1,10 +1,11 @@
 10 13 10 Cheat Sheet
 6 13 10 Lucky Exam Pen
 9 13 10 T-Card
+2 3 5 Key
 i 1 2 5 Harp
 i 1 1 0 Ukulele
 i 1 1 0 Harmonica
 p 1 You can find your lost T-card from "My neighbors are thick with dust, But I'm the one you can trust. Seek me where silence is a sound, I'm where ancient whispers abound"
 p 2 New rule: T-card Required For TA Consultations. Starting immediately, a new rule is in effect for all TA consultations. To enhance security and streamline communication, students are now required to present their T-Card when seeking assistance from Teaching Assistants.
-p 3 Join The Fluff Buddies Club! Calling all animal lovers! Embark on a journey of cuteness and camaraderie with the Fluff Buddies Club! 
+p 3 Join The Fluff Buddies Club! Calling all animal lovers! Embark on a journey of cuteness and camaraderie with the Fluff Buddies Club!
 p 4 Midnight Magic Coffee Recipe: 1 cup of strong brewed espresso, 1 tablespoon of dark chocolate syrup, 1 teaspoon of vanilla extract, A dash of cinnamon, 2 tablespoons of sweetened condensed milk, Ice cubes (optional)

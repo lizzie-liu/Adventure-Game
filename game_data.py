@@ -376,7 +376,7 @@ class World:
         location_data = []
         for line in locations_data:
             line = line.strip()
-            if line == "END" :
+            if line == "END":
                  # Process the collected data for a location
                 if len(location_data) >= 4:
                     location_num, name, points, short_description, long_description = location_data
