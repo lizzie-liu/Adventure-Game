@@ -414,6 +414,12 @@ class World:
                 item = Instrument(name, int(start_loc), int(target_loc), int(point))
                 self.locations[int(start_loc)].add_item(item)
                 self.items[name] = item
+            elif line[0] == 'p':
+                name = line[1]
+                info = ' '.join(line[2:])
+                item = Poster(name, info)
+                self.locations[5].add_item(item)
+                self.items[name] = item
             else: 
                 start_loc, target_loc, point = map(int, line[:3])
                 name = ' '.join(line[3:])
