@@ -99,6 +99,20 @@ class Coffee(Item):
 
         self.item_uses = ['Drop item', 'Give to TA']
 
+class Poster(Item):
+    """#TODO:"""
+    
+    def __init__(self, name: str, info: str) -> None:
+        start = 5
+        target = 5
+        target_points = 0
+        super().__init__(name, start, target, target_points)
+        self.info = info
+        self.item_uses = ['Drop item', 'Examine poster']
+
+    def examine_poster(self) -> None:
+        """Print full description of poster"""
+
 
 class Location:
     """A location in our text adventure game world.
@@ -129,7 +143,7 @@ class Location:
     first_visit: bool
     available_items: Optional[list]
 
-    def __init__(self, name: str, num: int, points: int, long: str, short: str, items: Optional[list] = None) -> None:
+    def __init__(self, name : str, num : int, points : int, long : str, short : str, items : Optional[list] = None) -> None:
         """Initialize a new location.
 
         # TODO Add more details here about the initialization if needed
@@ -293,8 +307,9 @@ class World:
     map: list[list[int]]
     locations: dict[int, Location]
     items: dict[str, Item]
+    posters: dict[str, Poster]
 
-    def __init__(self, map_data: TextIO, location_data: TextIO, items_data: TextIO) -> None:
+    def __init__(self, map_data: TextIO, location_data: TextIO, items_data: TextIO, posters_data: TextIO) -> None:
         """
         Initialize a new World for a text adventure game, based on the data in the given open files.
 
@@ -317,7 +332,9 @@ class World:
         self.load_locations(location_data)
         self.items = {}
         self.load_items(items_data)
-
+        self.posters = {}
+        self.load_posters(posters_data)
+        
         # NOTE: You may choose how to store location and item data; create your own World methods to handle these
         # accordingly. The only requirements:
         # 1. Make sure the Location class is used to represent each location.
@@ -344,7 +361,7 @@ class World:
         self.map = integer_nested_list
         return self.map
 
-    def load_locations(self, locations_data: TextIO) -> dict[int, Location]:
+    def load_locations(self, locations_data: TextIO) -> None:
         """Store location from open file location_data as the location attribute of this object, as a dictionary like so:
 
         If location_data is a file containing the following text:
@@ -368,7 +385,7 @@ class World:
                     location_num = int(location_num)
                     points = int(points)
 
-                    location = Location(location_num, name, points, short_descripion, long_description)
+                    location = Location(name, location_num, points, short_description, long_description, [])
                     self.locations[location_num] = location
 
                 # Reset data for the next location
@@ -377,7 +394,7 @@ class World:
                 location_data.append(line)
 
 
-    def load_items(self, items_data: TextIO) -> dict[str, Item]:
+    def load_items(self, items_data: TextIO) -> None:
         """Store location from open file location_data as the location attribute of this object, as a dictionary like so:
 
         If location_data is a file containing the following text:
@@ -393,10 +410,24 @@ class World:
 
         for line in items_data:
             line = line.split()
-            start_loc, target_loc, point, name = line
+            start_loc, target_loc, point = map(int, line[:3])
+            name = ' '.join(line[3:])
             item = Item(name, int(start_loc), int(target_loc), int(point))
-            self.locations[start_loc].add_item(item)
+            self.locations[int(start_loc)].add_item(item)
             self.items[name] = item
+
+    def load_posters(self, posters_data: TextIO) -> None:
+        """Load posters"""
+        posters = []
+        for line in posters_data:
+            line = line.strip()
+            if line == "END":
+                name, info = posters
+                poster = Poster(name, info)
+                self.posters[name] = poster
+                posters = []
+            else:
+                posters.append(line)
 
 
     # NOTE: The method below is REQUIRED. Complete it exactly as specified.
