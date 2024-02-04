@@ -45,20 +45,18 @@ class Location:
     location_num: int
     location_name: str
     points: int
-    position: tuple[int, int]
     long_descrip: str
     short_descrip: str
     first_visit: bool
     available_items: Optional[list]
 
-    def __init__(self, name: str, num: int, x: int, y: int, long: str, short: str, items: Optional[list] = None) -> None:
+    def __init__(self, name: str, num: int, long: str, short: str, items: Optional[list] = None) -> None:
         """Initialize a new location.
 
         # TODO Add more details here about the initialization if needed
         """
         self.location_name = name
         self.location_num = num
-        self.position = (x, y)
         self.long_descrip = long
         self.short_descrip = short
         self.first_visit = True
