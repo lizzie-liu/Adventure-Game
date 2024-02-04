@@ -72,9 +72,8 @@ def pickup_desired_item(p: Player, w: World, item: str) -> None:
     Add the desired item to Player's inventory.
     """
     location = w.get_location(p.x, p.y)
-    available_items = location.available_items
 
-    for item in available_items:
+    for item in location.available_items:
         if item.name == item:
             p.pickup_item(item, location)
 
@@ -181,6 +180,9 @@ def menu_action(p: Player, choice: str) -> None:
 
     elif choice == 'inventory':
         print(f'Inventory: {(item.name for item in p.inventory)}')
+        action = input("\nEnter name of item to use it or None: ")
+
+        while
 
     elif choice == 'score':
         # TODO NEED TO MAKE SCORE FNCC!!
@@ -188,6 +190,55 @@ def menu_action(p: Player, choice: str) -> None:
 
     elif choice == 'quit':
         p.victory = True
+
+
+def use_inventory_item(p: Player) -> None:
+    """Allow Player to use item they select from their inventory.
+    """
+    print(f'Inventory: {(item.name for item in p.inventory)}')
+    name = input("\nEnter name of the item to use it or None: ")
+
+    while name.capitalize() not in {item.name for item in p.inventory}:
+        print('You do not have that in your bag!')
+        name = input("\nEnter name of the item to use it or None: ")
+
+    name = name.capitalize()
+
+    for item in p.inventory:
+        if item.name == name:
+            item_uses = item.item_uses
+            print(f'{name} uses: {item_uses}')
+
+            print('What would you like to do?')
+            action = input("\nEnter an action or None to do nothing: ")
+
+            if action in item_uses:
+                item.
+
+        while action.capitalize() not in item_uses:
+
+
+
+def get_item_use(item: Item) -> str:
+    """Return what Player wants to do with item.
+    """
+    print(f'Inventory: {(item.name for item in p.inventory)}')
+    name = input("\nEnter name of the item to use it or None: ")
+
+    while name.capitalize() not in {item.name for item in p.inventory}:
+        print('You do not have that in your bag!')
+        name = input("\nEnter name of the item to use it or None: ")
+
+    name = name.capitalize()
+
+    for item in p.inventory:
+        if item.name == name:
+            item_uses = item.item_uses
+            print(f'{name} uses: {item_uses}')
+
+            print('What would you like to do?')
+            action = input("\nEnter an action or None to do nothing: ")
+
 
 
 # Note: You may modify the code below as needed; the following starter template are just suggestions
