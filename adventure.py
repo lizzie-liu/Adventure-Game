@@ -32,16 +32,16 @@ def get_moves(p: Player, w: World) -> list[str]:
     actions = []
 
     if w.get_location(x + 1, y) is not None:
-        actions.append('go east')
+        actions.append('go north')
 
     elif w.get_location(x, y + 1) is not None:
-        actions.append('go south')
+        actions.append('go east')
 
     elif w.get_location(x - 1, y) is not None:
-        actions.append('go west')
+        actions.append('go south')
 
     elif w.get_location(x, y - 1) is not None:
-        actions.append('go north')
+        actions.append('go west')
 
     return actions
 
