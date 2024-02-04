@@ -5,6 +5,39 @@ from game_data import Player, Item, Instrument, TCard
 from adventure import check_for_tcard
 
 
+def music_puzzle(p: Player) -> None:
+    """
+    # TODO: add description
+    """
+    print('As you approach the grumpy looking guard, he stares down at you, expressionless.\n'
+          'You try to strike up a conversation but the guard ignore you, and lets out a yamn.\n'
+          'What should you do?')
+    print('[leave, play an instrument]')
+    action = input("\nEnter action: ")
+
+    while action.lower() not in {'leave', 'play an instrument'}:
+        print('Hm, it looks like you cannot do that.')
+        action = input("\nEnter action: ")
+
+    if action.lower() == 'play an insrument':
+        instrument = [item for item in p.inventory if isinstance(item, Instrument)]
+        if len(instrument) != 0:
+            instrument[0].play_instrument()
+
+        else:
+            print('Uh oh, you dont have any instruments in your bag!')
+
+        if instrument[0].name == 'Harp':
+            print('The guard starts to get sleepier, and slowly his eyes close and he begins to snore. '
+                  '\nYou grab the shiny key from his belt and slip it into your pocket.')
+            key = Item('Key', 2, 3, 5)
+            p.inventory.append(key)
+
+        else:
+            print('The guard cringes at your attempts to serenade him and covers his ears with his hands.')
+            print('Unfortunately, you have no chance at swiping his key.')
+
+
 def talk_to_ta(p: Player) -> None:
     """
     # TODO
@@ -74,36 +107,3 @@ def make_coffee(p: Player) -> None:
     if choice.lower() == 'yes':
         if all(item.name != 'coffee' for item in p.inventory):
             p.inventory.append(coffee)
-
-
-def music_puzzle(p: Player) -> None:
-    """
-    # TODO: add description
-    """
-    print('As you approach the grumpy looking guard, he stares down at you, expressionless.\n'
-          'You try to strike up a conversation but the guard ignore you, and lets out a yamn.\n'
-          'What should you do?')
-    print('[leave, play an instrument]')
-    action = input("\nEnter action: ")
-
-    while action.lower() not in {'leave', 'play an instrument'}:
-        print('Hm, it looks like you cannot do that.')
-        action = input("\nEnter action: ")
-
-    if action.lower() == 'play an insrument':
-        instrument = [item for item in p.inventory if isinstance(item, Instrument)]
-        if len(instrument) != 0:
-            instrument[0].play_instrument()
-
-        else:
-            print('Uh oh, you dont have any instruments in your bag!')
-
-        if instrument[0].name == 'Harp':
-            print('The guard starts to get sleepier, and slowly his eyes close and he begins to snore. '
-                  '\nYou grab the shiny key from his belt and slip it into your pocket.')
-            key = Item('Key', 2, 3, 5)
-            p.inventory.append(key)
-
-        else:
-            print('The guard cringes at your attempts to serenade him and covers his ears with his hands.')
-            print('Unfortunately, you have no chance at swiping his key.')
