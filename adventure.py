@@ -58,17 +58,33 @@ def start_puzzle(p: Player, w: World) -> None:
     """
     location = w.get_location(p.x, p.y)
 
-    if location.location_num == 2:
+    if location.location_num == 1:
+        #somehow print instruments available at location
+
+    elif location.location_num == 2:
         music_puzzle(p)
 
-    if location.location_num == 3:
-        if any(item.name == 'key' for item in p.inventory):
-            p.change_score(5)
-
-        else:
+    elif location.location_num == 3:
+        if any(item.name != 'key' for item in p.inventory):
             print('The door wont budge... \nIt seems that you need a key to open it.')
 
-    # TODO: UM SO UH how do we prevent the puzzle from starting all over again if they go backwards??
+        # TODO: add function in check for available moves where if no key, can't go north
+
+    elif location.location_num == 10:
+        if any(item.name == 'coffee' for item in p.inventory):
+            print('Oh no! You already have a cup of coffee. You really dont need that much coffee...')
+            print('Do you want to discard your other cup?')
+            choice = input("\nEnter yes or no: ")
+
+            while choice.lower() not in {'yes', 'no'}:
+                choice = input("\nEnter yes or no: ")
+
+            if choice.lower() == 'yes':
+                p.drop_item('coffee', location)
+                make_coffee(p)
+
+        else:
+            make_coffee(p)
 
     elif location.location_num == 12:
         print('Do you want to approach the TA?')
@@ -83,23 +99,6 @@ def start_puzzle(p: Player, w: World) -> None:
             else:
                 print('Hm, the TA will not talk to you')
 
-    elif location.location_num == 10:
-        if any(item.name == 'coffee' for item in p.inventory):
-            print('Oh no! You already have a cup of coffee. You really dont need that much coffee...')
-            print('Do you want to discard your other cup?')
-            choice = input("\nEnter yes or no: ")
-
-            while choice.lower() not in {'yes', 'no'}:
-                choice = input("\nEnter yes or no: ")
-
-            if choice.lower() == 'yes':
-                p.drop_item('coffee')
-                make_coffee(p)
-
-        else:
-            make_coffee(p)
-
-    elif location.location_num ==
 
 
 def menu(p: Player, location: Location, choice: str) -> None:
