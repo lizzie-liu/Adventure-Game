@@ -23,22 +23,24 @@ from game_data import World, Item, Instrument, TCard, Location, Player
 from puzzles import *
 
 # Note: You may add helper functions, classes, etc. here as needed
+
+
 def get_moves(p: Player, w: World) -> list[str]:
     """Returns the valid spots the Player can move to based on their current location.
     """
     x, y = p.x, p.y
     actions = []
 
-    if (w.get_location(x + 1, y)).num != -1:
+    if (w.get_location(x + 1, y)).location_num != -1:
         actions.append('Go east')
 
-    elif (w.get_location(x, y + 1)).num != -1:
+    elif (w.get_location(x, y + 1)).location_num != -1:
         actions.append('Go south')
 
-    elif (w.get_location(x - 1, y)).num != -1:
+    elif (w.get_location(x - 1, y)).location_num != -1:
         actions.append('Go west')
 
-    elif (w.get_location(x, y - 1)).num != -1:
+    elif (w.get_location(x, y - 1)).location_num != -1:
         actions.append('Go north')
 
     return actions
@@ -56,10 +58,10 @@ def start_puzzle(p: Player, w: World) -> None:
     """
     location = w.get_location(p.x, p.y)
 
-    if location.num == 2:
+    if location.location_num == 2:
         music_puzzle(p)
 
-    if location.num == 3:
+    if location.location_num == 3:
         if any(item.name == 'key' for item in p.inventory):
             p.change_score(5)
 
@@ -68,7 +70,7 @@ def start_puzzle(p: Player, w: World) -> None:
 
     # TODO: UM SO UH how do we prevent the puzzle from starting all over again if they go backwards??
 
-    elif location.num == 12:
+    elif location.location_num == 12:
         print('Do you want to approach the TA?')
         choice = input("\nEnter yes or no: ")
 
@@ -81,7 +83,7 @@ def start_puzzle(p: Player, w: World) -> None:
             else:
                 print('Hm, the TA will not talk to you')
 
-    elif location.num == 10:
+    elif location.location_num == 10:
         if any(item.name == 'coffee' for item in p.inventory):
             print('Oh no! You already have a cup of coffee. You really dont need that much coffee...')
             print('Do you want to discard your other cup?')
@@ -96,6 +98,27 @@ def start_puzzle(p: Player, w: World) -> None:
 
         else:
             make_coffee(p)
+
+
+def menu(p: Player, location: Location, choice: str) -> None:
+    """
+    # TODO
+    """
+    location = w.get_location(p.x, p.y)
+
+    if choice == 'look':
+        print(f'{location.location_name} \n {location.long_descrip}')
+
+    elif choice == 'inventory':
+        print(f'Inventory: {(item.name for item in p.inventory)}')
+
+    elif choice == 'score':
+        # TODO NEED TO MAKE SCORE FNCC!!
+        print(p.score)
+
+    elif choice == 'quit':
+        print('GAME OVER')
+        p.victory = True
 
 
 # Note: You may modify the code below as needed; the following starter template are just suggestions
@@ -115,7 +138,8 @@ if __name__ == "__main__":
         location.first_visit = False
 
         print("What to do? \n")
-        moves = get_moves(p)
+        moves = get_moves(p, w)
+        print(f'menu: {menu}')
         print(f'available moves: {moves}')
         choice = input("\nEnter action: ")
 
@@ -123,30 +147,14 @@ if __name__ == "__main__":
             print('Uh oh, you cannot do that!')
             choice = input("\nEnter action: ")
 
-        if choice == "[menu]":
-            print("Menu Options: \n")
-            for option in menu:
-                print(option)
-            choice = input("\nChoose action: ")
+        choice = choice.lower()
 
-        if choice.lower() == 'look':
-            location.first_visit = True
-            location.print_description()
-            location.first_visit = False
+        if choice in menu:
+            menu(p, location, choice)
 
-        elif choice.lower() == 'inventory':
-            print(f'Inventory: {(item.name for item in p.inventory)}')
-
-        elif choice.lower() == 'score':
-            # NEED TO MAKE SCORE FNC
-            print(p.score)
-
-        elif choice.lower() == 'quit':
-            print('GAME OVER')
-            p.victory = True
-
-        elif choice.lower() in moves:
+        elif choice in moves:
             p.move(choice)
+
 
 
 
