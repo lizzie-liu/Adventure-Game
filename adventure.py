@@ -124,7 +124,7 @@ def menu(p: Player, location: Location, choice: str) -> None:
 
 # Note: You may modify the code below as needed; the following starter template are just suggestions
 if __name__ == "__main__":
-    w = World(open("map.txt"), open("locations.txt"), open("items.txt"))
+    w = World(open("map.txt"), open("locations.txt"), open("items.txt"), open("posters.txt"))
     p = Player(3, 9)  # set starting location of player; you may change the x, y coordinates here as appropriate
 
     menu = ["look", "inventory", "score", "quit"]
