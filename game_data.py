@@ -45,20 +45,19 @@ class Location:
     location_num: int
     location_name: str
     points: int
-    position: tuple
     long_descrip: str
     short_descrip: str
     first_visit: bool
     available_items: Optional[list]
 
-    def __init__(self, name: str, num: int, long: str, short: str, items: Optional[list] = None) -> None:
+    def __init__(self, name: str, num: int, points: int long: str, short: str, items: Optional[list] = None) -> None:
         """Initialize a new location.
 
         # TODO Add more details here about the initialization if needed
         """
         self.location_name = name
         self.location_num = num
-        self.position = (x, y)
+        self.points = points
         self.long_descrip = long
         self.short_descrip = short
         self.first_visit = True
@@ -343,13 +342,8 @@ class World:
         integer_nested_list = [[int(item) for item in inner_list] for inner_list in lst]
         self.map = integer_nested_list
         return self.map
-<<<<<<< HEAD
-        
+    
     def load_locations(self, locations_data: TextIO) -> dict[int, Location]:
-=======
-
-    def load_locations(self, position: tuple, locations_data: TextIO) -> dict[int, Location]:
->>>>>>> 69ce50d534002ff5126fb01b1838e61f0188b529
         """Store location from open file location_data as the location attribute of this object, as a dictionary like so:
 
         If location_data is a file containing the following text:
