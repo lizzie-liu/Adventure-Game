@@ -122,7 +122,7 @@ class Location:
     #     #     actions.append('Go north')
     #     #
     #     # return actions
-            
+
     def add_item(self, item: Item) -> None:
         """Add item to the location"""
         self.available_items.append(item)
@@ -254,11 +254,13 @@ class Player:
             self.x -= 1
         elif direction == 'Go west':
             self.y -= 1
-    def drop_item(self, name: str) -> None:
+
+    def drop_item(self, name: str, location: Location) -> None:
         """
         Removes the item from the Player's iventory.
         """
         for item in self.inventory:
+            location.add_item(item)
             if item.name == name:
                 self.inventory.remove(item)
 
@@ -337,7 +339,7 @@ class World:
         integer_nested_list = [[int(item) for item in inner_list] for inner_list in lst]
         self.map = integer_nested_list
         return self.map
-        
+
     def load_locations(self, position: tuple, locations_data: TextIO) -> dict[int, Location]:
         """Store location from open file location_data as the location attribute of this object, as a dictionary like so:
 
@@ -364,7 +366,7 @@ class World:
 
                     location = Location(location_num, name, points, position, short_descripion, long_description)
                     self.locations[location_num] = location
-                    
+
                 # Reset data for the next location
                 location_data = []
             else:
@@ -384,13 +386,13 @@ class World:
          That way is blocked.}
 
         Return this dict representation of the location."""
-    
+
         for line in items_data:
             line = line.split()
             start_loc, target_loc, point, name = line
             item = Item(name, int(start_loc), int(target_loc), int(point))
             self.items[name] = item
-            
+
 
     # NOTE: The method below is REQUIRED. Complete it exactly as specified.
     def get_location(self, x: int, y: int) -> Optional[Location]:
@@ -402,5 +404,3 @@ class World:
             return None
         else:
             return self.locations[(x,y)]
-
-        

@@ -99,6 +99,8 @@ def start_puzzle(p: Player, w: World) -> None:
         else:
             make_coffee(p)
 
+    elif location.location_num ==
+
 
 def menu(p: Player, location: Location, choice: str) -> None:
     """
@@ -154,6 +156,9 @@ if __name__ == "__main__":
 
         elif choice in moves:
             p.move(choice)
+
+    if p.victory:
+
 
 
 
