@@ -95,9 +95,6 @@ def start_puzzle(p: Player, w: World) -> None:
         else:
             make_coffee(p)
 
-def pickup_items(player: Player) -> list[]:
-
-
 
 # Note: You may modify the code below as needed; the following starter template are just suggestions
 if __name__ == "__main__":
