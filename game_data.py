@@ -45,6 +45,7 @@ class Location:
     location_num: int
     location_name: str
     points: int
+    position: tuple
     long_descrip: str
     short_descrip: str
     first_visit: bool
@@ -57,6 +58,7 @@ class Location:
         """
         self.location_name = name
         self.location_num = num
+        self.position = (x, y)
         self.long_descrip = long
         self.short_descrip = short
         self.first_visit = True
@@ -124,6 +126,10 @@ class Location:
     def add_item(self, item: Item) -> None:
         """Add item to the location"""
         self.available_items.append(item)
+
+    def remove_item(self, item: Item) -> None:
+        """Remove item from location."""
+        self.available_items.remove(item)
 
 
 
@@ -285,7 +291,7 @@ class World:
         - # TODO
     """
     map: list[list[int]]
-    locations: dict[tuple, Location]
+    locations: dict[int, Location]
     items: dict[str, Item]
 
     def __init__(self, map_data: TextIO, location_data: TextIO, items_data: TextIO) -> None:
@@ -337,8 +343,13 @@ class World:
         integer_nested_list = [[int(item) for item in inner_list] for inner_list in lst]
         self.map = integer_nested_list
         return self.map
+<<<<<<< HEAD
+        
+    def load_locations(self, locations_data: TextIO) -> dict[int, Location]:
+=======
 
     def load_locations(self, position: tuple, locations_data: TextIO) -> dict[int, Location]:
+>>>>>>> 69ce50d534002ff5126fb01b1838e61f0188b529
         """Store location from open file location_data as the location attribute of this object, as a dictionary like so:
 
         If location_data is a file containing the following text:
@@ -362,7 +373,7 @@ class World:
                     location_num = int(location_num)
                     points = int(points)
 
-                    location = Location(location_num, name, points, position, short_descripion, long_description)
+                    location = Location(location_num, name, points, short_descripion, long_description)
                     self.locations[location_num] = location
 
                 # Reset data for the next location
@@ -389,6 +400,7 @@ class World:
             line = line.split()
             start_loc, target_loc, point, name = line
             item = Item(name, int(start_loc), int(target_loc), int(point))
+            self.locations[start_loc].add_item(item)
             self.items[name] = item
 
 
@@ -398,7 +410,9 @@ class World:
          that position. Otherwise, return None. (Remember, locations represented by the number -1 on the map should
          return None.)
         """
-        if self.locations[(x,y)][location_num] == -1:
+        loc_num = self.map[y][x]
+        if loc_num == -1:
             return None
         else:
-            return self.locations[(x,y)]
+            return self.locations[loc_num]
+    
