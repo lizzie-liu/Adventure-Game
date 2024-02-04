@@ -267,6 +267,7 @@ if __name__ == "__main__":
     p = Player(3, 9)  # set starting location of player; you may change the x, y coordinates here as appropriate
 
     menu = ["look", "inventory", "score", "quit"]
+    move_count = 0
 
     while not p.victory:
         location = w.get_location(p.x, p.y)
@@ -285,10 +286,12 @@ if __name__ == "__main__":
         print(f'menu: {menu}')
         print(f'available moves: {moves}')
         choice = input("\nEnter action: ")
+        move_count += 1
 
         while choice.capitalize() not in (menu or moves):
             print('Uh oh, you cannot do that!')
             choice = input("\nEnter action: ")
+            move_count += 1
 
         choice = choice.lower()
 
