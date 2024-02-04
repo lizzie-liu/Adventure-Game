@@ -139,12 +139,12 @@ class Location:
     location_name: str
     location_num: int
     points: int
-    long_descrip: str
     short_descrip: str
+    long_descrip: str
     first_visit: bool
     available_items: Optional[list]
 
-    def __init__(self, name : str, num : int, points : int, long : str, short : str, items : Optional[list] = None) -> None:
+    def __init__(self, name : str, num : int, points : int, short : str, long : str, items : Optional[list] = None) -> None:
         """Initialize a new location.
 
         # TODO Add more details here about the initialization if needed
