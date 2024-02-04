@@ -21,6 +21,85 @@ This file is Copyright (c) 2024 CSC111 Teaching Team
 from typing import Any, Optional, TextIO
 
 
+class Item:
+    """An item in our text adventure game world.
+
+    Instance Attributes:
+        - item_name: The name of the item.
+        - start_location: The location the item starts at.
+        - target_location: The location the target needs to be deposited at.
+        - target_points: The amount of points received for depositing item in correct location.
+
+    Representation Invariants:
+        - isinstance(self.item_name, str) and len(self.item_name) > 0
+        - isinstance(self.start_location, int) and -1 <= self.start_location <= 13
+        - isinstance(self.target_location, int) and -1 <= self.target_location <= 13
+        - isinstance(self.target_points, int)
+
+    """
+    item_name: str
+    start_location: int
+    target_location: int
+    target_points: int
+    item_uses: list[str]
+
+    def __init__(self, name: str, start: int, target: int, target_points: int) -> None:
+        """Initialize a new item.
+        """
+
+        # NOTES:
+        # This is just a suggested starter class for Item.
+        # You may change these parameters and the data available for each Item object as you see fit.
+        # (The current parameters correspond to the example in the handout).
+        # Consider every method in this Item class as a "suggested method".
+        #
+        # The only thing you must NOT change is the name of this class: Item.
+        # All item objects in your game MUST be represented as an instance of this class.
+
+        self.name = name
+        self.start_position = start
+        self.target_position = target
+        self.target_points = target_points
+        self.item_uses = ['Drop item']
+
+
+class TCard(Item):
+    def __init__(self, name: str, start: int, target: int, target_points: int) -> None:
+        super().__init__(name, start, target, target_points)
+        self.item_uses = ['Drop item', 'Use T-Card']
+
+    def use_card(self) -> None:
+        """Uses the Player's T-Card."""
+        print('You pull out your T-Card and try not to cringe at your id photo.')
+
+
+class Instrument(Item):
+    """
+    # TODO:
+    """
+    def __init__(self, name: str, start: int, target: int, target_points: int) -> None:
+        super().__init__(name, start, target, target_points)
+        self.item_uses = ['Drop item', 'Play instrument']
+
+    def play_instrument(self) -> None:
+        """ Plays the instrument.
+        """
+        print('You play some random notes, hoping it sounds nice.')
+
+
+class Coffee(Item):
+    """
+    # TODO:
+    """
+    def __init__(self, name: str, start: int, target: int, target_points: int, colour: str, liquid: str, topping: str) -> None:
+        super().__init__(name, start, target, target_points)
+        self.colour = colour
+        self.liquid = liquid
+        self.topping = topping
+
+        self.item_uses = ['Drop item', 'Give to TA']
+
+
 class Location:
     """A location in our text adventure game world.
 
@@ -129,85 +208,6 @@ class Location:
     def remove_item(self, item: Item) -> None:
         """Remove item from location."""
         self.available_items.remove(item)
-
-
-class Item:
-    """An item in our text adventure game world.
-
-    Instance Attributes:
-        - item_name: The name of the item.
-        - start_location: The location the item starts at.
-        - target_location: The location the target needs to be deposited at.
-        - target_points: The amount of points received for depositing item in correct location.
-
-    Representation Invariants:
-        - isinstance(self.item_name, str) and len(self.item_name) > 0
-        - isinstance(self.start_location, int) and -1 <= self.start_location <= 13
-        - isinstance(self.target_location, int) and -1 <= self.target_location <= 13
-        - isinstance(self.target_points, int)
-
-    """
-    item_name: str
-    start_location: int
-    target_location: int
-    target_points: int
-    item_uses: list[str]
-
-    def __init__(self, name: str, start: int, target: int, target_points: int) -> None:
-        """Initialize a new item.
-        """
-
-        # NOTES:
-        # This is just a suggested starter class for Item.
-        # You may change these parameters and the data available for each Item object as you see fit.
-        # (The current parameters correspond to the example in the handout).
-        # Consider every method in this Item class as a "suggested method".
-        #
-        # The only thing you must NOT change is the name of this class: Item.
-        # All item objects in your game MUST be represented as an instance of this class.
-
-        self.name = name
-        self.start_position = start
-        self.target_position = target
-        self.target_points = target_points
-        self.item_uses = ['Drop item']
-
-
-class TCard(Item):
-    def __init__(self, name: str, start: int, target: int, target_points: int) -> None:
-        super().__init__(name, start, target, target_points)
-        self.item_uses = ['Drop item', 'Use T-Card']
-
-    def use_card(self) -> None:
-        """Uses the Player's T-Card."""
-        print('You pull out your T-Card and try not to cringe at your id photo.')
-
-
-class Instrument(Item):
-    """
-    # TODO:
-    """
-    def __init__(self, name: str, start: int, target: int, target_points: int) -> None:
-        super().__init__(name, start, target, target_points)
-        self.item_uses = ['Drop item', 'Play instrument']
-
-    def play_instrument(self) -> None:
-        """ Plays the instrument.
-        """
-        print('You play some random notes, hoping it sounds nice.')
-
-
-class Coffee(Item):
-    """
-    # TODO:
-    """
-    def __init__(self, name: str, start: int, target: int, target_points: int, colour: str, liquid: str, topping: str) -> None:
-        super().__init__(name, start, target, target_points)
-        self.colour = colour
-        self.liquid = liquid
-        self.topping = topping
-
-        self.item_uses = ['Drop item', 'Give to TA']
 
 
 class Player:
