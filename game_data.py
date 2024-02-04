@@ -42,15 +42,15 @@ class Location:
         - isitance(self.first_visit, bool)
         - all(isinstance(item, Item) for item in self.available_items)
     """
-    location_num: int
     location_name: str
+    location_num: int
     points: int
     long_descrip: str
     short_descrip: str
     first_visit: bool
     available_items: Optional[list]
 
-    def __init__(self, name: str, num: int, points: int long: str, short: str, items: Optional[list] = None) -> None:
+    def __init__(self, name: str, num: int, points: int, long: str, short: str, items: Optional[list] = None) -> None:
         """Initialize a new location.
 
         # TODO Add more details here about the initialization if needed
@@ -131,7 +131,6 @@ class Location:
         self.available_items.remove(item)
 
 
-
 class Item:
     """An item in our text adventure game world.
 
@@ -210,6 +209,7 @@ class Coffee(Item):
 
         self.item_uses = ['Drop item', 'Give to TA']
 
+
 class Player:
     """
     A Player in the text advanture game.
@@ -267,11 +267,12 @@ class Player:
             if item.name == name:
                 self.inventory.remove(item)
 
-    def pickup_items(self, item: Item) -> None:
+    def pickup_items(self, item: Item, location: Location) -> None:
         """
         Pick up an item.
         """
         self.inventory.append(item)
+        location.remove_item(item)
 
     def change_score(self, points: int) -> None:
         """
@@ -342,7 +343,7 @@ class World:
         integer_nested_list = [[int(item) for item in inner_list] for inner_list in lst]
         self.map = integer_nested_list
         return self.map
-    
+
     def load_locations(self, locations_data: TextIO) -> dict[int, Location]:
         """Store location from open file location_data as the location attribute of this object, as a dictionary like so:
 
@@ -409,4 +410,3 @@ class World:
             return None
         else:
             return self.locations[loc_num]
-    
