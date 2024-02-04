@@ -25,34 +25,25 @@ from puzzles import *
 # Note: You may add helper functions, classes, etc. here as needed
 
 
-# def get_moves(p: Player, w: World) -> list[str]:
-#     """Returns the valid spots the Player can move to based on their current location.
-#     """
-#     x, y = p.x, p.y
-#     actions = []
-#
-#     if (w.get_location(x + 1, y)).location_num != -1:
-#         actions.append('go east')
-#
-#     elif (w.get_location(x, y + 1)).location_num != -1:
-#         actions.append('go south')
-#
-#     elif (w.get_location(x - 1, y)).location_num != -1:
-#         actions.append('go west')
-#
-#     elif (w.get_location(x, y - 1)).location_num != -1:
-#         actions.append('go north')
-#
-#     return actions
-
-def invalid_spot(p: Player, w: World, x: int, y: int) -> None:
-    """Moves Player back if they enter a location with location_num = -1.
+def get_moves(p: Player, w: World) -> list[str]:
+    """Returns the valid spots the Player can move to based on their current location.
     """
     x, y = p.x, p.y
-    location = w.get_location(p.x, p.y)
+    actions = []
 
-    if location.location_num == -1:
-        p.x, p.y = x, y
+    if w.get_location(x + 1, y) is not None:
+        actions.append('go east')
+
+    elif w.get_location(x, y + 1) is not None:
+        actions.append('go south')
+
+    elif w.get_location(x - 1, y) is not None:
+        actions.append('go west')
+
+    elif w.get_location(x, y - 1) is not None:
+        actions.append('go north')
+
+    return actions
 
 def locked_door(p: Player, w: World, choice: str) -> None:
     """Moves player back a step if they try to enter Bahen without a key in their inventory.

@@ -145,7 +145,7 @@ class Location:
     first_visit: bool
     available_items: Optional[list]
 
-    def __init__(self, name: str, num: int, points: int, long: str, short: str, items: Optional[list] = None) -> None:
+    def __init__(self, name : str, num : int, points : int, long : str, short : str, items : Optional[list] = None) -> None:
         """Initialize a new location.
 
         # TODO Add more details here about the initialization if needed
@@ -436,4 +436,7 @@ class World:
          return None.)
         """
         loc_num = self.map[y][x]
-        return self.locations[loc_num]
+        if loc_num == -1:
+            return None
+        else:
+            return self.locations[loc_num]
