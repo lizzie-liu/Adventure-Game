@@ -112,6 +112,7 @@ class Poster(Item):
 
     def examine_poster(self) -> None:
         """Print full description of poster"""
+        print(self.info)
 
 
 class Location:
@@ -334,7 +335,7 @@ class World:
         self.load_items(items_data)
         self.posters = {}
         self.load_posters(posters_data)
-        
+
         # NOTE: You may choose how to store location and item data; create your own World methods to handle these
         # accordingly. The only requirements:
         # 1. Make sure the Location class is used to represent each location.
