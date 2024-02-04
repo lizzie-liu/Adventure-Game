@@ -308,9 +308,8 @@ class World:
     map: list[list[int]]
     locations: dict[int, Location]
     items: dict[str, Item]
-    posters: dict[str, Poster]
 
-    def __init__(self, map_data: TextIO, location_data: TextIO, items_data: TextIO, posters_data: TextIO) -> None:
+    def __init__(self, map_data: TextIO, location_data: TextIO, items_data: TextIO) -> None:
         """
         Initialize a new World for a text adventure game, based on the data in the given open files.
 
@@ -333,8 +332,6 @@ class World:
         self.load_locations(location_data)
         self.items = {}
         self.load_items(items_data)
-        self.posters = {}
-        self.load_posters(posters_data)
 
         # NOTE: You may choose how to store location and item data; create your own World methods to handle these
         # accordingly. The only requirements:
@@ -411,26 +408,18 @@ class World:
 
         for line in items_data:
             line = line.split()
-            start_loc, target_loc, point = map(int, line[:3])
-            name = ' '.join(line[3:])
-            item = Item(name, int(start_loc), int(target_loc), int(point))
-            self.locations[int(start_loc)].add_item(item)
-            self.items[name] = item
-
-    def load_posters(self, posters_data: TextIO) -> None:
-        """Load posters"""
-        posters = []
-        for line in posters_data:
-            line = line.strip()
-            if line == "END":
-                name, info = posters
-                poster = Poster(name, info)
-                self.posters[name] = poster
-                self.locations[poster.start_position].add_item(poster)
-                posters = []
-            else:
-                posters.append(line)
-
+            if line[0] == 'i':
+                start_loc, target_loc, point = map(int, line[1:4])
+                name = ' '.join(line[4:])
+                item = Instrument(name, int(start_loc), int(target_loc), int(point))
+                self.locations[int(start_loc)].add_item(item)
+                self.items[name] = item
+            else: 
+                start_loc, target_loc, point = map(int, line[:3])
+                name = ' '.join(line[3:])
+                item = Item(name, int(start_loc), int(target_loc), int(point))
+                self.locations[int(start_loc)].add_item(item)
+                self.items[name] = item
 
     # NOTE: The method below is REQUIRED. Complete it exactly as specified.
     def get_location(self, x: int, y: int) -> Optional[Location]:
