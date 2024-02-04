@@ -141,11 +141,3 @@ def music_puzzle(p: Player) -> None:
         else:
             print('The guard cringes at your attempts to serenade him and covers his ears with his hands.')
             print('Unfortunately, you have no chance at swiping his key.')
-
-    
-def poster_puzzle(p:Player) -> None:
-    """TODO: add description"""
-    print('Which poster do you wanna examine?')
-    print('T-card Info, T-card Info, Join the Fluff Buddies Club!, Midnight Magic Coffee Recipe')
-    action = input("\nChoose one: ")
-    if action.lower() in posters:

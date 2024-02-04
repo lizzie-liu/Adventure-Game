@@ -98,6 +98,27 @@ def start_puzzle(p: Player, w: World) -> None:
                 talk_to_ta(p)
             else:
                 print('Hm, the TA will not talk to you')
+    
+    elif location.location.num == 5:
+        print('Which poster do you wanna read?')
+        print('T-card info, new rule, animal lover club, coffee recipe')
+        choice = input("\n Choose one: ")
+        if choice.lower() == 't-card info':
+            poster_info = self.items['1'].examine_poster()
+            print(poster_info)
+        elif choice.lower() == 'new rule':
+            poster_info = self.items['2'].examine_poster()
+            print(poster_info)
+
+        elif choice.lower() == 'animal lover club':
+            poster_info = self.items['3'].examine_poster()
+            print(poster_info)
+        elif choice.lower() == 'coffee recipe':
+            poster_info = self.items['4'].examine_poster()
+            print(poster_info)
+        else:
+            print('There is no such poster.')
+            choice = input("\n Choose one: ")
 
 
 

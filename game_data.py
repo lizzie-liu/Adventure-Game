@@ -110,9 +110,9 @@ class Poster(Item):
         self.info = info
         self.item_uses = ['Drop item', 'Examine poster']
 
-    def examine_poster(self) -> None:
+    def examine_poster(self) -> str:
         """Print full description of poster"""
-        print(self.info)
+        return (self.info)
 
 
 class Location:
