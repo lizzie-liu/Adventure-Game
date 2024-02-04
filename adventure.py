@@ -45,11 +45,38 @@ def get_moves(p: Player, w: World) -> list[str]:
 
     return actions
 
+def locked_door(p: Player, w: World, choice: str) -> None:
+    """Moves player back a step if they try to enter Bahen without a key in their inventory.
+    """
+    x, y = p.x, p.y
+    location = w.get_location(p.x, p.y)
+
+    if location.location_num == 3 and choice == 'Go west':
+        if not any(item.name == 'Key' for item in p.inventory):
+            print('The door wont budge... \nIt seems that you need a key to open it.')
+
+        else:
+            print('You insert the key into the lock and slowly turn the key clockwise. '
+                  '*CLICK* *CLICK*  Hooray! You can now enter Bahen :)')
+            p.move(choice)
+
 
 def check_for_tcard(p: Player) -> bool:
     """Checks if the Player has their TCard.
     """
     return any(isinstance(item, TCard) for item in p.inventory)
+
+
+def pickup_desired_item(p: Player, w: World, item: str) -> None:
+    """
+    Add the desired item to Player's inventory.
+    """
+    location = w.get_location(p.x, p.y)
+    available_items = location.available_items
+
+    for item in available_items:
+        if item.name == item:
+            p.pickup_item(item, location)
 
 
 def start_puzzle(p: Player, w: World) -> None:
@@ -59,16 +86,29 @@ def start_puzzle(p: Player, w: World) -> None:
     location = w.get_location(p.x, p.y)
 
     if location.location_num == 1:
-        #somehow print instruments available at location
+        available_instruments = location.available_items
+        print(f'Availble items: {(item.name for item in available_instruments)}')
+        print('')  # somehow print instruments available at location
+        print('Which one would you like to try playing?')
+        instrument = input("\nEnter the instrument name: ")
+
+        while instrument.capitalize() not in {'Harp', 'Ukulele', 'Harmonica'}:
+            print('You cannot do that!')
+            instrument = input("\nEnter a choice: ")
+
+        instrument = instrument.capitalize()
+
+        if any(isinstance(item, Instrument) for item in p.inventory):
+            print('Oh no! You alread have an instrument with you. '
+                  'You only have 2 hands to use to play an instrument so you really do not need anymore.')
+
+        else:
+            pickup_desired_item(p, w, instrument)
 
     elif location.location_num == 2:
-        music_puzzle(p)
+        if music_puzzle(p):
+            pickup_desired_item(p, w, 'Key')
 
-    elif location.location_num == 3:
-        if any(item.name != 'key' for item in p.inventory):
-            print('The door wont budge... \nIt seems that you need a key to open it.')
-
-        # TODO: add function in check for available moves where if no key, can't go north
 
     elif location.location_num == 10:
         if any(item.name == 'coffee' for item in p.inventory):
@@ -130,7 +170,7 @@ def start_puzzle(p: Player, w: World) -> None:
 
 
 
-def menu(p: Player, location: Location, choice: str) -> None:
+def menu_action(p: Player, choice: str) -> None:
     """
     # TODO
     """
@@ -168,6 +208,8 @@ if __name__ == "__main__":
 
         print("What to do? \n")
         moves = get_moves(p, w)
+        if
+
         print(f'menu: {menu}')
         print(f'available moves: {moves}')
         choice = input("\nEnter action: ")
@@ -179,9 +221,10 @@ if __name__ == "__main__":
         choice = choice.lower()
 
         if choice in menu:
-            menu(p, location, choice)
+            menu_action(p, choice)
 
         elif choice in moves:
+            locked_door(p, w, choice)
             p.move(choice)
 
     if p.victory:

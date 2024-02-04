@@ -5,7 +5,7 @@ from game_data import Player, Item, Instrument, TCard
 from adventure import check_for_tcard
 
 
-def music_puzzle(p: Player) -> None:
+def music_puzzle(p: Player) -> bool:
     """
     # TODO: add description
     """
@@ -19,23 +19,31 @@ def music_puzzle(p: Player) -> None:
         print('Hm, it looks like you cannot do that.')
         action = input("\nEnter action: ")
 
-    if action.lower() == 'play an insrument':
-        instrument = [item for item in p.inventory if isinstance(item, Instrument)]
-        if len(instrument) != 0:
-            instrument[0].play_instrument()
+    if action.lower() == 'leave':
+        p.x, p.y = 3, 9
 
-        else:
-            print('Uh oh, you dont have any instruments in your bag!')
+    elif action.lower() == 'play an instrument' and not any(isinstance(item, Instrument) for item in p.inventory):
+        print('Uh oh, you dont have any instruments in your bag!')
+        print('You should go find one.')
 
-        if instrument[0].name == 'Harp':
-            print('The guard starts to get sleepier, and slowly his eyes close and he begins to snore. '
-                  '\nYou grab the shiny key from his belt and slip it into your pocket.')
-            key = Item('Key', 2, 3, 5)
-            p.inventory.append(key)
+    elif action.lower() == 'play an instrument':
+        for item in p.inventory:
+            if isinstance(item, Instrument):
+                item.play_instrument()
 
-        else:
-            print('The guard cringes at your attempts to serenade him and covers his ears with his hands.')
-            print('Unfortunately, you have no chance at swiping his key.')
+        if check_for_harp(p):
+            return True
+
+    return False
+
+def check_for_harp(p: Player) -> bool:
+    """Checks if Player has the Harp in their inventory.
+    """
+    for item in p.inventory:
+        if item.name == 'Harp':
+            return True
+
+    return False
 
 
 def talk_to_ta(p: Player) -> None:

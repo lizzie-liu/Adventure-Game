@@ -99,6 +99,7 @@ class Coffee(Item):
 
         self.item_uses = ['Drop item', 'Give to TA']
 
+
 class Poster(Item):
     """#TODO:"""
 
@@ -112,7 +113,7 @@ class Poster(Item):
 
     def examine_poster(self) -> str:
         """Print full description of poster"""
-        return (self.info)
+        return self.info
 
 
 class Location:
@@ -282,7 +283,7 @@ class Player:
             if item.name == name:
                 self.inventory.remove(item)
 
-    def pickup_items(self, item: Item, location: Location) -> None:
+    def pickup_item(self, item: Item, location: Location) -> None:
         """
         Pick up an item.
         """
