@@ -426,6 +426,7 @@ class World:
                 name, info = posters
                 poster = Poster(name, info)
                 self.posters[name] = poster
+                self.locations[poster.start_position].add_item(poster)
                 posters = []
             else:
                 posters.append(line)
