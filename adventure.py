@@ -282,16 +282,15 @@ if __name__ == "__main__":
         location.first_visit = False
 
         start_puzzle(p, w)
-
-        print("What to do? \n")
         moves = get_moves(p, w)
 
+        print("What to do? \n")
         print(f'menu: {menu}')
         print(f'available moves: {moves}')
         choice = input("\nEnter action: ")
         move_count += 1
 
-        while choice.lower() not in (menu or moves):
+        while choice.lower() not in menu and choice.lower() not in moves:
             print('Uh oh, you cannot do that!')
             choice = input("\nEnter action: ")
             move_count += 1
