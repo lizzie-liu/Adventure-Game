@@ -221,7 +221,7 @@ def menu_action(p: Player, choice: str) -> None:
         print(f'{location.location_name} \n {location.long_descrip}')
 
     elif choice == 'inventory':
-        use_inventory_item(p)
+        print(f'Inventory: {[item.name for item in p.inventory]}')
 
     elif choice == 'score':
         # TODO NEED TO MAKE SCORE FNCC!!
@@ -231,51 +231,37 @@ def menu_action(p: Player, choice: str) -> None:
         p.victory = True
 
 
-def use_inventory_item(p: Player) -> None:
-    """Allow Player to use item they select from their inventory.
-    """
-    print(f'Inventory: {[item.name for item in p.inventory]}')
-    name = input("\nEnter name of the item to use it or 'none': ")
-
-    while name.capitalize() not in {item.name for item in p.inventory}:
-        print('You do not have that in your bag!')
-        name = input("\nEnter name of the item to use it or 'none': ")
-
-    name = name.capitalize()
-
-    for item in p.inventory:
-        if item.name == name:
-            item_uses = item.item_uses
-            print(f'{name} uses: {item_uses}')
-
-            print('What would you like to do?')
-            action = input("\nEnter an action or 'none' to do nothing: ")
-
-            action = action.lower()
-
-            if action in item_uses:
-                # i have no idea how to do this part
-                carry_out_item_action(item, action)
-
-            elif action == 'none':
-                print('You did not use the item.')
-
-            else:
-                print('You cannot do that!')
-
-
-
-def carry_out_item_action(p: Player, item: Item, action: str) -> None:
-    """Carry out the action the Player wants to do with the item.
-    """
-    location = w.get_location(p.x, p.y)
-
-    if action == 'drop item':
-        p.drop_item(item.name, location)
-
-
-
-
+# def use_inventory_item(p: Player) -> None:
+#     """Allow Player to use item they select from their inventory.
+#     """
+#     print(f'Inventory: {[item.name for item in p.inventory]}')
+#     name = input("\nEnter name of the item to use it or 'none': ")
+#
+#     while name.capitalize() not in {item.name for item in p.inventory}:
+#         print('You do not have that in your bag!')
+#         name = input("\nEnter name of the item to use it or 'none': ")
+#
+#     name = name.capitalize()
+#
+#     for item in p.inventory:
+#         if item.name == name:
+#             item_uses = item.item_uses
+#             print(f'{name} uses: {item_uses}')
+#
+#             print('What would you like to do?')
+#             action = input("\nEnter an action or 'none' to do nothing: ")
+#
+#             action = action.lower()
+#
+#             if action in item_uses:
+#                 # i have no idea how to do this part
+#                 carry_out_item_action(item, action)
+#
+#             elif action == 'none':
+#                 print('You did not use the item.')
+#
+#             else:
+#                 print('You cannot do that!')
 
 
 # Note: You may modify the code below as needed; the following starter template are just suggestions

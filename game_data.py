@@ -264,13 +264,13 @@ class Player:
         """
         Moves the Player across the map by updating the Player's x and y coordinates.
         """
-        if direction == 'Go north':
+        if direction == 'go north':
             self.x += 1
-        elif direction == 'Go east':
+        elif direction == 'go east':
             self.y += 1
-        elif direction == 'Go south':
+        elif direction == 'go south':
             self.x -= 1
-        elif direction == 'Go west':
+        elif direction == 'go west':
             self.y -= 1
 
     def drop_item(self, name: str, location: Location) -> None:
