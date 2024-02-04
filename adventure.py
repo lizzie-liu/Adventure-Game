@@ -32,16 +32,16 @@ def get_moves(p: Player, w: World) -> list[str]:
     actions = []
 
     if (w.get_location(x + 1, y)).location_num != -1:
-        actions.append('Go east')
+        actions.append('go east')
 
     elif (w.get_location(x, y + 1)).location_num != -1:
-        actions.append('Go south')
+        actions.append('go south')
 
     elif (w.get_location(x - 1, y)).location_num != -1:
-        actions.append('Go west')
+        actions.append('go west')
 
     elif (w.get_location(x, y - 1)).location_num != -1:
-        actions.append('Go north')
+        actions.append('go north')
 
     return actions
 
@@ -51,7 +51,7 @@ def locked_door(p: Player, w: World, choice: str) -> None:
     x, y = p.x, p.y
     location = w.get_location(p.x, p.y)
 
-    if location.location_num == 3 and choice == 'Go west':
+    if location.location_num == 3 and choice == 'go west':
         if not any(item.name == 'Key' for item in p.inventory):
             print('The door wont budge... \nIt seems that you need a key to open it.')
 
@@ -60,6 +60,21 @@ def locked_door(p: Player, w: World, choice: str) -> None:
                   '*CLICK* *CLICK*  Hooray! You can now enter Bahen :)')
             p.move(choice)
 
+
+def locked_lab(p: Player, w: World, choice: str) -> None:
+    """Moves player back a step if they try to enter Bahen without a key in their inventory.
+    """
+    x, y = p.x, p.y
+    location = w.get_location(p.x, p.y)
+
+    if location.location_num == 6 and choice == 'go south':
+        if not check_for_harp(p):
+            print('The door wont budge... \nIt seems that you need your T-Card to open it.')
+
+        else:
+            print('You swipe your T-Card in the scanner. '
+                  '*BEEP* *BEEP*  Hooray! You can now enter the CS Lab :)')
+            p.move(choice)
 
 def check_for_tcard(p: Player) -> bool:
     """Checks if the Player has their TCard.
@@ -164,10 +179,10 @@ def start_puzzle(p: Player, w: World) -> None:
             print('There is no such poster.')
             choice = input("\n Choose one: ")
 
-
-    elif location.location_num ==
-
-
+    elif location.location_num == 11:
+        print('You finally have your T-Card!')
+        if location.first_visit:
+            pickup_desired_item(p, w, 'T-Card')
 
 def menu_action(p: Player, choice: str) -> None:
     """
@@ -239,6 +254,11 @@ def get_item_use(item: Item) -> str:
             print('What would you like to do?')
             action = input("\nEnter an action or None to do nothing: ")
 
+            if action.capitalize() in item_uses:
+                item.
+
+
+
 
 
 # Note: You may modify the code below as needed; the following starter template are just suggestions
@@ -257,15 +277,16 @@ if __name__ == "__main__":
         location.print_description()
         location.first_visit = False
 
+        start_puzzle(p, w)
+
         print("What to do? \n")
         moves = get_moves(p, w)
-        if
 
         print(f'menu: {menu}')
         print(f'available moves: {moves}')
         choice = input("\nEnter action: ")
 
-        while choice.lower() not in (menu or moves):
+        while choice.capitalize() not in (menu or moves):
             print('Uh oh, you cannot do that!')
             choice = input("\nEnter action: ")
 
@@ -276,6 +297,7 @@ if __name__ == "__main__":
 
         elif choice in moves:
             locked_door(p, w, choice)
+            locked_lab(p, w, choice)
             p.move(choice)
 
     if p.victory:
