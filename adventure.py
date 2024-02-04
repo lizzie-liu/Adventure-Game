@@ -98,11 +98,16 @@ def start_puzzle(p: Player, w: World) -> None:
                 talk_to_ta(p)
             else:
                 print('Hm, the TA will not talk to you')
-    
-    elif location.location.num == 5:
+
+    elif location.location_num == 5:
         print('Which poster do you wanna read?')
         print('T-card info, new rule, animal lover club, coffee recipe')
         choice = input("\n Choose one: ")
+
+        while choice not in {'T-card info', 'new rule', 'animal lover club', 'coffee recipe'}:
+            print('Uh oh, that is not an option!')
+            choice = input("\n Choose one: ")
+
         if choice.lower() == 't-card info':
             poster_info = self.items['1'].examine_poster()
             print(poster_info)
@@ -119,6 +124,9 @@ def start_puzzle(p: Player, w: World) -> None:
         else:
             print('There is no such poster.')
             choice = input("\n Choose one: ")
+
+
+    elif location.location_num ==
 
 
 
@@ -139,7 +147,6 @@ def menu(p: Player, location: Location, choice: str) -> None:
         print(p.score)
 
     elif choice == 'quit':
-        print('GAME OVER')
         p.victory = True
 
 
@@ -178,7 +185,8 @@ if __name__ == "__main__":
             p.move(choice)
 
     if p.victory:
-
+        print('GAME OVER')
+        print()  # TODO Print Player's score!!!!!!!!!!!!!
 
 
 

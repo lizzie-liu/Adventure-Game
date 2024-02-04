@@ -101,7 +101,7 @@ class Coffee(Item):
 
 class Poster(Item):
     """#TODO:"""
-    
+
     def __init__(self, name: str, info: str) -> None:
         start = 5
         target = 5
@@ -309,7 +309,7 @@ class World:
     locations: dict[int, Location]
     items: dict[str, Item]
 
-    def __init__(self, map_data: TextIO, location_data: TextIO, items_data: TextIO) -> None:
+    def __init__(self, map_data: TextIO, location_data: TextIO, items_data: TextIO, poster_data: TextIO) -> None:
         """
         Initialize a new World for a text adventure game, based on the data in the given open files.
 
@@ -420,7 +420,7 @@ class World:
                 item = Poster(name, info)
                 self.locations[5].add_item(item)
                 self.items[name] = item
-            else: 
+            else:
                 start_loc, target_loc, point = map(int, line[:3])
                 name = ' '.join(line[3:])
                 item = Item(name, int(start_loc), int(target_loc), int(point))
