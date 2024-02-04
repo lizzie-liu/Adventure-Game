@@ -140,7 +140,6 @@ def start_puzzle(p: Player, w: World) -> None:
         if music_puzzle(p):
             pickup_desired_item(p, w, 'Key')
 
-
     elif location.location_num == 10:
         if any(item.name == 'coffee' for item in p.inventory):
             print('Oh no! You already have a cup of coffee. You really dont need that much coffee...')
@@ -171,30 +170,35 @@ def start_puzzle(p: Player, w: World) -> None:
                 print('Hm, the TA will not talk to you')
 
     elif location.location_num == 5:
+        available_posters = location.available_items
         print('Which poster do you wanna read?')
         print('T-card info, new rule, animal lover club, coffee recipe')
         choice = input("\n Choose one: ")
 
-        while choice not in {'T-card info', 'new rule', 'animal lover club', 'coffee recipe'}:
-            print('Uh oh, that is not an option!')
-            choice = input("\n Choose one: ")
-
-        if choice.lower() == 't-card info':
-            poster_info = self.items['1'].examine_poster()
-            print(poster_info)
-        elif choice.lower() == 'new rule':
-            poster_info = self.items['2'].examine_poster()
-            print(poster_info)
-
-        elif choice.lower() == 'animal lover club':
-            poster_info = self.items['3'].examine_poster()
-            print(poster_info)
-        elif choice.lower() == 'coffee recipe':
-            poster_info = self.items['4'].examine_poster()
-            print(poster_info)
-        else:
+        while choice not in {}:
             print('There is no such poster.')
             choice = input("\n Choose one: ")
+
+        for item in available_posters:
+            if item.name == choice.lower():
+                print(item.examine_poster())
+
+        # if choice.lower() == 't-card info':
+        #     poster_info = self.items['1'].examine_poster()
+        #     print(poster_info)
+        # elif choice.lower() == 'new rule':
+        #     poster_info = self.items['2'].examine_poster()
+        #     print(poster_info)
+        #
+        # elif choice.lower() == 'animal lover club':
+        #     poster_info = self.items['3'].examine_poster()
+        #     print(poster_info)
+        # elif choice.lower() == 'coffee recipe':
+        #     poster_info = self.items['4'].examine_poster()
+        #     print(poster_info)
+        # else:
+        #     print('There is no such poster.')
+        #     choice = input("\n Choose one: ")
 
     elif location.location_num == 11:
         print('You finally have your T-Card!')
