@@ -1,88 +1,90 @@
+-1
 LOCATION -1
 0
 That way is blocked.
 That way is blocked.
 END
-
-LOCATION 0
+0
+IN FRONT OF BAHEN
 0
 You are facing West, right outside the front steps of the Bahen Centre for Information Technology. There is a guard to the North and a table with instruments to the South.
 You are facing West, right outside the front steps of the Bahen Centre for Information Technology. It's usually crowded during day, but at 4 am, it's eerily quiet. A guard is standing next to the Bahen sign to the North, looking bored and sleepy. To the South, there's a table with some instruments the Music Club left behind after their club demonstration.
 END
-
-LOCATION 1
+1
+MUSIC CLUB TABLE
 0
-A light brown ukulele, a gold harmonica, and a red wood harp sits on the table.
-You are standing in front of a folding table that the Music Club used earlier today to showcase some instruments in an attempt to recruit some Computer Science students. On the far left of the table, there is a light brown ukulele. To the right, there is a red wood harp. In the middle, there is a golden harmonica. You've never touched an instrument in your life, and you wonder, what if I try one out now? The security guard would make a perfect audience.
+A light brown ukulele, a gold harmonica, and a redwood harp sit on the table.
+You are standing in front of a folding table that the Music Club used earlier today to showcase some instruments in an attempt to recruit some Computer Science students. On the far left of the table, there is a light brown ukulele. To the right, there is a redwood harp. In the middle, there is a golden harmonica. You've never touched an instrument in your life, and you wonder, what if I try one out now? The security guard would make a perfect audience.
 END
-
-LOCATION 2
+2
+SECURITY GUARD
 0
 A frowning security guard towers over you.
 A frowning security guard towers over you. You see a shiny silver key dangling from his belt. It looks like the key that would open a door to a building.
 END
-
-LOCATION 3
+3
+BAHEN DOORS
 3
 You are facing West, right in front of the doors into Bahen. The bottom of the stairs is to the East.
 You painstakingly hike up the front steps to the main door into Bahen. During the day, you could easily pull on the handles to swing open the door. But unfortunately, it's not the day. It's 4 am, and the doors won't budge unless you open it with a key. You could go back down the stairs to the East.
 END
-
-LOCATION 4
+4
+MAIN LOBBY
 0
-You are standing in the main lobby to Bahen. A giant pillar with posters stands to the North. A set of stairs sits to the West. The door exiting the building is behind you, to the East.
-As you push open the doors, you endter the main lobby to Bahen. A giant pillar cluttered with posters towers over you to the North. A steep set of stairs to the West leads up to the second floor. The door exiting the building is behind you, to the East.
+You are standing in the main lobby of Bahen. A giant pillar with posters stands to the North. A set of stairs sits to the West. The door exiting the building is behind you, to the East.
+As you push open the doors, you enter the main lobby to Bahen. A giant pillar cluttered with posters towers over you to the North. A steep set of stairs to the West leads up to the second floor. The door exiting the building is behind you, to the East.
 END
-
-LOCATION 5
+5
+POSTER PILLAR
 0
-There's 4 posters stuck on the pillar in front you.
-The pillar before you has 4 posters clumsily stuck onto it. The first poster has a long set of instructions on how to make the perfect cup of coffee for pulling all-nighters. The second poster has no colour ans has some description about a new rule. The third poster is extremely colourful and filled with drawings of puppies and parrots. The fourth poster has a list of names. You're eyesight is bad (probably from staring at code all day), and you need to walk closer to read the posters in detail.
+There are 4 posters stuck on the pillar in front of you.
+The pillar before you has 4 posters clumsily stuck onto it. The first poster has a long set of instructions on how to make the perfect cup of coffee for pulling all-nighters. The second poster has no color and has some description about a new rule. The third poster is extremely colorful and filled with drawings of puppies and parrots. The fourth poster has a list of names. Your eyesight is bad (probably from staring at code all day), and you need to walk closer to read the posters in detail.
 END
-
-LOCATION 6
+6
+STAIRS 1
 0
 You are on another steep set of stairs. To the West, the stairs continue up. To the South, you see a CS lab.
-You are climbing yet another set of stairs. Fortunately, they aren't crowded as this hour. As you look up, to the West, you see more stairs. They seem to never end. The architects for the buildings must have none that this is the only way for CS students to get their daily exercise. As you look South, you see a room. On the door, you see the numbers 2230 printed on it. Behind you, to the East, is the main lobby.
+You are climbing yet another set of stairs. Fortunately, they aren't crowded at this hour. As you look up, to the West, you see more stairs. They seem to never end. The architects for the buildings must have none that this is the only way for CS students to get their daily exercise. As you look South, you see a room. On the door, you see the number 2230 printed on it. Behind you, to the East, is the main lobby.
 END
-
-LOCATION 7
+7
+CS LAB
 5
 You are standing in the CS lab.
-The CS lab is completely empty. Your only company are rows of tables with desktops. You imagine this is what your future company will look like anyways. Or at least, you hope. You wouldn't want to be jobless in the future. As you turn your head to the left, you see the table you were using earlier when you were writing with your Lucky Exam Pen.
+The CS lab is completely empty. Your only company is rows of tables with desktops. You imagine this is what your future company will look like anyway. Or at least, you hope. You wouldn't want to be jobless in the future. As you turn your head to the left, you see the table you were using earlier when you were writing with your Lucky Exam Pen.
 END
-
-LOCATION 8
+8
+STAIRS 2
 0
 You are on more stairs. The top of the stairs is to the West. The bottom is to the East.
-You are hiking up more stairs. You can feel you legs crying out for help. Thankfully, as you turn to face West, you see the end of the stairs ahead of you. You never want to go back down East.
+You are hiking up more stairs. You can feel your legs crying out for help. Thankfully, as you turn to face West, you see the end of the stairs ahead of you. You never want to go back down East.
 END
-
-LOCATION 9
+9
+HALLWAY
 0
-You are standing in a hallway. To the North sits the Math Library. A tired TA is sitting in the office to the West. To the South is the coffee scented room. The stairs going back down lie to the East.
-You are standing in a dimly lit hallway. It's so quiet, you could hear a pin drop. You glance behind you to the East, and see the stairs you never want to climb back down again. You smell the scent of coffee drifting out from the room to the South. You turn your head West and notice one of the CS TA's sitting at a desk inside a room. The TA looks extremely tired as they scribble away on their iPad. As you turn again, you see the Math Library to the North.
+You are standing in a hallway. To the North sits the Math Library. A tired TA is sitting in the office to the West. To the South is the coffee-scented room. The stairs going back down lie to the East.
+You are standing in a dimly lit hallway. It's so quiet, you could hear a pin drop. You glance behind you to the East, and see the stairs you never want to climb back down again. You smell the scent of coffee drifting out from the room to the South. You turn your head West and notice one of the CS TAs sitting at a desk inside a room. The TA looks extremely tired as they scribble away on their iPad. As you turn again, you see the Math Library to the North.
 END
-
-LOCATION 10
+10
+COFFEE ROOM
 0
 You are standing in a small room. The counter has items that you can use to make a cup of coffee.
 You are standing in a small room, and the scent of coffee swirls around you. In front of you is a long counter that has a rack with 3 mugs, a coffee dispenser, and some condiments that one could add to their coffee. Should you walk closer to check it out?
 END
-
-LOCATION 11
+11
+LIBRARY
 5
 You are standing in the empty library.
 You are standing in the empty library. It's usually quiet in here, but at this hour, it's even more quiet. You resist the urge to scream since the grumpy librarian isn't here for once. You spot the cubicle you were using earlier.
 END
-
-LOCATION 12
+12
+TA OFFICE
 5
 You are standing beside the tired TA. Your clear plastic bag is to the West. The hallway is behind you, to the East.
 You are standing beside the tired TA. The TA looks like he hasn't slept in days. You want to approach the TA to ask him about the cheat sheet you made earlier while you were in this room. But then you remember something about a new rule. Ahead of you on a small table to the West, you spot the clear plastic bag you had prepared earlier to put your exam items in. The hallway is behind you, to the East.
 END
-
-LOCATION 13
+13
+TELEPORT TO EXAM CENTRE
 5
+You see the clear plastic bag you prepared earlier to put your T-card, Lucky Exam Pen, and Cheat Sheet into.
 You see the clear plastic bag you prepared earlier to put your T-card, Lucky Exam Pen, and Cheat Sheet into.
 END
