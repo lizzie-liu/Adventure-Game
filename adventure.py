@@ -320,7 +320,7 @@ if __name__ == "__main__":
     menu = ["look", "inventory", "score", "quit"]
     move_count = 0
 
-    while not p.victory and move_count <= 600:
+    while not p.victory and move_count <= 60:
         location = w.get_location(p.x, p.y)
 
         # TODO: ENTER CODE HERE TO PRINT LOCATION DESCRIPTION
