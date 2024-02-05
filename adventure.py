@@ -19,7 +19,7 @@ This file is Copyright (c) 2024 CSC111 Teaching Team
 """
 
 # Note: You may add in other import statements here as needed
-from game_data import World, Item, Instrument, TCard, Location, Player
+from game_data import World, Item, Instrument, Poster, TCard, Location, Player
 from puzzles import *
 
 # Note: You may add helper functions, classes, etc. here as needed
@@ -229,9 +229,12 @@ def start_puzzle(p: Player, w: World) -> None:
         #     choice = input("\n Choose one: ")
 
     elif location.location_num == 11:
-        if location.first_visit:
+        available_items = [item.name for item in location.available_items]
+
+        if 'T-Card' in available_items:
             pickup_desired_item(p, w, 'T-Card')
             print('You finally have your T-Card!')
+
 
     elif location.location_num == 13:
         if check_for_exam_items(p):
