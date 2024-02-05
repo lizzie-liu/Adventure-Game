@@ -48,10 +48,6 @@ def get_moves(p: Player, w: World) -> list[str]:
         if locked_door(p):
             actions.remove('go west')
 
-    if w.get_location(x, y).location_num == 3:
-        if locked_door(p):
-            actions.remove('go west')
-
     if w.get_location(x, y).location_num == 6:
         if locked_door(p):
             actions.remove('go south')
