@@ -138,8 +138,11 @@ def start_puzzle(p: Player, w: World) -> None:
             pickup_desired_item(p, w, pick_instrument(p, w))
 
     elif location.location_num == 2:
-        if music_puzzle(p):
-            pickup_desired_item(p, w, 'Key')
+        if not any(item.name == 'Key' for item in p.inventory):
+            if music_puzzle(p):
+                pickup_desired_item(p, w, 'Key')
+        else:
+            print('You already took the key from the guard. You should leave the poor guy alone')
 
     elif location.location_num == 10:
         if any(item.name == 'Coffee' for item in p.inventory):
