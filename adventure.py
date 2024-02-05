@@ -279,32 +279,34 @@ if __name__ == "__main__":
         # TODO: ENTER CODE HERE TO PRINT LOCATION DESCRIPTION
         # Depending on whether or not it's been visited before,
         # print either full description (first time visit) or brief description (every subsequent visit)
-        location.print_description()
-        location.first_visit = False
+        if location.first_visit is True:
+            location.print_description()
+            location.first_visit = False
+        else:
+            start_puzzle(p, w)
+            moves = get_moves(p, w)
 
-        start_puzzle(p, w)
-        moves = get_moves(p, w)
-
-        print("What to do? \n")
-        print(f'menu: {menu}')
-        print(f'available moves: {moves}')
-        choice = input("\nEnter action: ")
-        move_count += 1
-
-        while choice.lower() not in menu and choice.lower() not in moves:
-            print('Uh oh, you cannot do that!')
+            print("What to do? \n")
+            print(f'menu: {menu}')
+            print(f'available moves: {moves}')
             choice = input("\nEnter action: ")
             move_count += 1
 
-        choice = choice.lower()
+            while choice.lower() not in menu and choice.lower() not in moves:
+                print('Uh oh, you cannot do that!')
+                choice = input("\nEnter action: ")
+                move_count += 1
 
-        if choice in menu:
-            menu_action(p, choice)
+            choice = choice.lower()
 
-        elif choice in moves:
-            locked_door(p, w, choice)
-            locked_lab(p, w, choice)
-            p.move(choice)
+            if choice in menu:
+                menu_action(p, choice)
+
+            elif choice in moves:
+                locked_door(p, w, choice)
+                locked_lab(p, w, choice)
+                p.move(choice)
+
 
     if p.victory:
         print('GAME OVER')
