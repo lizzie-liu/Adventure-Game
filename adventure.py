@@ -177,7 +177,7 @@ def start_puzzle(p: Player, w: World) -> None:
         print('T-card info, new rule, animal lover club, coffee recipe')
         choice = input("\n Choose one: ")
 
-        while choice not in {}:
+        while choice.lower() not in {'t-card info', 'new rule', 'animal lover club', 'coffee recipe'}:
             print('There is no such poster.')
             choice = input("\n Choose one: ")
 
