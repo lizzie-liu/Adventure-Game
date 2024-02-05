@@ -204,21 +204,14 @@ def start_puzzle(p: Player, w: World) -> None:
     elif location.location_num == 5:
         available_posters = location.available_items
         print('Which poster do you wanna read?')
-        print('T-card info, new rule, animal lover club, coffee recipe')
+        print('1, 2, 3, 4')
         choice = input("\n Choose one: ")
 
-        while choice.lower() not in {'t-card info', 'new rule', 'animal lover club', 'coffee recipe'}:
+        while choice not in ['1','2','3','4']:
             print('There is no such poster.')
             choice = input("\n Choose one: ")
 
-        if choice.lower() == 't-card info':
-            print(w.items['1'].examine_poster())
-        elif choice.lower() == 'new rule':
-            print(w.items['2'].examine_poster())
-        elif choice.lower() == 'animal lover club':
-            print(w.items['3'].examine_poster())
-        else:
-            print(w.items['4'].examine_poster())
+        print(w.items[choice].examine_poster())
 
     elif location.location_num == 11:
         available_items = [item.name for item in location.available_items]

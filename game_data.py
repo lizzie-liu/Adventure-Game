@@ -224,25 +224,14 @@ class Location:
         """Remove item from location."""
         self.available_items.remove(item)
 
-    def examine_item(self, item_name: str):
-        """examine poster"""
-        lst = ['t-card info', 'new rule', 'animal lover club', 'coffee recipe']
-        if item_name in lst:
-            for item in self.available_items:
-                if item_name == 't-card info':
-                    if item.name == '1':
-                        print(f"You examine the {item_name}. {item.info}")
-                elif item_name == 'new rule':
-                    if item.name == '2':
-                        print(f"You examine the {item_name}. {item.info}")
-                elif item_name == 'animal lover club':
-                    if item.name == '3':
-                        print(f"You examine the {item_name}. {item.info}")
-                elif item_name == 'coffee recipe':
-                    if item.name == '4':
-                        print(f"You examine the {item_name}. {item.info}")
-        else:
-            print(f"There is no {item_name} here to examine.")
+    def examine_item(self, item_name):
+        """ examine poster"""
+        for item in self.available_items:
+            if item.name == item_name:
+                print(f"You examine the {item_name}. {item.info}")
+                return
+        print(f"There is no {item_name} here to examine.")
+
 
 class Player:
     """
@@ -315,11 +304,13 @@ class Player:
     def pick_up(self, item_name: str, location: Location):
         """Pick up an item"""
         for item in location.available_items:
-            if item_name.lower() == item.name.lower():
+            if item_name == item.name:
+                print(f"Picked up {item_name}.")
                 self.inventory.append(item)
                 location.remove_item(item)
-            else:
-                print(f"There's no {item_name} in here .")
+                return
+
+        print("\nThere's no such thing here.")
 
     def change_score(self, points: int) -> None:
         """
