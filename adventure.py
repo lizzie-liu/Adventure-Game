@@ -235,6 +235,12 @@ def start_puzzle(p: Player, w: World) -> None:
             pickup_desired_item(p, w, 'T-Card')
             print('You finally have your T-Card!')
 
+    elif location.location_num == 7:
+        available_items = [item.name for item in location.available_items]
+
+        if 'T-Card' in available_items:
+            pickup_desired_item(p, w, 'Lucky Exam Pen')
+            print('You finally have your Lucky Exam Pen!')
 
     elif location.location_num == 13:
         if check_for_exam_items(p):
