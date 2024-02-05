@@ -202,15 +202,14 @@ def start_puzzle(p: Player, w: World) -> None:
             print('There is no such poster.')
             choice = input("\n Choose one: ")
 
-        for item in available_posters:
-            if choice.lower() == 't-card info':
-                print(item.examine_poster())
-            elif choice.lower() == 'new rule':
-                print(item.examine_poster())
-            elif choice.lower() == 'animal lover club':
-                print(item.examine_poster())
-            else:
-                print(item.examine_poster())
+        if choice.lower() == 't-card info':
+            print(w.items['1'].examine_poster())
+        elif choice.lower() == 'new rule':
+            print(w.items['2'].examine_poster())
+        elif choice.lower() == 'animal lover club':
+            print(w.items['3'].examine_poster())
+        else:
+            print(w.items['4'].examine_poster())
 
         # if choice.lower() == 't-card info':
         #     poster_info = self.items['1'].examine_poster()
@@ -297,7 +296,7 @@ def menu_action(p: Player, choice: str) -> None:
 
 # Note: You may modify the code below as needed; the following starter template are just suggestions
 if __name__ == "__main__":
-    w = World(open("map.txt"), open("locations.txt"), open("items.txt"), open("posters.txt"))
+    w = World(open("map.txt"), open("locations.txt"), open("items.txt"))
     p = Player(2, 8)  # set starting location of player; you may change the x, y coordinates here as appropriate
 
     menu = ["look", "inventory", "score", "quit"]
@@ -332,6 +331,9 @@ if __name__ == "__main__":
 
             elif choice in moves:
                 p.move(choice)
+                loc = w.get_location(p.x,p.y)
+                if loc.first_visit is False:
+                    print(loc.short_descrip)
 
 
     if p.victory:
