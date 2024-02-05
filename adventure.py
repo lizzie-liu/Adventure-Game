@@ -354,7 +354,6 @@ if __name__ == "__main__":
         print('GAME OVER')
         print(f'SCORE: {p.score}')
 
-
     if p.victory:
         print('GAME OVER')
         print(f'SCORE: {p.score}')
