@@ -103,6 +103,12 @@ def check_for_tcard(p: Player) -> bool:
     return any(item.name == 'T-Card' for item in p.inventory)
 
 
+def check_for_cheat_sheet(p: Player) -> bool:
+    """
+    Checks if the Player has their Lucky Exam Pen.
+    """
+    return any(item.name == 'Lucky Exam Pen' for item in p.inventory)
+
 def check_for_exam_items(p: Player) -> bool:
     """
     Checks if the Player has all the items they need for the exam (T-Card, Lucky Exam Pen, Cheat Sheet)
@@ -182,15 +188,16 @@ def start_puzzle(p: Player, w: World) -> None:
             make_coffee(p)
 
     elif location.location_num == 12:
-        print('Do you want to approach the TA?')
-        choice = input("\nEnter yes or no: ")
-
-        while choice.lower() not in {'yes', 'no'}:
+        if not check_for_cheat_sheet(p):
+            print('Do you want to approach the TA?')
             choice = input("\nEnter yes or no: ")
 
-        if choice.lower() == 'yes':
-            if talk_to_ta(p, w):
-                pickup_desired_item(p, w, 'Cheat Sheet')
+            while choice.lower() not in {'yes', 'no'}:
+                choice = input("\nEnter yes or no: ")
+
+            if choice.lower() == 'yes':
+                if talk_to_ta(p, w):
+                    pickup_desired_item(p, w, 'Cheat Sheet')
 
     elif location.location_num == 5:
         available_posters = location.available_items
