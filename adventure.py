@@ -231,6 +231,8 @@ def start_puzzle(p: Player, w: World) -> None:
 
         print(w.items[choice].examine_poster())
 
+        print('Enter examine to view another.')
+
     elif location.location_num == 11:
         available_items = [item.name for item in location.available_items]
 
@@ -348,7 +350,7 @@ if __name__ == "__main__":
                 p.drop_item(item_name, location)
 
             elif choice == "examine":
-                item_name = input("Enter the name of the poster to examine: ")
+                item_name = input("Enter the number of the poster to examine: ")
                 location.examine_item(item_name)
 
             elif choice == 'pick up':
