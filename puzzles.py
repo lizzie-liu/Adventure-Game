@@ -165,9 +165,9 @@ def make_coffee(p: Player) -> None:
     print('And voila! You now have a pipiing hot mug of coffee :)')
 
     if [colour, container, packet] == ['pink', 'skimmed milk', 'honey']:
-        coffee = Item('perfect coffee', 10, 12, 5)
+        coffee = Item('Perfect coffee', 10, 12, 5)
     else:
-        coffee = Item('coffee', 10, 12, 0)
+        coffee = Item('Coffee', 10, 12, 0)
 
     print('Do you want to bring this with you?: ')
     choice = input("\nEnter yes or no: ")
@@ -176,5 +176,4 @@ def make_coffee(p: Player) -> None:
         choice = input("\nEnter yes or no: ")
 
     if choice.lower() == 'yes':
-        if all(item.name != 'coffee' for item in p.inventory):
-            p.inventory.append(coffee)
+        p.inventory.append(coffee)

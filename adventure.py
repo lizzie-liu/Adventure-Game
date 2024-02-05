@@ -174,7 +174,7 @@ def start_puzzle(p: Player, w: World) -> None:
             print('You already took the key from the guard. You should leave the poor guy alone')
 
     elif location.location_num == 10:
-        if any((item.name == 'coffee' or item.name == 'perfect coffee')for item in p.inventory):
+        if any(item.name == 'Coffee' for item in p.inventory):
             print('Oh no! You already have a cup of coffee. You really dont need that much coffee...')
             print('Do you want to discard your other cup?')
             choice = input("\nEnter yes or no: ")
@@ -183,7 +183,25 @@ def start_puzzle(p: Player, w: World) -> None:
                 choice = input("\nEnter yes or no: ")
 
             if choice.lower() == 'yes':
-                p.drop_item('coffee', location)
+                for item in p.inventory:
+                    if item.name == 'Coffee':
+                        p.drop_item('Coffee', location)
+                        location.remove_item(item)
+                make_coffee(p)
+
+        elif any(item.name == 'Perfect coffee' for item in p.inventory):
+            print('Oh no! You already have a cup of coffee. You really dont need that much coffee...')
+            print('Do you want to discard your other cup?')
+            choice = input("\nEnter yes or no: ")
+
+            while choice.lower() not in {'yes', 'no'}:
+                choice = input("\nEnter yes or no: ")
+
+            if choice.lower() == 'yes':
+                for item in p.inventory:
+                    if item.name == 'Perfect coffee':
+                        p.drop_item('Perfect coffee', location)
+                        location.remove_item(item)
                 make_coffee(p)
 
         else:

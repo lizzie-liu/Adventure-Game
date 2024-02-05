@@ -63,6 +63,8 @@ class Item:
 
 
 class TCard(Item):
+    """A child class of the Item class that represents the Player's T--Card in our text adventure game world.
+    """
     def __init__(self, name: str, start: int, target: int, target_points: int) -> None:
         super().__init__(name, start, target, target_points)
         self.item_uses = ['Drop item', 'Use T-Card']
@@ -74,7 +76,6 @@ class TCard(Item):
 
 class Instrument(Item):
     """A child class of the Item class that represents an instrument in our text adventure game world.
-
     """
     def __init__(self, name: str, start: int, target: int, target_points: int) -> None:
         super().__init__(name, start, target, target_points)
@@ -87,8 +88,7 @@ class Instrument(Item):
 
 
 class Coffee(Item):
-    """
-    # TODO:
+    """A child class of the Item class that represents a cup of coffee in our text adventure game world.
     """
     def __init__(self, name: str, start: int, target: int, target_points: int, colour: str, liquid: str, topping: str) -> None:
         super().__init__(name, start, target, target_points)
@@ -100,8 +100,8 @@ class Coffee(Item):
 
 
 class Poster(Item):
-    """#TODO:"""
-
+    """A child class of the Item class that represents a poster in our text adventure game world.
+    """
     def __init__(self, name: str, info: str) -> None:
         start = 5
         target = 5
@@ -289,23 +289,24 @@ class Player:
             if item.name.lower() == item_name.lower():
                 self.inventory.remove(item)
                 location.add_item(item)
-                print(f"You dropped {item_name}.")
+                print(f"You dropped {item_name.capitalize()}.")
                 return
         print(f"You don't have {item_name} in your inventory.")
 
     def pickup_item(self, item: Item, location: Location) -> None:
         """
-        Pick up an item.
+        Autoatically picks up an item after finishing a puzzle without the need for user input.
         """
         self.inventory.append(item)
         location.remove_item(item)
         self.change_score(item.target_points)
 
     def pick_up(self, item_name: str, location: Location):
-        """Pick up an item"""
+        """Pick up an item at a location through user prompt..
+        """
         for item in location.available_items:
-            if item_name == item.name:
-                print(f"Picked up {item_name}.")
+            if item_name.lower() == item.name.lower():
+                print(f"Picked up {item_name.capitalize()}.")
                 self.inventory.append(item)
                 location.remove_item(item)
                 return
