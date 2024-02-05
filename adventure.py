@@ -355,7 +355,6 @@ if __name__ == "__main__":
         print('GAME OVER')
         print(f'SCORE: {p.score}')
 
-
         # TODO: CALL A FUNCTION HERE TO HANDLE WHAT HAPPENS UPON THE PLAYER'S CHOICE
         #  REMEMBER: the location = w.get_location(p.x, p.y) at the top of this loop will update the location if
         #  the choice the player made was just a movement, so only updating player's position is enough to change the

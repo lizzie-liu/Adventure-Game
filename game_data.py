@@ -318,6 +318,7 @@ class Player:
         """
         self.score += points
 
+
 class World:
     """A text adventure game world storing all location, item and map data.
 
