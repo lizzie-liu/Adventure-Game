@@ -1,0 +1,5 @@
+go south
+harp
+go north
+go north
+play an instrument
