@@ -151,8 +151,11 @@ def start_puzzle(p: Player, w: World) -> None:
                   'You only have 2 hands to use to play an instrument so you really do not need anymore.')
             print('Do you want to discard your current instrument?')
             choice = input("\nEnter yes or no: ")
+            add_move(move_count)
+
             while choice.lower() not in {'yes', 'no'}:
                 choice = input("\nEnter yes or no: ")
+                add_move(move_count)
 
             if choice.lower() == 'yes':
                 if any(item.name == 'Harmonica' for item in p.inventory):
@@ -178,9 +181,11 @@ def start_puzzle(p: Player, w: World) -> None:
             print('Oh no! You already have a cup of coffee. You really dont need that much coffee...')
             print('Do you want to discard your other cup?')
             choice = input("\nEnter yes or no: ")
+            add_move(move_count)
 
             while choice.lower() not in {'yes', 'no'}:
                 choice = input("\nEnter yes or no: ")
+                add_move(move_count)
 
             if choice.lower() == 'yes':
                 p.drop_item('coffee', location)
@@ -193,9 +198,11 @@ def start_puzzle(p: Player, w: World) -> None:
         if no_cheat_sheet(p):
             print('Do you want to approach the TA?')
             choice = input("\nEnter yes or no: ")
+            add_move(move_count)
 
             while choice.lower() not in {'yes', 'no'}:
                 choice = input("\nEnter yes or no: ")
+                add_move(move_count)
 
             if choice.lower() == 'yes':
                 if talk_to_ta(p, w):
@@ -206,10 +213,12 @@ def start_puzzle(p: Player, w: World) -> None:
         print('Which poster do you wanna read?')
         print('T-card info, new rule, animal lover club, coffee recipe')
         choice = input("\n Choose one: ")
+        add_move(move_count)
 
         while choice.lower() not in {'t-card info', 'new rule', 'animal lover club', 'coffee recipe'}:
             print('There is no such poster.')
             choice = input("\n Choose one: ")
+            add_move(move_count)
 
         if choice.lower() == 't-card info':
             print(w.items['1'].examine_poster())
@@ -234,6 +243,11 @@ def start_puzzle(p: Player, w: World) -> None:
             pickup_desired_item(p, w, 'Lucky Exam Pen')
             print('You finally have your Lucky Exam Pen!')
 
+def add_move(moves: int) -> int:
+    """
+    #TODO idk!
+    """
+    return moves + 1
 
 def menu_action(p: Player, choice: str) -> None:
     """
@@ -320,12 +334,12 @@ if __name__ == "__main__":
             print(f'menu: {menu}')
             print(f'available moves: {moves}')
             choice = input("\nEnter action: ")
-            move_count += 1
+            add_move(move_count)
 
             while choice.lower() not in menu and choice.lower() not in moves:
                 print('Uh oh, you cannot do that!')
                 choice = input("\nEnter action: ")
-                move_count += 1
+                add_move(move_count)
 
             choice = choice.lower()
 
