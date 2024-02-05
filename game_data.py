@@ -312,6 +312,15 @@ class Player:
         location.remove_item(item)
         self.change_score(item.target_points)
 
+    def pick_up(self, item_name: str, location: Location):
+        """Pick up an item"""
+        for item in location.available_items:
+            if item_name.lower() == item.name.lower():
+                self.inventory.append(item)
+                location.remove_item(item)
+            else:
+                print(f"There's no {item_name} in here .")
+
     def change_score(self, points: int) -> None:
         """
         Updates the Player's current score.

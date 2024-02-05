@@ -294,7 +294,7 @@ if __name__ == "__main__":
     p = Player(2, 8)  # set starting location of player; you may change the x, y coordinates here as appropriate
 
     menu = ["look", "inventory", "score", "quit"]
-    commands = ['drop', 'examine']
+    commands = ['drop', 'examine', 'pick up']
     move_count = 0
 
     while not p.victory and move_count <= 60:
@@ -335,8 +335,12 @@ if __name__ == "__main__":
                 p.drop_item(item_name, location)
 
             elif choice == "examine":
-                item_name = input("Enter the name of the item to examine: ")
+                item_name = input("Enter the name of the poster to examine: ")
                 location.examine_item(item_name)
+
+            elif choice == 'pick up':
+                item_name = input("Enter the name of the item to pick up: ")
+                p.pick_up(item_name, location)
 
         # TODO: ENTER CODE HERE TO PRINT LOCATION DESCRIPTION
         # Depending on whether or not it's been visited before,
