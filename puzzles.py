@@ -55,6 +55,7 @@ def music_puzzle(p: Player) -> bool:
 
     return False
 
+
 def check_for_harp(p: Player) -> bool:
     """Checks if Player has the Harp in their inventory.
     """

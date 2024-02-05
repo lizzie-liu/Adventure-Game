@@ -120,6 +120,20 @@ def start_puzzle(p: Player, w: World) -> None:
         if any(isinstance(item, Instrument) for item in p.inventory):
             print('Oh no! You alread have an instrument with you. '
                   'You only have 2 hands to use to play an instrument so you really do not need anymore.')
+            print('Do you want to discard your current instrument?')
+            choice = input("\nEnter yes or no: ")
+            while choice.lower() not in {'yes', 'no'}:
+                choice = input("\nEnter yes or no: ")
+
+            if choice.lower() == 'yes':
+                if any(item.name == 'Harmonica' for item in p.inventory):
+                    p.drop_item('Harmonica', location)
+                elif any(item.name == 'Ukulele' for item in p.inventory):
+                    p.drop_item('Ukulele', location)
+                else:
+                    p.drop_item('Harp', location)
+                pickup_desired_item(p, w, pick_instrument(p, w))
+
         else:
             pickup_desired_item(p, w, pick_instrument(p, w))
 
