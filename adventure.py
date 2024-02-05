@@ -329,8 +329,6 @@ if __name__ == "__main__":
                 menu_action(p, choice)
 
             elif choice in moves:
-                locked_door(p, w, choice)
-                locked_lab(p, w, choice)
                 p.move(choice)
 
 
