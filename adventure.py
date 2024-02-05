@@ -316,6 +316,8 @@ if __name__ == "__main__":
             moves = get_moves(p, w)
 
             print("What to do? \n")
+            print(f'menu: {menu}')
+            print(f'available moves: {moves}')
             choice = input("\nEnter action: ")
             move_count += 1
 
