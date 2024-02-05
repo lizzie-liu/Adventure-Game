@@ -201,7 +201,13 @@ def start_puzzle(p: Player, w: World) -> None:
             choice = input("\n Choose one: ")
 
         for item in available_posters:
-            if item.name == choice.lower():
+            if choice.lower() == 't-card info':
+                print(item.examine_poster())
+            elif choice.lower() == 'new rule':
+                print(item.examine_poster())
+            elif choice.lower() == 'animal lover club':
+                print(item.examine_poster())
+            else:
                 print(item.examine_poster())
 
         # if choice.lower() == 't-card info':
@@ -309,8 +315,6 @@ if __name__ == "__main__":
             moves = get_moves(p, w)
 
             print("What to do? \n")
-            print(f'menu: {menu}')
-            print(f'available moves: {moves}')
             choice = input("\nEnter action: ")
             move_count += 1
 
