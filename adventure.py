@@ -313,6 +313,7 @@ if __name__ == "__main__":
         if location.first_visit is True:
             location.print_description()
             location.first_visit = False
+            p.change_score(location.points)
         else:
             start_puzzle(p, w)
             moves = get_moves(p, w)

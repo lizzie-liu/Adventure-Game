@@ -226,22 +226,23 @@ class Location:
 
     def examine_item(self, item_name: str):
         """examine poster"""
-        for item in self.available_items:
-            if item_name == 't-card info':
-                if item.name == '1':
-                    print(f"You examine the {item_name}. {item.info}")
-            elif item_name == 'new rule':
-                if item.name == '2':
-                    print(f"You examine the {item_name}. {item.info}")
-            elif item_name == 'animal lover club':
-                if item.name == '3':
-                    print(f"You examine the {item_name}. {item.info}")
-            elif item_name == 'coffee recipe':
-                if item.name == '4':
-                    print(f"You examine the {item_name}. {item.info}")
-                    return
-        print(f"There is no {item_name} here to examine.")
-
+        lst = ['t-card info', 'new rule', 'animal lover club', 'coffee recipe']
+        if item_name in lst:
+            for item in self.available_items:
+                if item_name == 't-card info':
+                    if item.name == '1':
+                        print(f"You examine the {item_name}. {item.info}")
+                elif item_name == 'new rule':
+                    if item.name == '2':
+                        print(f"You examine the {item_name}. {item.info}")
+                elif item_name == 'animal lover club':
+                    if item.name == '3':
+                        print(f"You examine the {item_name}. {item.info}")
+                elif item_name == 'coffee recipe':
+                    if item.name == '4':
+                        print(f"You examine the {item_name}. {item.info}")
+        else:
+            print(f"There is no {item_name} here to examine.")
 
 class Player:
     """
