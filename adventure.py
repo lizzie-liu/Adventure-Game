@@ -105,9 +105,9 @@ def pickup_desired_item(p: Player, w: World, item: str) -> None:
     """
     location = w.get_location(p.x, p.y)
 
-    for item in location.available_items:
-        if item.name == item:
-            p.pickup_item(item, location)
+    for items in location.available_items:
+        if items.name == item:
+            p.pickup_item(items, location)
 
 
 def start_puzzle(p: Player, w: World) -> None:
