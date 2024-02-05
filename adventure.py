@@ -300,16 +300,6 @@ if __name__ == "__main__":
     while not p.victory and move_count <= 60:
         location = w.get_location(p.x, p.y)
 
-        # TODO: ENTER CODE HERE TO PRINT LOCATION DESCRIPTION
-        # Depending on whether or not it's been visited before,
-        # print either full description (first time visit) or brief description (every subsequent visit)
-        if location.location_num == 13:
-            if check_for_exam_items(p):
-                print('Hooray!! :) Thankfully, you managed to find all the items you need for your exam.'
-                      '\nWhat have you learned from this experience? '
-                      '\nBahen has too many stairs. Oh, and you should be more careful with your belongings.')
-                p.victory = True
-
         if location.first_visit is True:
             location.print_description()
             location.first_visit = False
@@ -348,6 +338,15 @@ if __name__ == "__main__":
                 item_name = input("Enter the name of the item to examine: ")
                 location.examine_item(item_name)
 
+        # TODO: ENTER CODE HERE TO PRINT LOCATION DESCRIPTION
+        # Depending on whether or not it's been visited before,
+        # print either full description (first time visit) or brief description (every subsequent visit)
+        if location.location_num == 13:
+            if check_for_exam_items(p):
+                print('Hooray!! :) Thankfully, you managed to find all the items you need for your exam.'
+                      '\nWhat have you learned from this experience? '
+                      '\nBahen has too many stairs. Oh, and you should be more careful with your belongings.')
+                p.victory = True
 
     if move_count > 60:
         print('Uh oh! You are out of time! Looks like you will not be able to write your exam :(')
