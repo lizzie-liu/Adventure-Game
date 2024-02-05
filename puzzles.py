@@ -8,8 +8,8 @@ from adventure import check_for_tcard
 
 
 def pick_instrument(p: Player, w: World) -> str:
-    """
-    Returns the name of the instrument the Player wants to pick up to try and play. The name returned is capitalized.
+    """Returns the name of the instrument the Player wants to pick up to try and play.
+    The name returned is capitalized.
     """
     location = w.get_location(p.x, p.y)
     available_instruments = location.available_items
@@ -28,8 +28,7 @@ def pick_instrument(p: Player, w: World) -> str:
 
 
 def music_puzzle(p: Player) -> bool:
-    """
-    Returns True if the Player completes the music puzzle correctly to obatin the Bahen door Key.
+    """Returns True if the Player completes the music puzzle correctly to obatin the Bahen door Key.
     Only returns True if the Harp is played for the guard. All other instruments played will return False.
     """
     print('As you approach the grumpy looking guard, he stares down at you, expressionless.\n'
@@ -77,11 +76,13 @@ def check_for_harp(p: Player) -> bool:
 
 
 def talk_to_ta(p: Player, w: World) -> bool:
-    """
-    # TODO
+    """Returns True if the Player correctly completes the TA puzzle to obtain Cheat Sheet.
+    Correctly completeing the puzzle involves having T-Card (so that Player can talk to the TA at all),
+    and giving the TA the correct cup of coffee.
     """
     location = w.get_location(p.x, p.y)
 
+    # Player can only approach the TA if they have T-Card already
     if check_for_tcard(p):
         print('You approach the extremely tired looking TA. He doesnt even look up from his work. You ask'
               'him if he has seen the cheat sheet you made earlier in this room, but the TA just yawns.'
@@ -134,8 +135,7 @@ def check_correct_coffee(p: Player) -> bool:
 
 
 def make_coffee(p: Player) -> None:
-    """
-    # TODO: add descriptionnnnnnnnnn
+    """Allows Player to make a customized cup of coffee and add it to their inventory.
    """
     print("You step up to the counter and approach the rack of mugs. There's a pink, purple, and blue mug. \n"
           "Which mug do you pick?")
@@ -168,6 +168,7 @@ def make_coffee(p: Player) -> None:
 
     print('And voila! You now have a pipiing hot mug of coffee :)')
 
+    # If the Player creates the coffee order matching the TA's description, they obtain the 'Perfect coffee'
     if [colour, container, packet] == ['pink', 'skimmed milk', 'honey']:
         coffee = Item('Perfect coffee', 10, 12, 5)
     else:
