@@ -294,9 +294,10 @@ if __name__ == "__main__":
     p = Player(2, 8)  # set starting location of player; you may change the x, y coordinates here as appropriate
 
     menu = ["look", "inventory", "score", "quit"]
+    commands = ['drop', 'examine']
     move_count = 0
 
-    while not p.victory and move_count <= 50:
+    while not p.victory and move_count <= 60:
         location = w.get_location(p.x, p.y)
 
         # TODO: ENTER CODE HERE TO PRINT LOCATION DESCRIPTION
@@ -320,10 +321,12 @@ if __name__ == "__main__":
             print(f'menu: {menu}')
             print(f'available moves: {moves}')
             choice = input("\nEnter action: ")
+            move_count += 1
 
-            while choice.lower() not in menu and choice.lower() not in moves:
+            while choice.lower() not in menu and choice.lower() not in moves and choice.lower() not in commands:
                 print('Uh oh, you cannot do that!')
                 choice = input("\nEnter action: ")
+                move_count += 1
 
             choice = choice.lower()
 
@@ -332,12 +335,20 @@ if __name__ == "__main__":
 
             elif choice in moves:
                 p.move(choice)
-                move_count += 1
                 loc = w.get_location(p.x, p.y)
                 if loc.first_visit is False:
                     print(loc.short_descrip)
 
-    if move_count > 50:
+            elif choice == 'drop':
+                item_name = input("Enter the name of the item to drop: ")
+                p.drop_item(item_name, location)
+
+            elif choice == "examine":
+                item_name = input("Enter the name of the item to examine: ")
+                location.examine_item(item_name)
+
+
+    if move_count > 60:
         print('Uh oh! You are out of time! Looks like you will not be able to write your exam :(')
         print('Take this as a lesson to be more careful with your belongings.')
         print('GAME OVER')
