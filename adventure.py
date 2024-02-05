@@ -103,11 +103,13 @@ def check_for_tcard(p: Player) -> bool:
     return any(item.name == 'T-Card' for item in p.inventory)
 
 
+
+
 def no_cheat_sheet(p: Player) -> bool:
     """
-    Checks if the Player has their Lucky Exam Pen.
+    Checks if the Player has their Cheat Sheet.
     """
-    return not any(item.name == 'Lucky Exam Pen' for item in p.inventory)
+    return not any(item.name == 'Cheat Sheet' for item in p.inventory)
 
 def check_for_exam_items(p: Player) -> bool:
     """
@@ -199,6 +201,7 @@ def start_puzzle(p: Player, w: World) -> None:
                 if talk_to_ta(p, w):
                     pickup_desired_item(p, w, 'Cheat Sheet')
 
+
     elif location.location_num == 5:
         available_posters = location.available_items
         print('Which poster do you wanna read?')
@@ -249,13 +252,12 @@ def start_puzzle(p: Player, w: World) -> None:
             pickup_desired_item(p, w, 'Lucky Exam Pen')
             print('You finally have your Lucky Exam Pen!')
 
-    elif location.location_num == 13:
-        if check_for_exam_items(p):
-            print('Hooray!! :) Thankfully, you managed to find all the items you need for your exam.'
-                  '\nWhat have you learned from this experience? '
-                  '\nBahen has too many stairs. Oh, and you should be more careful with your belongings.')
-            p.victory = True
-
+    # elif location.location_num == 13:
+    #     if check_for_exam_items(p):
+    #         print('Hooray!! :) Thankfully, you managed to find all the items you need for your exam.'
+    #               '\nWhat have you learned from this experience? '
+    #               '\nBahen has too many stairs. Oh, and you should be more careful with your belongings.')
+    #         p.victory = True
 
 def menu_action(p: Player, choice: str) -> None:
     """
@@ -324,6 +326,13 @@ if __name__ == "__main__":
         # TODO: ENTER CODE HERE TO PRINT LOCATION DESCRIPTION
         # Depending on whether or not it's been visited before,
         # print either full description (first time visit) or brief description (every subsequent visit)
+        if location.location_num == 13:
+            if check_for_exam_items(p):
+                print('Hooray!! :) Thankfully, you managed to find all the items you need for your exam.'
+                      '\nWhat have you learned from this experience? '
+                      '\nBahen has too many stairs. Oh, and you should be more careful with your belongings.')
+                p.victory = True
+
         if location.first_visit is True:
             location.print_description()
             location.first_visit = False
@@ -349,7 +358,7 @@ if __name__ == "__main__":
 
             elif choice in moves:
                 p.move(choice)
-                loc = w.get_location(p.x,p.y)
+                loc = w.get_location(p.x, p.y)
                 if loc.first_visit is False:
                     print(loc.short_descrip)
 
