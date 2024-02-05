@@ -296,7 +296,7 @@ if __name__ == "__main__":
     menu = ["look", "inventory", "score", "quit"]
     move_count = 0
 
-    while not p.victory and move_count <= 60:
+    while not p.victory and move_count <= 50:
         location = w.get_location(p.x, p.y)
 
         # TODO: ENTER CODE HERE TO PRINT LOCATION DESCRIPTION
@@ -337,7 +337,7 @@ if __name__ == "__main__":
                 if loc.first_visit is False:
                     print(loc.short_descrip)
 
-    if move_count > 60:
+    if move_count > 50:
         print('Uh oh! You are out of time! Looks like you will not be able to write your exam :(')
         print('Take this as a lesson to be more careful with your belongings.')
         print('GAME OVER')
