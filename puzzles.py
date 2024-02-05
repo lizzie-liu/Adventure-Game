@@ -72,25 +72,20 @@ def check_for_harp(p: Player) -> bool:
     return False
 
 
-def talk_to_ta(p: Player) -> bool:
+def talk_to_ta(p: Player, w: World) -> bool:
     """
     # TODO
     """
-    print('Do you want to approach the TA?')
-    choice = input("\nEnter yes or no: ")
+    location = w.get_location(p.x, p.y)
 
-    while choice.lower() not in {'yes', 'no'}:
-        choice = input("\nEnter yes or no: ")
-
-    if choice.lower() == 'yes':
-        if check_for_tcard(p):
-            print('You approach the extremely tired looking TA. He doesnt even look up from his work. You ask '
-                  'him if he has seen the cheat sheet you made earlier in this room, but the TA just yawns.'
-                  '\n"If only I had a cup of honey coffee with skimmed milk in a pink mug..." '
-                  'he mutters while typing away.')
-        else:
-            print('Hm, the TA will not talk to you thanks to the new rule.')
-            return False
+    if check_for_tcard(p):
+        print('You approach the extremely tired looking TA. He doesnt even look up from his work. You ask'
+              'him if he has seen the cheat sheet you made earlier in this room, but the TA just yawns.'
+              '\n"If only I had a cup of honey coffee with skimmed milk in a pink mug..." '
+              'he mutters while typing away.')
+    else:
+        print('Hm, the TA will not talk to you thanks to the new rule.')
+        return False
 
     if not any(isinstance(item, Coffee) for item in p.inventory):
         print('Hm you seem to have no coffee to offer the poor TA...')
@@ -99,15 +94,17 @@ def talk_to_ta(p: Player) -> bool:
     else:
         print('You happen to have a cup of coffee with you! You offer it to the tired TA.')
         if check_correct_coffee(p):
+            p.drop_item('perfect coffee', location)
             print('The TA takes the coffee from your hands and takes a long sip.'
                   '\nHe closes his eyes and smiles, savouring the magnificent taste of his drink.')
             print('The TA looks rejuvenated. With a smile, he asks you what questions you have.')
-            print('You ask him if he has seen you Cheat Sheet. '
+            print('You ask him if he has seen your Cheat Sheet. '
                   '\nThe TA nods, reaches into his bag, and pulls out a sheet of lined paper filled with scribbles.')
             print('You finally found your Cheat Sheet!')
             return True
 
         else:
+            p.drop_item('coffee', location)
             print('The TA takes the coffee from your hands and takes a long sip. '
                   '\nHis eyebrows furrow and he looks down and frowns at his coffee.')
             print('The TA still looks very tired and seems to have no energy to talk to you.')
