@@ -166,7 +166,7 @@ def start_puzzle(p: Player, w: World) -> None:
             print('You already took the key from the guard. You should leave the poor guy alone')
 
     elif location.location_num == 10:
-        if any(item.name == 'Coffee' for item in p.inventory):
+        if any((item.name == 'coffee' or item.name == 'perfect coffee')for item in p.inventory):
             print('Oh no! You already have a cup of coffee. You really dont need that much coffee...')
             print('Do you want to discard your other cup?')
             choice = input("\nEnter yes or no: ")
