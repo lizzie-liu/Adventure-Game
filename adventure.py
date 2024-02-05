@@ -95,11 +95,13 @@ def locked_lab(p: Player) -> bool:
     else:
         return False
 
+
 def check_for_tcard(p: Player) -> bool:
     """
     Checks if the Player has their T-Card.
     """
     return any(isinstance(item, TCard) for item in p.inventory)
+
 
 def check_for_exam_items(p: Player) -> bool:
     """

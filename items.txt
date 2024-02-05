@@ -1,7 +1,7 @@
-10 13 10 Cheat Sheet
+12 13 10 Cheat Sheet
 6 13 10 Lucky Exam Pen
-9 13 10 T-Card
-2 3 5 Key
+11 13 10 T-Card
+7 3 5 Key
 i 1 2 5 Harp
 i 1 1 0 Ukulele
 i 1 1 0 Harmonica
