@@ -43,38 +43,61 @@ def get_moves(p: Player, w: World) -> list[str]:
     if w.get_location(x, y - 1) is not None:
         actions.append('go west')
 
+    # Check for locked doors
+    if w.get_location(x, y).location_num == 3:
+        if locked_door(p):
+            actions.remove('go west')
+
+    if w.get_location(x, y).location_num == 3:
+        if locked_door(p):
+            actions.remove('go west')
+
+    if w.get_location(x, y).location_num == 6:
+        if locked_door(p):
+            actions.remove('go south')
+
     return actions
 
-def locked_door(p: Player, w: World, choice: str) -> None:
+def locked_door(p: Player) -> bool:
     """Moves player back a step if they try to enter Bahen without a key in their inventory.
     """
-    x, y = p.x, p.y
-    location = w.get_location(p.x, p.y)
+    # x, y = p.x, p.y
+    # location = w.get_location(p.x, p.y)
+    #
+    # if location.location_num == 3:
+    #     if not any(item.name == 'Key' for item in p.inventory):
+    #         print('The door wont budge... \nIt seems that you need a key to open it.')
+    #         pass
+    #
+    #     else:
+    #         print('You insert the key into the lock and slowly turn the key clockwise. '
+    #               '*CLICK* *CLICK*  Hooray! You can now enter Bahen :)')
+    #         p.move(choice)
+    if not any(item.name == 'Key' for item in p.inventory):
+        return True
+    else:
+        return False
 
-    if location.location_num == 3 and choice == 'go west':
-        if not any(item.name == 'Key' for item in p.inventory):
-            print('The door wont budge... \nIt seems that you need a key to open it.')
 
-        else:
-            print('You insert the key into the lock and slowly turn the key clockwise. '
-                  '*CLICK* *CLICK*  Hooray! You can now enter Bahen :)')
-            p.move(choice)
-
-
-def locked_lab(p: Player, w: World, choice: str) -> None:
+def locked_lab(p: Player) -> bool:
     """Moves player back a step if they try to enter Bahen without a key in their inventory.
     """
-    x, y = p.x, p.y
-    location = w.get_location(p.x, p.y)
-
-    if location.location_num == 6 and choice == 'go south':
-        if not check_for_harp(p):
-            print('The door wont budge... \nIt seems that you need your T-Card to open it.')
-
-        else:
-            print('You swipe your T-Card in the scanner. '
-                  '*BEEP* *BEEP*  Hooray! You can now enter the CS Lab :)')
-            p.move(choice)
+    # x, y = p.x, p.y
+    # location = w.get_location(p.x, p.y)
+    #
+    # if location.location_num == 6 and choice == 'go south':
+    #     if not check_for_harp(p):
+    #         print('The door wont budge... \nIt seems that you need your T-Card to open it.')
+    #         pass
+    #
+    #     else:
+    #         print('You swipe your T-Card in the scanner. '
+    #               '*BEEP* *BEEP*  Hooray! You can now enter the CS Lab :)')
+    #         p.move(choice)
+    if not any(item.name == 'T-Card' for item in p.inventory):
+        return True
+    else:
+        return False
 
 def check_for_tcard(p: Player) -> bool:
     """
@@ -143,6 +166,9 @@ def start_puzzle(p: Player, w: World) -> None:
                 pickup_desired_item(p, w, 'Key')
         else:
             print('You already took the key from the guard. You should leave the poor guy alone')
+
+    elif location.location_num == 3:
+        if
 
     elif location.location_num == 10:
         if any(item.name == 'Coffee' for item in p.inventory):
