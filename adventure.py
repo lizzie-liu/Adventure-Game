@@ -167,9 +167,6 @@ def start_puzzle(p: Player, w: World) -> None:
         else:
             print('You already took the key from the guard. You should leave the poor guy alone')
 
-    elif location.location_num == 3:
-        if
-
     elif location.location_num == 10:
         if any(item.name == 'Coffee' for item in p.inventory):
             print('Oh no! You already have a cup of coffee. You really dont need that much coffee...')
