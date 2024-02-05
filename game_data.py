@@ -224,6 +224,24 @@ class Location:
         """Remove item from location."""
         self.available_items.remove(item)
 
+    def examine_item(self, item_name: str):
+        """examine poster"""
+        for item in self.available_items:
+            if item_name == 't-card info':
+                if item.name == '1':
+                    print(f"You examine the {item_name}. {item.info}")
+            elif item_name == 'new rule':
+                if item.name == '2':
+                    print(f"You examine the {item_name}. {item.info}")
+            elif item_name == 'animal lover club':
+                if item.name == '3':
+                    print(f"You examine the {item_name}. {item.info}")
+            elif item_name == 'coffee recipe':
+                if item.name == '4':
+                    print(f"You examine the {item_name}. {item.info}")
+                    return
+        print(f"There is no {item_name} here to examine.")
+
 
 class Player:
     """
@@ -273,14 +291,17 @@ class Player:
         elif direction == 'go west':
             self.y -= 1
 
-    def drop_item(self, name: str, location: Location) -> None:
+    def drop_item(self, item_name: str, location: Location) -> None:
         """
         Removes the item from the Player's iventory.
         """
         for item in self.inventory:
-            location.add_item(item)
-            if item.name == name:
+            if item.name.lower() == item_name.lower():
                 self.inventory.remove(item)
+                location.add_item(item)
+                print(f"You dropped {item_name}.")
+                return
+        print(f"You don't have {item_name} in your inventory.")
 
     def pickup_item(self, item: Item, location: Location) -> None:
         """
