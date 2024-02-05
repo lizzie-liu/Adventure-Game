@@ -54,6 +54,7 @@ def get_moves(p: Player, w: World) -> list[str]:
 
     return actions
 
+
 def locked_door(p: Player) -> bool:
     """Moves player back a step if they try to enter Bahen without a key in their inventory.
     """
@@ -103,13 +104,12 @@ def check_for_tcard(p: Player) -> bool:
     return any(item.name == 'T-Card' for item in p.inventory)
 
 
-
-
 def no_cheat_sheet(p: Player) -> bool:
     """
     Checks if the Player has their Cheat Sheet.
     """
     return not any(item.name == 'Cheat Sheet' for item in p.inventory)
+
 
 def check_for_exam_items(p: Player) -> bool:
     """
@@ -201,7 +201,6 @@ def start_puzzle(p: Player, w: World) -> None:
                 if talk_to_ta(p, w):
                     pickup_desired_item(p, w, 'Cheat Sheet')
 
-
     elif location.location_num == 5:
         available_posters = location.available_items
         print('Which poster do you wanna read?')
@@ -221,23 +220,6 @@ def start_puzzle(p: Player, w: World) -> None:
         else:
             print(w.items['4'].examine_poster())
 
-        # if choice.lower() == 't-card info':
-        #     poster_info = self.items['1'].examine_poster()
-        #     print(poster_info)
-        # elif choice.lower() == 'new rule':
-        #     poster_info = self.items['2'].examine_poster()
-        #     print(poster_info)
-        #
-        # elif choice.lower() == 'animal lover club':
-        #     poster_info = self.items['3'].examine_poster()
-        #     print(poster_info)
-        # elif choice.lower() == 'coffee recipe':
-        #     poster_info = self.items['4'].examine_poster()
-        #     print(poster_info)
-        # else:
-        #     print('There is no such poster.')
-        #     choice = input("\n Choose one: ")
-
     elif location.location_num == 11:
         available_items = [item.name for item in location.available_items]
 
@@ -252,12 +234,6 @@ def start_puzzle(p: Player, w: World) -> None:
             pickup_desired_item(p, w, 'Lucky Exam Pen')
             print('You finally have your Lucky Exam Pen!')
 
-    # elif location.location_num == 13:
-    #     if check_for_exam_items(p):
-    #         print('Hooray!! :) Thankfully, you managed to find all the items you need for your exam.'
-    #               '\nWhat have you learned from this experience? '
-    #               '\nBahen has too many stairs. Oh, and you should be more careful with your belongings.')
-    #         p.victory = True
 
 def menu_action(p: Player, choice: str) -> None:
     """
