@@ -362,10 +362,16 @@ if __name__ == "__main__":
                 if loc.first_visit is False:
                     print(loc.short_descrip)
 
+    if move_count > 60:
+        print('Uh oh! You are out of time! Looks like you will not be able to write your exam :(')
+        print('Take this as a lesson to be more careful with your belongings.')
+        print('GAME OVER')
+        print(f'SCORE: {p.score}')
+
 
     if p.victory:
         print('GAME OVER')
-        print(f'Score: {move_count}')
+        print(f'SCORE: {p.score}')
 
 
         # TODO: CALL A FUNCTION HERE TO HANDLE WHAT HAPPENS UPON THE PLAYER'S CHOICE
