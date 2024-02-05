@@ -49,7 +49,7 @@ def get_moves(p: Player, w: World) -> list[str]:
             actions.remove('go west')
 
     if w.get_location(x, y).location_num == 6:
-        if locked_door(p):
+        if locked_lab(p):
             actions.remove('go south')
 
     return actions
@@ -100,7 +100,7 @@ def check_for_tcard(p: Player) -> bool:
     """
     Checks if the Player has their T-Card.
     """
-    return any(isinstance(item, TCard) for item in p.inventory)
+    return any(item.name == 'T-Card' for item in p.inventory)
 
 
 def check_for_exam_items(p: Player) -> bool:
@@ -189,7 +189,7 @@ def start_puzzle(p: Player, w: World) -> None:
             choice = input("\nEnter yes or no: ")
 
         if choice.lower() == 'yes':
-            if talk_to_ta(p):
+            if talk_to_ta(p, w):
                 pickup_desired_item(p, w, 'Cheat Sheet')
 
     elif location.location_num == 5:

@@ -136,7 +136,7 @@ def make_coffee(p: Player) -> None:
     print(f'You pick up the {colour} mug and dispense some of the piping hot coffee inside. \n'
           f'The dark roast scent smells heavenly, and you resist the urge to take a sip.')
 
-    print('You then turn your attention to the containers of skimmed milk, 2% milk, and cream.'
+    print('You then turn your attention to the containers of skimmed milk, 2% milk, and cream. '
           'Which container do you pick?')
     container = input("\nEnter choice: ")
     while container.lower() not in {'skimmed milk', '2% milk', 'cream'}:

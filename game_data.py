@@ -62,7 +62,6 @@ class Item:
         self.item_uses = ['Drop item']
 
 
-
 class TCard(Item):
     def __init__(self, name: str, start: int, target: int, target_points: int) -> None:
         super().__init__(name, start, target, target_points)
