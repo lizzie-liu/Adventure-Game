@@ -257,6 +257,8 @@ def menu_action(p: Player, choice: str) -> None:
 
     elif choice == 'inventory':
         print(f'Inventory: {[item.name for item in p.inventory]}')
+        if len([item.name for item in p.inventory]) > 0:
+            print(f'Optional action: ["drop"]')
 
     elif choice == 'score':
         # TODO NEED TO MAKE SCORE FNCC!!
