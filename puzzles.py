@@ -1,5 +1,7 @@
-"""
-# TODO: add description
+"""CSC111 Project 1: Text Adventure Game
+
+This Python module contains functions that help run the puzzles in our Text Adventure Game World for Project 1.
+It is imported and used by the `adventure` module.
 """
 from game_data import Player, Item, Instrument, Coffee, TCard, World
 from adventure import check_for_tcard
@@ -7,7 +9,7 @@ from adventure import check_for_tcard
 
 def pick_instrument(p: Player, w: World) -> str:
     """
-    Returns the name of the instrument the Player wants to play. The name returned is capitalized.
+    Returns the name of the instrument the Player wants to pick up to try and play. The name returned is capitalized.
     """
     location = w.get_location(p.x, p.y)
     available_instruments = location.available_items
@@ -24,9 +26,11 @@ def pick_instrument(p: Player, w: World) -> str:
 
     return instrument
 
+
 def music_puzzle(p: Player) -> bool:
     """
-    # TODO: add description
+    Returns True if the Player completes the music puzzle correctly to obatin the Bahen door Key.
+    Only returns True if the Harp is played for the guard. All other instruments played will return False.
     """
     print('As you approach the grumpy looking guard, he stares down at you, expressionless.\n'
           'You try to strike up a conversation but the guard ignore you, and lets out a yamn.\n'
@@ -63,7 +67,7 @@ def music_puzzle(p: Player) -> bool:
 
 
 def check_for_harp(p: Player) -> bool:
-    """Checks if Player has the Harp in their inventory.
+    """Returns True if Player has the Harp object in their inventory.
     """
     for item in p.inventory:
         if item.name == 'Harp':
