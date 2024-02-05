@@ -62,6 +62,7 @@ class Item:
         self.item_uses = ['Drop item']
 
 
+
 class TCard(Item):
     def __init__(self, name: str, start: int, target: int, target_points: int) -> None:
         super().__init__(name, start, target, target_points)
@@ -310,7 +311,7 @@ class World:
     locations: dict[int, Location]
     items: dict[str, Item]
 
-    def __init__(self, map_data: TextIO, location_data: TextIO, items_data: TextIO, poster_data: TextIO) -> None:
+    def __init__(self, map_data: TextIO, location_data: TextIO, items_data: TextIO) -> None:
         """
         Initialize a new World for a text adventure game, based on the data in the given open files.
 
