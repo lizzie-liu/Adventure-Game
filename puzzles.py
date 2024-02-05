@@ -1,9 +1,28 @@
 """
 # TODO: add description
 """
-from game_data import Player, Item, Instrument, Coffee, TCard
+from game_data import Player, Item, Instrument, Coffee, TCard, World
 from adventure import check_for_tcard
 
+
+def pick_instrument(p: Player, w: World) -> str:
+    """
+    Returns the name of the instrument the Player wants to play. The name returned is capitalized.
+    """
+    location = w.get_location(p.x, p.y)
+    available_instruments = location.available_items
+
+    print(f'Availble items: {[item.name for item in available_instruments]}')
+    print('Which one would you like to try playing?')
+    instrument = input("\nEnter the instrument name: ")
+
+    while instrument.capitalize() not in {'Harp', 'Ukulele', 'Harmonica'}:
+        print('You cannot do that!')
+        instrument = input("\nEnter a choice: ")
+
+    instrument = instrument.capitalize()
+
+    return instrument
 
 def music_puzzle(p: Player) -> bool:
     """
@@ -97,7 +116,6 @@ def check_correct_coffee(p: Player) -> bool:
             return True
 
     return False
-
 
 
 def make_coffee(p: Player) -> None:
