@@ -117,24 +117,11 @@ def start_puzzle(p: Player, w: World) -> None:
     location = w.get_location(p.x, p.y)
 
     if location.location_num == 1:
-        available_instruments = location.available_items
-        print(f'Availble items: {(item.name for item in available_instruments)}')
-        print('')  # somehow print instruments available at location
-        print('Which one would you like to try playing?')
-        instrument = input("\nEnter the instrument name: ")
-
-        while instrument.capitalize() not in {'Harp', 'Ukulele', 'Harmonica'}:
-            print('You cannot do that!')
-            instrument = input("\nEnter a choice: ")
-
-        instrument = instrument.capitalize()
-
         if any(isinstance(item, Instrument) for item in p.inventory):
             print('Oh no! You alread have an instrument with you. '
                   'You only have 2 hands to use to play an instrument so you really do not need anymore.')
-
         else:
-            pickup_desired_item(p, w, instrument)
+            pickup_desired_item(p, w, pick_instrument(p, w))
 
     elif location.location_num == 2:
         if music_puzzle(p):
