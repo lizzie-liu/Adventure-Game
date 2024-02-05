@@ -51,7 +51,13 @@ def music_puzzle(p: Player) -> bool:
                 item.play_instrument()
 
         if check_for_harp(p):
+            print('The guard starts to get sleepier, and slowly his eyes close and he begins to snore.'
+                  '\nYou grab the shiny key from his belt and slip it into your pocket.')
             return True
+
+        else:
+            print('The guard cringes at your attempts to serenade him and covers his ears with his hands.')
+            print('Unfortunately, you have no chance at swiping his key.')
 
     return False
 
