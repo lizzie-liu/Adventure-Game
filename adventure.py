@@ -229,9 +229,9 @@ def start_puzzle(p: Player, w: World) -> None:
         #     choice = input("\n Choose one: ")
 
     elif location.location_num == 11:
-        print('You finally have your T-Card!')
         if location.first_visit:
             pickup_desired_item(p, w, 'T-Card')
+            print('You finally have your T-Card!')
 
     elif location.location_num == 13:
         if check_for_exam_items(p):
