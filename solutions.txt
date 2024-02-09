@@ -1,5 +1,52 @@
 go south
-harp
+Harp
+inventory
+no
+score
+no
 go north
 go north
 play an instrument
+inventory
+score
+go south
+go west
+score
+go west
+go north
+1
+examine
+2
+go south
+go west
+go west
+go west
+go north
+inventory
+score
+go south
+go west
+score
+yes
+no
+go east
+go south
+pink
+skimmed milk
+honey
+yes
+go north
+go east
+go east
+go south
+inventory
+score
+go north
+go west
+go west
+go west
+yes
+yes
+inventory
+score
+go west
