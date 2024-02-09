@@ -59,7 +59,6 @@ class Item:
         self.start_position = start
         self.target_position = target
         self.target_points = target_points
-        self.item_uses = ['Drop item']
 
 
 class Instrument(Item):
@@ -67,7 +66,6 @@ class Instrument(Item):
     """
     def __init__(self, name: str, start: int, target: int, target_points: int) -> None:
         super().__init__(name, start, target, target_points)
-        self.item_uses = ['Drop item', 'Play instrument']
 
     def play_instrument(self) -> None:
         """ Plays the instrument.
@@ -84,7 +82,6 @@ class Poster(Item):
         target_points = 0
         super().__init__(name, start, target, target_points)
         self.info = info
-        self.item_uses = ['Drop item', 'Examine poster']
 
     def examine_poster(self) -> str:
         """Print full description of poster"""
