@@ -68,7 +68,7 @@ def no_cheat_sheet(p: Player) -> bool:
 
 
 def locked_door(p: Player) -> bool:
-    """Returns True if the Player does not have a Key object in their inventory.
+    """Returns True if the Player does not have a Key in their inventory.
     This means the Bahen doors are locked and the Player cannot enter Bahen.
     """
     if not any(item.name == 'Key' for item in p.inventory):
