@@ -62,18 +62,6 @@ class Item:
         self.item_uses = ['Drop item']
 
 
-class TCard(Item):
-    """A child class of the Item class that represents the Player's T--Card in our text adventure game world.
-    """
-    def __init__(self, name: str, start: int, target: int, target_points: int) -> None:
-        super().__init__(name, start, target, target_points)
-        self.item_uses = ['Drop item', 'Use T-Card']
-
-    def use_card(self) -> None:
-        """Uses the Player's T-Card."""
-        print('You pull out your T-Card and try not to cringe at your id photo.')
-
-
 class Instrument(Item):
     """A child class of the Item class that represents an instrument in our text adventure game world.
     """
@@ -85,18 +73,6 @@ class Instrument(Item):
         """ Plays the instrument.
         """
         print('You play some random notes, hoping it sounds nice.')
-
-
-class Coffee(Item):
-    """A child class of the Item class that represents a cup of coffee in our text adventure game world.
-    """
-    def __init__(self, name: str, start: int, target: int, target_points: int, colour: str, liquid: str, topping: str) -> None:
-        super().__init__(name, start, target, target_points)
-        self.colour = colour
-        self.liquid = liquid
-        self.topping = topping
-
-        self.item_uses = ['Drop item', 'Give to TA']
 
 
 class Poster(Item):
