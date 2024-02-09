@@ -55,21 +55,22 @@ def get_moves(p: Player, w: World) -> list[str]:
     return actions
 
 
-def locked_door(p: Player) -> bool:
-    """Moves player back a step if they try to enter Bahen without a key in their inventory.
+def check_for_tcard(p: Player) -> bool:
+    """Returns True if the Player has their T-Card.
     """
-    # x, y = p.x, p.y
-    # location = w.get_location(p.x, p.y)
-    #
-    # if location.location_num == 3:
-    #     if not any(item.name == 'Key' for item in p.inventory):
-    #         print('The door wont budge... \nIt seems that you need a key to open it.')
-    #         pass
-    #
-    #     else:
-    #         print('You insert the key into the lock and slowly turn the key clockwise. '
-    #               '*CLICK* *CLICK*  Hooray! You can now enter Bahen :)')
-    #         p.move(choice)
+    return any(item.name == 'T-Card' for item in p.inventory)
+
+
+def no_cheat_sheet(p: Player) -> bool:
+    """Returns True if the Player does not have their Cheat Sheet.
+    """
+    return not any(item.name == 'Cheat Sheet' for item in p.inventory)
+
+
+def locked_door(p: Player) -> bool:
+    """Returns True if the Player does not have a Key object in their inventory.
+    This means the Bahen doors are locked and the Player cannot enter Bahen.
+    """
     if not any(item.name == 'Key' for item in p.inventory):
         return True
     else:
@@ -77,43 +78,17 @@ def locked_door(p: Player) -> bool:
 
 
 def locked_lab(p: Player) -> bool:
-    """Moves player back a step if they try to enter Bahen without a key in their inventory.
+    """Returns True if the Player does not have their T-Card in their inventory.
+    This means the CS lab doors are locked and the Player cannot enter the lab.
     """
-    # x, y = p.x, p.y
-    # location = w.get_location(p.x, p.y)
-    #
-    # if location.location_num == 6 and choice == 'go south':
-    #     if not check_for_harp(p):
-    #         print('The door wont budge... \nIt seems that you need your T-Card to open it.')
-    #         pass
-    #
-    #     else:
-    #         print('You swipe your T-Card in the scanner. '
-    #               '*BEEP* *BEEP*  Hooray! You can now enter the CS Lab :)')
-    #         p.move(choice)
-    if not any(item.name == 'T-Card' for item in p.inventory):
+    if not check_for_tcard(p):
         return True
     else:
         return False
 
 
-def check_for_tcard(p: Player) -> bool:
-    """
-    Checks if the Player has their T-Card.
-    """
-    return any(item.name == 'T-Card' for item in p.inventory)
-
-
-def no_cheat_sheet(p: Player) -> bool:
-    """
-    Checks if the Player has their Cheat Sheet.
-    """
-    return not any(item.name == 'Cheat Sheet' for item in p.inventory)
-
-
 def check_for_exam_items(p: Player) -> bool:
-    """
-    Checks if the Player has all the items they need for the exam (T-Card, Lucky Exam Pen, Cheat Sheet)
+    """Returns True if the Player has all the items they need for the exam (T-Card, Lucky Exam Pen, Cheat Sheet).
     """
     item_names = [item.name for item in p.inventory]
     if 'T-Card' not in item_names:
@@ -129,8 +104,7 @@ def check_for_exam_items(p: Player) -> bool:
 
 
 def pickup_desired_item(p: Player, w: World, item: str) -> None:
-    """
-    Add the desired item to Player's inventory.
+    """Add the desired item to Player's inventory.
     """
     location = w.get_location(p.x, p.y)
 
@@ -139,9 +113,28 @@ def pickup_desired_item(p: Player, w: World, item: str) -> None:
             p.pickup_item(items, location)
 
 
-def start_puzzle(p: Player, w: World) -> None:
+def menu_action(p: Player, choice: str) -> None:
+    """Allows users to carry out a menu actions.
     """
-    # TODO
+    location = w.get_location(p.x, p.y)
+
+    if choice == 'look':
+        print(f'{location.location_name} \n {location.long_descrip}')
+
+    elif choice == 'inventory':
+        print(f'Inventory: {[item.name for item in p.inventory]}')
+        if len([item.name for item in p.inventory]) > 0:
+            print(f'Optional action: ["drop"]')
+
+    elif choice == 'score':
+        print(p.score)
+
+    elif choice == 'quit':
+        p.victory = True
+
+
+def start_puzzle(p: Player, w: World) -> None:
+    """Runs the corresponding puzzles at a location (if any) when the Player moves to the spot.
     """
     location = w.get_location(p.x, p.y)
 
@@ -149,6 +142,7 @@ def start_puzzle(p: Player, w: World) -> None:
         if any(isinstance(item, Instrument) for item in p.inventory):
             print('Oh no! You alread have an instrument with you. '
                   'You only have 2 hands to use to play an instrument so you really do not need anymore.')
+
             print('Do you want to discard your current instrument?')
             choice = input("\nEnter yes or no: ")
             while choice.lower() not in {'yes', 'no'}:
@@ -225,7 +219,7 @@ def start_puzzle(p: Player, w: World) -> None:
         print('1, 2, 3, 4')
         choice = input("\n Choose one: ")
 
-        while choice not in ['1','2','3','4']:
+        while choice not in ['1', '2', '3', '4']:
             print('There is no such poster.')
             choice = input("\n Choose one: ")
 
@@ -248,61 +242,6 @@ def start_puzzle(p: Player, w: World) -> None:
             print('You finally have your Lucky Exam Pen!')
 
 
-def menu_action(p: Player, choice: str) -> None:
-    """
-    # TODO
-    """
-    location = w.get_location(p.x, p.y)
-
-    if choice == 'look':
-        print(f'{location.location_name} \n {location.long_descrip}')
-
-    elif choice == 'inventory':
-        print(f'Inventory: {[item.name for item in p.inventory]}')
-        if len([item.name for item in p.inventory]) > 0:
-            print(f'Optional action: ["drop"]')
-
-    elif choice == 'score':
-        # TODO NEED TO MAKE SCORE FNCC!!
-        print(p.score)
-
-    elif choice == 'quit':
-        p.victory = True
-
-
-# def use_inventory_item(p: Player) -> None:
-#     """Allow Player to use item they select from their inventory.
-#     """
-#     print(f'Inventory: {[item.name for item in p.inventory]}')
-#     name = input("\nEnter name of the item to use it or 'none': ")
-#
-#     while name.capitalize() not in {item.name for item in p.inventory}:
-#         print('You do not have that in your bag!')
-#         name = input("\nEnter name of the item to use it or 'none': ")
-#
-#     name = name.capitalize()
-#
-#     for item in p.inventory:
-#         if item.name == name:
-#             item_uses = item.item_uses
-#             print(f'{name} uses: {item_uses}')
-#
-#             print('What would you like to do?')
-#             action = input("\nEnter an action or 'none' to do nothing: ")
-#
-#             action = action.lower()
-#
-#             if action in item_uses:
-#                 # i have no idea how to do this part
-#                 carry_out_item_action(item, action)
-#
-#             elif action == 'none':
-#                 print('You did not use the item.')
-#
-#             else:
-#                 print('You cannot do that!')
-
-
 # Note: You may modify the code below as needed; the following starter template are just suggestions
 if __name__ == "__main__":
     import python_ta
@@ -322,10 +261,13 @@ if __name__ == "__main__":
     while not p.victory and move_count <= 60:
         location = w.get_location(p.x, p.y)
 
+        # Depending on whether or not it's been visited before,
+        # print either full description (first time visit) or brief description (every subsequent visit)
         if location.first_visit is True:
             location.print_description()
             location.first_visit = False
             p.change_score(location.points)
+
         else:
             start_puzzle(p, w)
             moves = get_moves(p, w)
@@ -364,9 +306,6 @@ if __name__ == "__main__":
                 item_name = input("Enter the name of the item to pick up: ")
                 p.pick_up(item_name, location)
 
-        # TODO: ENTER CODE HERE TO PRINT LOCATION DESCRIPTION
-        # Depending on whether or not it's been visited before,
-        # print either full description (first time visit) or brief description (every subsequent visit)
         if location.location_num == 13:
             if check_for_exam_items(p):
                 print('Hooray!! :) Thankfully, you managed to find all the items you need for your exam.'
@@ -384,7 +323,7 @@ if __name__ == "__main__":
         print('GAME OVER')
         print(f'SCORE: {p.score}')
 
-        # TODO: CALL A FUNCTION HERE TO HANDLE WHAT HAPPENS UPON THE PLAYER'S CHOICE
+        #  CALL A FUNCTION HERE TO HANDLE WHAT HAPPENS UPON THE PLAYER'S CHOICE
         #  REMEMBER: the location = w.get_location(p.x, p.y) at the top of this loop will update the location if
         #  the choice the player made was just a movement, so only updating player's position is enough to change the
         #  location to the next appropriate location
