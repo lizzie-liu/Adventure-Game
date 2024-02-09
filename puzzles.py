@@ -165,7 +165,7 @@ def make_coffee(p: Player) -> None:
 
     # If the Player creates the coffee order matching the TA's description, they obtain the 'Perfect coffee'
     if [colour, container, packet] == ['pink', 'skimmed milk', 'honey']:
-        coffee = Item('Perfect coffee', 10, 12, 5)
+        coffee = Item('Perfect coffee', 10, 12, 0)
     else:
         coffee = Item('Coffee', 10, 12, 0)
 
