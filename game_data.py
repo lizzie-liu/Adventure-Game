@@ -25,15 +25,15 @@ class Item:
     """An item in our text adventure game world.
 
     Instance Attributes:
-        - item_name: The name of the item.
-        - start_location: The location the item starts at.
-        - target_location: The location the target needs to be deposited at.
+        - name: The name of the item.
+        - start_position: The location the item starts at.
+        - target_position: The location the target needs to be deposited at.
         - target_points: The amount of points received for depositing item in correct location.
 
     Representation Invariants:
-        - isinstance(self.item_name, str) and len(self.item_name) > 0
-        - isinstance(self.start_location, int) and -1 <= self.start_location <= 13
-        - isinstance(self.target_location, int) and -1 <= self.target_location <= 13
+        - isinstance(self.name, str) and len(self.name) > 0
+        - isinstance(self.start_position, int) and -1 <= self.start_position <= 13
+        - isinstance(self.target_position, int) and -1 <= self.target_position <= 13
         - isinstance(self.target_points, int)
 
     """
@@ -96,7 +96,7 @@ class Location:
     Instance Attributes:
         - location_name: The name of the location.
         - location_num: The number of the location on the map.
-        - points: # TODO: i have no idea what this is
+        - points: The points player earn for visiting the location
         - short_descrip: The short description of the location.
         - long_descrip: The long description of the location.
         - first_visit: A bool that stores True if this location has never been visited before. Otherwise, it's False.
@@ -190,7 +190,11 @@ class Player:
         - score: The Player's current score.
 
     Representation Invariants:
-        - # TODO
+        - isinstance(self.x, int)
+        - isinstance(self.y, int)
+        - isinstance(self.inventory, list) and all(isinstance(item, Item) for item in self.inventory)
+        - isinstance(self.victory, bool)
+        - isinstance(self.score, int) and self.score >= 0
     """
     x: int
     y: int
@@ -237,14 +241,14 @@ class Player:
         print(f"You don't have {item_name} in your inventory.")
 
     def pickup_item(self, item: Item, location: Location) -> None:
-        """Autoatically picks up an item after finishing a puzzle without the need for user input.
+        """Automatically picks up an item after finishing a puzzle without the need for user input.
         """
         self.inventory.append(item)
         location.remove_item(item)
         self.change_score(item.target_points)
 
     def pick_up(self, item_name: str, location: Location) -> Any:
-        """Pick up an item at a location through user prompt..
+        """Pick up an item at a location through user prompt
         """
         for item in location.available_items:
             if item_name.lower() == item.name.lower():
@@ -266,10 +270,18 @@ class World:
 
     Instance Attributes:
         - map: a nested list representation of this world's map
-        - # TODO add more instance attributes as needed; do NOT remove the map attribute
+        - locations: a dictionary that stores all the location information of the world
+        - items: a dictionary that stores all the items information ow the world
 
     Representation Invariants:
-        - # TODO
+        - all(isinstance(row, list) and all(isinstance(loc, int) for loc in row) for row in self.map)
+        - all(loc == -1 or isinstance(loc, int) for row in self.map for loc in row)
+        - isinstance(self.locations, dict) and all(isinstance(key, int) and isinstance(value, Location) for key, value
+          in self.locations.items())
+        - isinstance(self.items, dict) and all(isinstance(key, str) and isinstance(value, Item) for key, value in
+          self.items.items())
+        - isinstance(self.location_data, TextIO) and self.location_data.readable()
+        - isinstance(self.items_data, TextIO) and self.items_data.readable()
     """
     map: list[list[int]]
     locations: dict[int, Location]
@@ -336,9 +348,7 @@ class World:
          That way is blocked.
          END
         then load_location should assign this World object's location to be {-1: Location(-1, 0, That way is blocked.,
-         That way is blocked.}
-
-        Return this dict representation of the location."""
+         That way is blocked.} ."""
 
         location_data = []
         for line in locations_data:
@@ -364,18 +374,23 @@ class World:
 
     def load_items(self, items_data: TextIO) -> None:
         """
-        Store location from open file location_data as the location attribute of this object, as a dictionary like so:
+        Store items from open file items_data as the items attribute of this object, as a dictionary like so:
 
-        If location_data is a file containing the following text:
-         LOCATION -1
-         0
-         That way is blocked.
-         That way is blocked.
-         END
-        then load_location should assign this World object's location to be {-1: Location(-1, 0, That way is blocked.,
-         That way is blocked.}
+        If items_data is a file containing the following text:
+        12 13 10 Cheat Sheet
+        then load_items should assign this World object's items to be {'Cheat Sheet': Item('Cheat Sheet', 12, 13, 10)}
 
-        Return this dict representation of the location."""
+        If items_data is a file containing the following text:
+        i 1 2 5 Harp
+        then load_items should assign this World object's items to be {'Harp': Instrument('Harp', 1, 2, 5)}
+
+        If items_data is a file containing the following text:
+        p 3 Join The Fluff Buddies Club! Calling all animal lovers! Embark on a journey of cuteness and camaraderie with
+         the Fluff Buddies Club!
+        then load_items should assign this World object's items to be {'3': Poster('3', 5,5,0, "Join The Fluff Buddies
+        Club! Calling all animal lovers! Embark on a journey of cuteness and camaraderie with the Fluff Buddies Club!")}
+
+        """
 
         for line in items_data:
             line = line.split()
