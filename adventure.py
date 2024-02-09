@@ -20,7 +20,7 @@ This file is Copyright (c) 2024 CSC111 Teaching Team
 
 # Note: You may add in other import statements here as needed
 from game_data import World, Instrument, Player
-from puzzles import *
+from puzzles import pick_instrument, music_puzzle, check_for_tcard, talk_to_ta, make_coffee
 
 # Note: You may add helper functions, classes, etc. here as needed
 
@@ -265,7 +265,8 @@ if __name__ == "__main__":
         'extra-imports': ['hashlib']
     })
 
-    w = World(open("map.txt"), open("locations.txt"), open("items.txt"))
+    with open('map.txt') as map_file, open('locations.txt') as location_file, open('items.txt') as item_file:
+        w = World(map_file, location_file, item_file)
     p = Player(2, 8)  # set starting location of player; you may change the x, y coordinates here as appropriate
 
     menu = ["look", "inventory", "score", "quit"]
