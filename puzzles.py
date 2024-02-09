@@ -3,8 +3,7 @@
 This Python module contains functions that help run the puzzles in our Text Adventure Game World for Project 1.
 It is imported and used by the `adventure` module.
 """
-from game_data import Player, Item, Instrument, Coffee, TCard, World
-from adventure import check_for_tcard
+from game_data import Player, Item, Instrument, World
 
 
 def pick_instrument(p: Player, w: World) -> str:
@@ -44,7 +43,7 @@ def music_puzzle(p: Player) -> bool:
     if action.lower() == 'leave':
         p.x, p.y = 2, 8
 
-    elif action.lower() == 'play an instrument' and not any(isinstance(item, Instrument) for item in p.inventory):
+    elif action.lower() == 'play an instrument' and not any(isinstance(i, Instrument) for i in p.inventory):
         print('Uh oh, you dont have any instruments in your bag!')
         print('You should go find one.')
 
@@ -75,6 +74,12 @@ def check_for_harp(p: Player) -> bool:
     return False
 
 
+def check_for_tcard(p: Player) -> bool:
+    """Returns True if the Player has their T-Card.
+    """
+    return any(item.name == 'T-Card' for item in p.inventory)
+
+
 def talk_to_ta(p: Player, w: World) -> bool:
     """Returns True if the Player correctly completes the TA puzzle to obtain Cheat Sheet.
     Correctly completeing the puzzle involves having T-Card (so that Player can talk to the TA at all),
@@ -100,7 +105,7 @@ def talk_to_ta(p: Player, w: World) -> bool:
 
     if choice.lower() == 'yes':
 
-        if not any((item.name == 'coffee' or item.name == 'perfect coffee') for item in p.inventory):
+        if not any((item.name in {'coffee', 'perfect coffee'}) for item in p.inventory):
             print('Hm you seem to have no coffee to offer the poor TA...')
             return False
 
@@ -110,8 +115,8 @@ def talk_to_ta(p: Player, w: World) -> bool:
                 print('The TA takes the coffee from your hands and takes a long sip.'
                       '\nHe closes his eyes and smiles, savouring the magnificent taste of his drink.')
                 print('The TA looks rejuvenated. With a smile, he asks you what questions you have.')
-                print('You ask him if he has seen your Cheat Sheet. '
-                      '\nThe TA nods, reaches into his bag, and pulls out a sheet of lined paper filled with scribbles.')
+                print('You ask him if he has seen your Cheat Sheet. The TA smiles and nods.')
+                print('He reaches into his bag and pulls out a sheet of lined paper filled with scribbles.')
                 print('You finally found your Cheat Sheet!')
                 return True
 
@@ -120,16 +125,6 @@ def talk_to_ta(p: Player, w: World) -> bool:
                 print('The TA takes the coffee from your hands and takes a long sip. '
                       '\nHis eyebrows furrow and he looks down and frowns at his coffee.')
                 print('The TA still looks very tired and seems to have no energy to talk to you.')
-
-    return False
-
-
-def check_correct_coffee(p: Player) -> bool:
-    """Checks if Player has the correct Coffee object in their inventory.
-        """
-    for item in p.inventory:
-        if item.name == 'perfect coffee':
-            return True
 
     return False
 
@@ -182,3 +177,22 @@ def make_coffee(p: Player) -> None:
 
     if choice.lower() == 'yes':
         p.inventory.append(coffee)
+
+
+def check_correct_coffee(p: Player) -> bool:
+    """Checks if Player has the correct Coffee object in their inventory.
+        """
+    for item in p.inventory:
+        if item.name == 'perfect coffee':
+            return True
+
+    return False
+
+
+if __name__ == "__main__":
+    import python_ta
+
+    python_ta.check_all(config={
+        'max-line-length': 120,
+        'extra-imports': ['hashlib']
+    })
