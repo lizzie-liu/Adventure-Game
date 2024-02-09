@@ -19,7 +19,7 @@ This file is Copyright (c) 2024 CSC111 Teaching Team
 """
 
 # Note: You may add in other import statements here as needed
-from game_data import World, Item, Instrument, Poster, Location, Player
+from game_data import World, Instrument, Player
 from puzzles import *
 
 # Note: You may add helper functions, classes, etc. here as needed
@@ -55,12 +55,6 @@ def get_moves() -> list[str]:
     return actions
 
 
-def check_for_tcard() -> bool:
-    """Returns True if the Player has their T-Card.
-    """
-    return any(item.name == 'T-Card' for item in p.inventory)
-
-
 def no_cheat_sheet() -> bool:
     """Returns True if the Player does not have their Cheat Sheet.
     """
@@ -81,7 +75,7 @@ def locked_lab() -> bool:
     """Returns True if the Player does not have their T-Card in their inventory.
     This means the CS lab doors are locked and the Player cannot enter the lab.
     """
-    if not check_for_tcard():
+    if not check_for_tcard(p):
         return True
     else:
         return False
@@ -138,11 +132,11 @@ def already_have_instrument() -> None:
           'You only have 2 hands to use to play an instrument so you really do not need anymore.')
 
     print('Do you want to discard your current instrument?')
-    choice = input("\nEnter yes or no: ")
-    while choice.lower() not in {'yes', 'no'}:
-        choice = input("\nEnter yes or no: ")
+    decision = input("\nEnter yes or no: ")
+    while decision.lower() not in {'yes', 'no'}:
+        decision = input("\nEnter yes or no: ")
 
-    if choice.lower() == 'yes':
+    if decision.lower() == 'yes':
         if any(i.name == 'Harmonica' for i in p.inventory):
             p.drop_item('Harmonica', location)
         elif any(i.name == 'Ukulele' for i in p.inventory):
@@ -162,12 +156,12 @@ def already_have_coffee(coffee_name: str) -> None:
     """
     print('Oh no! You already have a cup of coffee. You really dont need that much coffee...')
     print('Do you want to discard your other cup?')
-    choice = input("\nEnter yes or no: ")
+    decision = input("\nEnter yes or no: ")
 
-    while choice.lower() not in {'yes', 'no'}:
-        choice = input("\nEnter yes or no: ")
+    while decision.lower() not in {'yes', 'no'}:
+        decision = input("\nEnter yes or no: ")
 
-    if choice.lower() == 'yes':
+    if decision.lower() == 'yes':
         for item in p.inventory:
             if item.name == coffee_name:
                 p.drop_item(coffee_name, location)
@@ -179,7 +173,7 @@ def already_have_coffee(coffee_name: str) -> None:
 
 
 def get_cheat_sheet() -> None:
-    """Allows user to approach TA to start puzzle to obtain their Cheat Sheet.
+    """Allows the Player to approach TA to start the puzzle to obtain their Cheat Sheet.
     """
     print('Do you want to approach the TA?')
     action = input("\nEnter yes or no: ")
@@ -190,6 +184,18 @@ def get_cheat_sheet() -> None:
     if action.lower() == 'yes':
         if talk_to_ta(p, w):
             pickup_desired_item('Cheat Sheet')
+
+
+def get_key() -> None:
+    """Allows the Player to approach the guard to start the puzzle to obtain the Key
+    if they don't already have it.
+    """
+    if not any(item.name == 'Key' for item in p.inventory):
+        if music_puzzle(p):
+            pickup_desired_item('Key')
+
+    else:
+        print('You already took the Key from the guard. You should leave the poor guy alone')
 
 
 def start_puzzle() -> None:
@@ -203,12 +209,7 @@ def start_puzzle() -> None:
             pickup_desired_item(pick_instrument(p, w))
 
     elif location.location_num == 2:
-        if not any(item.name == 'Key' for item in p.inventory):
-            if music_puzzle(p):
-                pickup_desired_item('Key')
-
-        else:
-            print('You already took the Key from the guard. You should leave the poor guy alone')
+        get_key()
 
     elif location.location_num == 10:
         if any(item.name == 'Coffee' for item in p.inventory):
@@ -228,16 +229,15 @@ def start_puzzle() -> None:
             print('You already got your Cheat Sheet. You should let the tired TA have a break.')
 
     elif location.location_num == 5:
-        available_posters = location.available_items
         print('Which poster do you wanna read?')
         print('1, 2, 3, 4')
-        choice = input("\n Choose one: ")
+        decision = input("\n Choose one: ")
 
-        while choice not in ['1', '2', '3', '4']:
+        while decision not in ['1', '2', '3', '4']:
             print('There is no such poster.')
-            choice = input("\n Choose one: ")
+            decision = input("\n Choose one: ")
 
-        print(w.items[choice].examine_poster())
+        print(w.items[decision].examine_poster())
 
         print('Enter examine to view another.')
 
@@ -283,13 +283,12 @@ if __name__ == "__main__":
             p.change_score(location.points)
 
         else:
-            if location.location_num == 13:
-                if check_for_exam_items():
-                    print('Hooray!! :) Thankfully, you managed to find all the items you need for your exam.'
-                          '\nWhat have you learned from this experience? '
-                          '\nBahen has too many stairs. Oh, and you should be more careful with your belongings.')
-                    p.victory = True
-                    break
+            if location.location_num == 13 and check_for_exam_items():
+                print('Hooray!! :) Thankfully, you managed to find all the items you need for your exam.')
+                print('What have you learned from this experience?')
+                print('Bahen has too many stairs. Oh, and you should be more careful with your belongings.')
+                p.victory = True
+                break
 
             start_puzzle()
             moves = get_moves()

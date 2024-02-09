@@ -30,7 +30,7 @@ def music_puzzle(p: Player) -> bool:
     """Returns True if the Player completes the music puzzle correctly to obatin the Bahen door Key.
     Only returns True if the Harp is played for the guard. All other instruments played will return False.
     """
-    print('As you approach the grumpy looking guard, he stares down at you, expressionless.\n'
+    print('You approach the grumpy looking guard and he stares down at you, expressionless.\n'
           'You try to strike up a conversation but the guard ignore you, and lets out a yamn.\n'
           'What should you do?')
     print('[leave, play an instrument]')
