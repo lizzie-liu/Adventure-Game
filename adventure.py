@@ -271,7 +271,7 @@ if __name__ == "__main__":
     commands = ['drop', 'examine', 'pick up']
     move_count = 0
 
-    while not p.victory and move_count <= 60:
+    while not p.victory and move_count <= 50:
         location = w.get_location(p.x, p.y)
 
         # Depending on whether or not it's been visited before,
@@ -326,7 +326,7 @@ if __name__ == "__main__":
                 item_name = input("Enter the name of the item to pick up: ")
                 p.pick_up(item_name, location)
 
-    if move_count > 60:
+    if move_count > 50:
         print('Uh oh! You are out of time! Looks like you will not be able to write your exam :(')
         print('Take this as a lesson to be more careful with your belongings.')
         print('GAME OVER')
