@@ -118,7 +118,7 @@ def menu_action(action: str) -> None:
             print('Optional action: ["drop"]')
 
     elif action == 'score':
-        print(p.score)
+        print(f'Score: {p.score}')
 
     elif action == 'quit':
         p.victory = True
@@ -238,8 +238,6 @@ def start_puzzle() -> None:
             decision = input("\n Choose one: ")
 
         print(w.items[decision].examine_poster())
-
-        print('Enter examine to view another.')
 
     elif location.location_num == 11:
         available_items = [item.name for item in location.available_items]
