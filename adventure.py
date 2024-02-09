@@ -305,6 +305,13 @@ def menu_action(p: Player, choice: str) -> None:
 
 # Note: You may modify the code below as needed; the following starter template are just suggestions
 if __name__ == "__main__":
+    import python_ta
+
+    python_ta.check_all(config={
+        'max-line-length': 120,
+        'extra-imports': ['hashlib']
+    })
+
     w = World(open("map.txt"), open("locations.txt"), open("items.txt"))
     p = Player(2, 8)  # set starting location of player; you may change the x, y coordinates here as appropriate
 
