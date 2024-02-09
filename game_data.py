@@ -93,19 +93,18 @@ class Location:
 
     Instance Attributes:
         - location_name: The name of the location.
-        - num: The number of the location on the map.
-        - position: This is a tuple representing the x, y coordinates of the location.
-                    The x-coordinate is the column number and the y-coordinate is the row number.
-        - long_descrip: The long description of the location.
+        - location_num: The number of the location on the map.
+        - points: # TODO: i have no idea what this is
         - short_descrip: The short description of the location.
+        - long_descrip: The long description of the location.
         - first_visit: A bool that stores True if this location has never been visited before. Otherwise, it's False.
-        - available_items: Items present at the location.
+        - available_items: a list representing the Items present at the location.
 
     Representation Invariants:
         - isinstance(self.location_name, str) and len(self.location_name) > 0
         - isinstance(self.location_num, int) and -1 <= self.location_num <= 13
-        - isinstance(self.long_descrip, str) and len(self.long_descrip) > 0
         - isinstance(self.short_descrip, str) and len(self.short_descrip) > 0
+        - isinstance(self.long_descrip, str) and len(self.long_descrip) > 0
         - isitance(self.first_visit, bool)
         - all(isinstance(item, Item) for item in self.available_items)
     """
@@ -117,7 +116,7 @@ class Location:
     first_visit: bool
     available_items: Optional[list]
 
-    def __init__(self, name : str, num : int, points : int, short : str, long : str, items : Optional[list] = None) -> None:
+    def __init__(self, name: str, num: int, points: int, short: str, long: str, items: Optional[list] = None) -> None:
         """Initialize a new location.
 
         # TODO Add more details here about the initialization if needed
@@ -148,8 +147,7 @@ class Location:
         # All locations in your game MUST be represented as an instance of this class.
 
     def print_description(self) -> None:
-        """
-        Prints the name and description of the location.
+        """Prints the name and description of the location.
         The long description is printed if it's the Player's first time visiting.
         Otherwise, the short descriptoin is printed.
         """
@@ -159,46 +157,18 @@ class Location:
         else:
             print(f'{self.location_name} \n {self.short_descrip}')
 
-    # I think we can delete this, we don't really need it
-    # def available_actions(self, position: tuple[int, int], available_items: list[Item]) -> list[str]:
-    #     """
-    #     Return the available actions in this location.
-    #     The actions should depend on the items available in the location
-    #     and the x,y position of this location on the world map.
-    #     """
-    #
-    #     # NOTE: This is just a suggested method
-    #     # i.e. You may remove/modify/rename this as you like, and complete the
-    #     # function header (e.g. add in parameters, complete the type contract) as needed
-    #
-    #     # TODO: Complete this method, if you'd like or remove/replace it if you're not using it
-    #     x, y = position[0], position[1]
-    #     actions = []
-    #     # uh maybe do the checking for invalid spots on map in adventure.py
-    #     # if map[y][x + 1] != -1:
-    #     #     actions.append('Go east')
-    #     #
-    #     # elif map[y + 1][x] != 1:
-    #     #     actions.append('Go south')
-    #     #
-    #     # elif map[y][x - 1] != 1:
-    #     #     actions.append('Go west')
-    #     #
-    #     # elif map[y - 1][x] != 1:
-    #     #     actions.append('Go north')
-    #     #
-    #     # return actions
-
     def add_item(self, item: Item) -> None:
-        """Add item to the location"""
+        """Add item to the location
+        """
         self.available_items.append(item)
 
     def remove_item(self, item: Item) -> None:
-        """Remove item from location."""
+        """Remove item from location.
+        """
         self.available_items.remove(item)
 
     def examine_item(self, item_name):
-        """ examine poster"""
+        """Examines the poster by printing the info on the poster."""
         for item in self.available_items:
             if item.name == item_name:
                 print(f"You examine the {item_name}. {item.info}")
@@ -227,8 +197,7 @@ class Player:
     score: int
 
     def __init__(self, x: int, y: int) -> None:
-        """
-        Initializes a new Player at position (x, y).
+        """Initializes a new Player at position (x, y).
         """
 
         # NOTES:
@@ -255,8 +224,7 @@ class Player:
             self.y -= 1
 
     def drop_item(self, item_name: str, location: Location) -> None:
-        """
-        Removes the item from the Player's iventory.
+        """Removes the item from the Player's iventory.
         """
         for item in self.inventory:
             if item.name.lower() == item_name.lower():
@@ -267,8 +235,7 @@ class Player:
         print(f"You don't have {item_name} in your inventory.")
 
     def pickup_item(self, item: Item, location: Location) -> None:
-        """
-        Autoatically picks up an item after finishing a puzzle without the need for user input.
+        """Autoatically picks up an item after finishing a puzzle without the need for user input.
         """
         self.inventory.append(item)
         location.remove_item(item)
@@ -287,8 +254,7 @@ class Player:
         print("\nThere's no such thing here.")
 
     def change_score(self, points: int) -> None:
-        """
-        Updates the Player's current score.
+        """Updates the Player's current score.
         """
         self.score += points
 
@@ -358,7 +324,8 @@ class World:
         return self.map
 
     def load_locations(self, locations_data: TextIO) -> None:
-        """Store location from open file location_data as the location attribute of this object, as a dictionary like so:
+        """
+        Store location from open file location_data as the location attribute of this object, as a dictionary like so:
 
         If location_data is a file containing the following text:
          LOCATION -1
@@ -375,7 +342,7 @@ class World:
         for line in locations_data:
             line = line.strip()
             if line == "END":
-                 # Process the collected data for a location
+                # Process the collected data for a location
                 if len(location_data) >= 4:
                     location_num, name, points, short_description, long_description = location_data
                     location_num = int(location_num)
@@ -389,9 +356,9 @@ class World:
             else:
                 location_data.append(line)
 
-
     def load_items(self, items_data: TextIO) -> None:
-        """Store location from open file location_data as the location attribute of this object, as a dictionary like so:
+        """
+        Store location from open file location_data as the location attribute of this object, as a dictionary like so:
 
         If location_data is a file containing the following text:
          LOCATION -1
@@ -427,9 +394,8 @@ class World:
 
     # NOTE: The method below is REQUIRED. Complete it exactly as specified.
     def get_location(self, x: int, y: int) -> Optional[Location]:
-        """Return Location object associated with the coordinates (x, y) in the world map, if a valid location exists at
-         that position. Otherwise, return None. (Remember, locations represented by the number -1 on the map should
-         return None.)
+        """Return Location object associated with the coordinates (x, y) in the world map,
+        if a valid location exists at that position (the location_num is not -1). Otherwise, return None.
         """
         loc_num = self.map[y][x]
         if loc_num == -1:
