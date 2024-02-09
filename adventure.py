@@ -283,7 +283,7 @@ if __name__ == "__main__":
 
         else:
             if location.location_num == 13 and check_for_exam_items():
-                print('Hooray!! :) Thankfully, you managed to find all the items you need for your exam.')
+                print('YIPPEE!!! :) Thankfully, you managed to find all the items you need for your exam.')
                 print('What have you learned from this experience?')
                 print('Bahen has too many stairs. Oh, and you should be more careful with your belongings.')
                 p.victory = True
@@ -333,5 +333,5 @@ if __name__ == "__main__":
         print(f'SCORE: {p.score}')
 
     if p.victory:
-        print('GAME OVER')
+        print('FINI')
         print(f'SCORE: {p.score}')
