@@ -37,9 +37,9 @@ class Item:
         - isinstance(self.target_points, int)
 
     """
-    item_name: str
-    start_location: int
-    target_location: int
+    name: str
+    start_position: int
+    target_position: int
     target_points: int
 
     def __init__(self, name: str, start: int, target: int, target_points: int) -> None:
@@ -76,6 +76,8 @@ class Instrument(Item):
 class Poster(Item):
     """A child class of the Item class that represents a poster in our text adventure game world.
     """
+    info: str
+
     def __init__(self, name: str, info: str) -> None:
         start = 5
         target = 5
@@ -167,7 +169,7 @@ class Location:
         """
         self.available_items.remove(item)
 
-    def examine_item(self, item_name):
+    def examine_item(self, item_name: str) -> Any:
         """Examines the poster by printing the info on the poster."""
         for item in self.available_items:
             if item.name == item_name:
@@ -241,7 +243,7 @@ class Player:
         location.remove_item(item)
         self.change_score(item.target_points)
 
-    def pick_up(self, item_name: str, location: Location):
+    def pick_up(self, item_name: str, location: Location) -> Any:
         """Pick up an item at a location through user prompt..
         """
         for item in location.available_items:
@@ -344,7 +346,11 @@ class World:
             if line == "END":
                 # Process the collected data for a location
                 if len(location_data) >= 4:
-                    location_num, name, points, short_description, long_description = location_data
+                    location_num = location_data[0]
+                    name = location_data[1]
+                    points = location_data[2]
+                    short_description = location_data[3]
+                    long_description = location_data[4]
                     location_num = int(location_num)
                     points = int(points)
 
@@ -402,3 +408,12 @@ class World:
             return None
         else:
             return self.locations[loc_num]
+
+
+if __name__ == "__main__":
+    import python_ta
+
+    python_ta.check_all(config={
+        'max-line-length': 120,
+        'extra-imports': ['hashlib']
+    })
