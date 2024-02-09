@@ -105,13 +105,13 @@ def talk_to_ta(p: Player, w: World) -> bool:
 
     if choice.lower() == 'yes':
 
-        if not any((item.name in {'coffee', 'perfect coffee'}) for item in p.inventory):
+        if not any((item.name in {'Coffee', 'Perfect coffee'}) for item in p.inventory):
             print('Hm you seem to have no coffee to offer the poor TA...')
             return False
 
         else:
             if check_correct_coffee(p):
-                p.drop_item('perfect coffee', location)
+                p.drop_item('Perfect coffee', location)
                 print('The TA takes the coffee from your hands and takes a long sip.'
                       '\nHe closes his eyes and smiles, savouring the magnificent taste of his drink.')
                 print('The TA looks rejuvenated. With a smile, he asks you what questions you have.')
@@ -121,7 +121,7 @@ def talk_to_ta(p: Player, w: World) -> bool:
                 return True
 
             else:
-                p.drop_item('coffee', location)
+                p.drop_item('Coffee', location)
                 print('The TA takes the coffee from your hands and takes a long sip. '
                       '\nHis eyebrows furrow and he looks down and frowns at his coffee.')
                 print('The TA still looks very tired and seems to have no energy to talk to you.')
@@ -183,7 +183,7 @@ def check_correct_coffee(p: Player) -> bool:
     """Checks if Player has the correct Coffee object in their inventory.
         """
     for item in p.inventory:
-        if item.name == 'perfect coffee':
+        if item.name == 'Perfect coffee':
             return True
 
     return False
