@@ -283,6 +283,14 @@ if __name__ == "__main__":
             p.change_score(location.points)
 
         else:
+            if location.location_num == 13:
+                if check_for_exam_items():
+                    print('Hooray!! :) Thankfully, you managed to find all the items you need for your exam.'
+                          '\nWhat have you learned from this experience? '
+                          '\nBahen has too many stairs. Oh, and you should be more careful with your belongings.')
+                    p.victory = True
+                    break
+
             start_puzzle()
             moves = get_moves()
 
@@ -319,13 +327,6 @@ if __name__ == "__main__":
             elif choice == 'pick up':
                 item_name = input("Enter the name of the item to pick up: ")
                 p.pick_up(item_name, location)
-
-        if location.location_num == 13:
-            if check_for_exam_items():
-                print('Hooray!! :) Thankfully, you managed to find all the items you need for your exam.'
-                      '\nWhat have you learned from this experience? '
-                      '\nBahen has too many stairs. Oh, and you should be more careful with your belongings.')
-                p.victory = True
 
     if move_count > 60:
         print('Uh oh! You are out of time! Looks like you will not be able to write your exam :(')
