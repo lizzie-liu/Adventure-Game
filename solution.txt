@@ -1,22 +1,18 @@
 go south
 Harp
-inventory
-no
-score
-no
 go north
+inventory
+score
 go north
 play an instrument
+go south
 inventory
 score
-go south
 go west
 score
 go west
 go north
 1
-examine
-2
 go south
 go west
 go west
@@ -26,16 +22,17 @@ inventory
 score
 go south
 go west
-score
 yes
 no
 go east
+score
 go south
 pink
 skimmed milk
 honey
 yes
 go north
+inventory
 go east
 go east
 go south

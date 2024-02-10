@@ -1,0 +1,69 @@
+go south
+harmonica
+go north
+inventory
+go north
+play an instrument
+go south
+drop
+harmonica
+inventory
+go south
+ukulele
+go north
+go north
+play an instrument
+go south
+go south
+yes
+harp
+go north
+inventory
+score
+go north
+play an instrument
+go south
+inventory
+score
+go west
+score
+go west
+go north
+1
+go south
+go west
+go east
+go west
+go east
+
+go west
+go east
+go west
+go east
+go west
+go east
+go west
+go east
+go west
+go east
+go west
+go east
+go west
+go east
+go west
+go east
+go west
+go east
+go west
+go east
+go west
+go east
+go west
+go east
+go west
+go east
+go west
+go east
+go west
+go east
+go west
