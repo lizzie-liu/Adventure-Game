@@ -35,7 +35,6 @@ go west
 go east
 go west
 go east
-
 go west
 go east
 go west
