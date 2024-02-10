@@ -6,7 +6,7 @@
 \usepackage[margin=0.75in]{geometry}
 
 \title{CSC111 Winter 2024 Project 1}
-\author{TODO: FILL IN YOUR NAME(S) HERE}
+\author{Ariuntuya Ganbold, Elizabeth Liu }
 \date{\today}
 
 \begin{document}
@@ -17,22 +17,67 @@
 
 \begin{enumerate}
 
-\item Describe your enhancement \#1 here
+\item Enhancement Explanation for "Instrument" Class:
+
+  \begin{itemize}
+    \item Basic description of the enhancement: A new child class, "Instrument," derived from the "Item" class. This class represents musical instruments in the text adventure game world.
+
+    \item Complexity level: Low
+
+    \item Reasons for Complexity Level:
+The complexity is low as the "Instrument" class inherits from the existing "Item" class, reusing its attributes and methods.
+ The new class introduces a specialized behavior, "play\_instrument," which prints a message indicating that the player is playing some random notes on the instrument.
+
+  \end{itemize}
+
+
+\item Enhancement Explanation for "Poster" Class:
+
+  \begin{itemize}
+    \item Basic description of the enhancement: A new child class, "Poster," derived from the "Item" class, to represent posters in the text adventure game world.
+
+
+    \item Complexity level: Low
+
+    \item Reasons for Complexity Level:
+ The complexity is low as the "Poster" class inherits from the existing "Item" class, leveraging its attributes and methods. The new class introduces an additional attribute, "info," to store detailed information about the poster. The enhancement includes a method, "examine\_poster," that returns the detailed information stored in the "info" attribute when called. This enhancement provides a simple extension to the item system, allowing posters to convey detailed information when examined by the player.
+
+  \end{itemize}
+
+\item Enhancement Explanation for "music\_puzzle":
 	\begin{itemize}
-	\item Brief description of what the enhancement is (if it's a puzzle, also describe what steps the player must take to solve it):
-	\item Complexity level (choose from low/medium/high):
-	\item Reasons you believe this is the complexity level (e.g. mention implementation details, how much code did you have to add/change from the baseline, what challenges did you face, etc.)
+	\item Basic description of the enhancement: The enhancement introduces a requirement for the player to play a specific instrument, the "Harp," during the music puzzle to successfully obtain the Bahen door Key.
+	\item Complexity level: Medium
+	\item The complexity is medium because it involves adding a specific condition related to the type of instrument played. The implementation requires modifying the existing logic to check if the player is attempting to play the harp and adjust the outcome accordingly.
 	% Feel free to add more subheadings if you need
 	\end{itemize}
 
 % Uncomment below section if you have more enhancements; copy-paste as many times as needed
-%\item Describe your enhancement here
-%	\begin{itemize}
-%	\item Basic description of what the enhancement is:
-%	\item Complexity level (low/medium/high):
-%	\item Reasons you believe this is the complexity level (e.g. mention implementation details 
-%	% Feel free to add more subheadings if you feel the need
-%	\end{itemize}
+\item Enhancement Explanation for "talk\_to\_ta":
+
+  \begin{itemize}
+    \item Basic description of the enhancement: A coffee customization puzzle to the "talk\_to\_ta" function. To successfully obtain the Cheat Sheet from the TA, the player must have a T-Card and offer the TA a specific type of coffee. The TA's preferences are described in the "make\_coffee" function, requiring a pink mug, skimmed milk, and honey in the coffee.
+    \item Complexity level: Medium
+    \item Reasons for Complexity Level: The complexity is medium as it involves adding a new puzzle element to the existing "talk\_to\_ta" function.
+    The player's choice to offer coffee is conditional on having a T-Card, which adds a prerequisite for attempting the puzzle.
+    The puzzle outcome depends on the player's inventory and whether they have the correct type of coffee (Perfect coffee) matching the TA's preferences.
+  \end{itemize}
+
+
+\item Enhancement Explanation for "make\_coffee":
+
+  \begin{itemize}
+    \item Basic description of the enhancement: The enhancement introduces a "make\_coffee" function, allowing the player to customize their cup of coffee. The player can choose the mug color, type of milk, and an additional ingredient to create different types of coffee. The puzzle in "talk\_to\_ta" references these customization choices, requiring the player to create a specific coffee (pink mug, skimmed milk, honey) to successfully complete the puzzle.
+
+    \item Complexity level: Medium
+
+
+    \item Reasons for Complexity Level: The complexity is medium as it involves implementing a new function, "make\_coffee," with multiple decision points for the player.
+    The player's choices in "make\_coffee" impact the type of coffee created, influencing the puzzle outcome in "talk\_to\_ta." The enhancement adds an interactive element to the game, allowing players to experiment with creating different types of coffee.
+
+ \end{itemize}
+
+
 
 \end{enumerate}
 
@@ -42,3 +87,4 @@
 If you have any extra \texttt{gameplay\#.txt} files, describe them below.
 
 \end{document}
+Footer
